@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Cozeller",
-    "slug": "Cozeller",
+    "slug": "cozeller",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -34,8 +34,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "21a7ec8e-a478-440d-b4fd-15cf8af6af39"
+        "projectId": "1b56f1bf-00e4-43c3-9f6f-673999468adf"
       }
-    }
+    },
+    "owner": "maxcotech"
   }
 }

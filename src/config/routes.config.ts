@@ -1,6 +1,7 @@
 import { ParamListBase } from "@react-navigation/native"
 
 const GeneralRoutes = {
+    introduction: "introduction",
     login: "auth/login",
     home: "home",
     logout: "logout",

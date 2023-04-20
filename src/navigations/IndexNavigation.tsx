@@ -8,11 +8,18 @@ import DrawerNavigation from './DrawerNavigation';
 import AddContact from './../screens/AddContact/AddContact';
 import Profile from "../screens/Profile/Profile";
 import Logout from "../screens/Logout/Logout";
+import { Introduction } from "../screens/Introduction/Introduction";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation(){
     return (
-        <Stack.Navigator initialRouteName={routes.login}>
+        <Stack.Navigator initialRouteName={routes.introduction}>
+            <Stack.Screen 
+                options={{ headerShown: false, animation: "slide_from_right" }} 
+                name={routes.introduction}
+                component={Introduction}
+            />
+
             <Stack.Screen 
                 options={{ headerShown: false, animation: "slide_from_right" }} 
                 name={routes.login}
