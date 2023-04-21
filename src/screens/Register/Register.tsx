@@ -40,17 +40,24 @@ export default function Register(){
                         <CloseIcon  />
                     </Pressable>
                 </View>
-                <Center width="full" px="15px" pt="25px">
+                <Center width="full" px="15px" pt="15px">
                     <Image alt={"App Logo"} size="md" source={require("../../../assets/icon.png")} />
                     <CText variant="heading">Sign Up</CText>
                     <CText variant="body2" textAlign={"center"} mb="18px" px="20px" color="gray.500">Join our community of buyers and sellers today! Register now to start shopping and selling with Cozeller – it's quick and easy. Don't miss out on the fun – sign up now!</CText>
-                    <CustomInput prefix={<AntDesign color="gray" name="user" size={16} />} value={formState.first_name} labelText="First Name" my="8px" placeholder="Enter First Name" />
-                    <CustomInput prefix={<AntDesign color="gray" name="user" size={16} />} value={formState.last_name} labelText="Last Name" my="8px" placeholder="Enter Last Name" />
-                    <CustomInput prefix={<AntDesign color="gray" name="mail" size={16} />} keyboardType="email-address" value={formState.email} labelText="Email Address" my="8px" placeholder="Enter Email Address" />
+                    <CustomInput onChangeText={(val) => setFormValue(val,"first_name")} prefix={<AntDesign color="gray" name="user" size={16} />} value={formState.first_name} labelText="First Name" my="8px" placeholder="Enter First Name" />
+                    <CustomInput onChangeText={(val) => setFormValue(val,"last_name")} prefix={<AntDesign color="gray" name="user" size={16} />} value={formState.last_name} labelText="Last Name" my="8px" placeholder="Enter Last Name" />
+                    <CustomInput onChangeText={(val) => setFormValue(val,"email")} prefix={<AntDesign color="gray" name="mail" size={16} />} keyboardType="email-address" value={formState.email} labelText="Email Address" my="8px" placeholder="Enter Email Address" />
                     <CustomInput  
+                        onChangeText={(val) => setFormValue(val,"phone_number")}
                         prefix={<SelectTelephoneCode setValue={(val) => setFormValue(val,"telephone_code")} value={formState.telephone_code} />}
                         keyboardType="phone-pad" value={formState.phone_number} labelText="Phone Number" my="8px" placeholder="eg. 7067532057" />
-
+                    
+                    <Box width={"full"} mt="30px">
+                        <AppBtn toUppercase={true} gradient={true}>
+                            Register
+                        </AppBtn>
+                    </Box>
+                    
                 </Center>
                
             </ScrollView>

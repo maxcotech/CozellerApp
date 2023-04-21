@@ -10,6 +10,7 @@ import { CircularProgress, Spinner } from "native-base";
 
 export interface AppBtnProps extends TouchableOpacityProps {
    isLoading?: boolean,
+   toUppercase?: boolean,
    gradient?: boolean,
    colors?: string[],
    borderRadius?: number,
@@ -23,7 +24,7 @@ export interface AppBtnProps extends TouchableOpacityProps {
 
 
 export default function AppBtn({
-    children, elevation = 0,
+    children, elevation = 0, toUppercase = true ,
     isLoading = false, backgroundColor = APP_COLOR, paddingX = 16, paddingY = 10, textColor = "white",
     block = true, borderRadius = 20, gradient = false, colors = [APP_COLOR, "#007971"], ...props}: AppBtnProps){
     const buttonShapeStyle = { elevation,shadowOffset:{height:0,width: 0},shadowOpacity:0.1,shadowRadius:0,  borderRadius, alignSelf:(block)? "stretch":"auto", paddingHorizontal: paddingX, paddingVertical: paddingY}
@@ -34,7 +35,7 @@ export default function AppBtn({
                     {
                         (isLoading)?
                         <Spinner size="sm" color={textColor} /> :
-                        <CText textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
+                        <CText style={{textTransform:(toUppercase)? "uppercase":"none"}} textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
 
                     }
                 </LinearGradient>
@@ -43,7 +44,7 @@ export default function AppBtn({
             <TouchableOpacity disabled={isLoading} style={[buttonShapeStyle,{backgroundColor,opacity: (isLoading)? 0.6 : 1}]} {...props}>
                 {(isLoading)?
                     <Spinner size="sm" color={textColor} /> :
-                    <CText textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
+                    <CText style={{textTransform:(toUppercase)? "uppercase":"none"}} textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
                 }
             </TouchableOpacity>
     )

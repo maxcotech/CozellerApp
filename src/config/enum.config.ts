@@ -24,3 +24,7 @@ export enum AccountGroups {
     Buyers = 1,
     Sellers = 2
 }
+
+export enum AccountTypes {
+    Customer = 1
+}
