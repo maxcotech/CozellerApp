@@ -10,7 +10,7 @@ export interface CTextProps extends InterfaceTextProps {
 }
 
 export default function CText({
-    children, variant = "body1", color = "black", ...props
+    children, variant = "body2", color = "black", ...props
 }:CTextProps){
     const finalProps = useMemo(() => {
         const defaultProps: CTextProps = {fontFamily:"body", color, ...props}
@@ -22,7 +22,7 @@ export default function CText({
             case "subheading" : return {...defaultProps, fontSize: "18px", fontWeight: "bold"};
             default: return {...defaultProps, fontSize : "16px"};
         }
-    },[variant]);
+    },[variant,props,color]);
 
     return (
         <Text {...finalProps}>

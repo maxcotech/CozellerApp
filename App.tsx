@@ -11,8 +11,8 @@ import client from "./src/config/client.config";
 import 'expo-dev-client';
 import { LogBox } from "react-native";
 import DrawerNavigation from './src/navigations/DrawerNavigation';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { APP_COLOR } from "./src/config/constants.config";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Define the config
 const config = {
