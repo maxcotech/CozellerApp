@@ -9,11 +9,18 @@ import AddContact from './../screens/AddContact/AddContact';
 import Profile from "../screens/Profile/Profile";
 import Logout from "../screens/Logout/Logout";
 import { Introduction } from "../screens/Introduction/Introduction";
+import Register from "../screens/Register/Register";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation(){
+    const defaultOptions = { headerShown: false, animation: "slide_from_right" }
     return (
         <Stack.Navigator initialRouteName={routes.introduction}>
+             <Stack.Screen 
+                options={defaultOptions} 
+                name={routes.register}
+                component={Register}
+            />
             <Stack.Screen 
                 options={{ headerShown: false, animation: "slide_from_right" }} 
                 name={routes.introduction}

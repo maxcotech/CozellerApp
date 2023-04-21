@@ -3,11 +3,11 @@ import { HttpDataResponse } from "./data_types/general.types";
 import { API_BASE_URL } from "@env";
 
 
+
 const client = axios.create({baseURL:API_BASE_URL});
 client.interceptors.request.use(async (configs: any) => {
     if(typeof configs !== 'undefined' && configs.headers){
         configs.headers.accept = "application/json";
-        configs.headers.contentType 
         // configs.timeout = 2;
         return configs;
     }

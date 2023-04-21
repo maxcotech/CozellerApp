@@ -1,17 +1,21 @@
 import React, { FunctionComponent } from "react";
 import { AuthData } from "../config/data_types/account_types";
+import { IPAddressPayload } from "../config/data_types/general.types";
 
 
 export interface AppContextType {
+    ipPayload?: IPAddressPayload | null,
+    setIpPayload?: React.Dispatch<React.SetStateAction<IPAddressPayload | null>>,
     authData?: AuthData | null,
     setAuthData: React.Dispatch<React.SetStateAction<AuthData | null>>,
 }
 const AppContext = React.createContext({} as AppContextType);
 
-export const AppProvider: FunctionComponent = ({children}) => {
+export const AppProvider: FunctionComponent = ({children}:{children:React.ReactNode}) => {
     const [authData,setAuthData] = React.useState<AuthData | null>({} as AuthData);
+    const [ipPayload,setIpPayload] = React.useState<IPAddressPayload | null>(null)
     return (
-        <AppContext.Provider value={{ authData, setAuthData }} >
+        <AppContext.Provider value={{ ipPayload, setIpPayload, authData, setAuthData }} >
             {children}
         </AppContext.Provider>
     )

@@ -9,10 +9,8 @@ import Toast from 'react-native-toast-notifications';
 import AppContext from './src/contexts/AppContext';
 import client from "./src/config/client.config";
 import 'expo-dev-client';
-import { LogBox } from "react-native";
-import DrawerNavigation from './src/navigations/DrawerNavigation';
-import { APP_COLOR } from "./src/config/constants.config";
-import { SafeAreaView } from "react-native-safe-area-context";
+import axios from 'axios';
+import {IP_FETCH_API, API_BASE_URL } from "@env";
 
 // Define the config
 const config = {
@@ -37,10 +35,30 @@ export function AppComponent() {
   }});
   const appContext = React.useContext(AppContext);
 
+  const getIpPayload = async () => {
+    if(!!appContext.ipPayload){
+      return appContext.ipPayload;
+    } else {
+      try{
+        const result = await axios.get(IP_FETCH_API);
+        appContext.setIpPayload(result.data);
+        return result.data;
+      }
+      catch(e){
+        console.log(e.message);
+      }
+    }
+  }
+
   React.useEffect(() => {
     if(appContext.authData?.token !== undefined && appContext.authData?.token !== null){
       client.defaults.headers.common['Authorization'] = "Bearer "+appContext.authData?.token;
     }
+    (async () => {
+      const data = await getIpPayload();
+      client.defaults.headers.common['X-client-ip-payload'] = data;
+      console.log(data);
+    })()
     //LogBox.ignoreAllLogs()
   },[appContext.authData?.token])
   return ( 

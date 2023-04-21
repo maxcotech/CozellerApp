@@ -3,15 +3,19 @@ import React from "react";
 import {Dimensions} from "react-native"
 import CText from "../../../components/CText";
 import { LinearGradient } from "expo-linear-gradient";
-import { APP_COLOR, APP_COLOR_LIGHT, APP_COLOR_LIGHTER } from "../../config/constants.config";
+import { APP_COLOR, APP_COLOR_LIGHTER } from "../../config/constants.config";
 import Carousel from "react-native-reanimated-carousel";
-import { SafeAreaView } from "react-native-safe-area-context";
 import AppBtn from "../../../components/AppBtn";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppParamList } from "../../config/routes.config";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const Introduction = () => {
     const dimensions = Dimensions.get('screen');
+    const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>()
     const deviceWidth = dimensions.width;
     const deviceHeight = dimensions.height;
+    
     const data = [
         {
             image: 1,
@@ -28,7 +32,7 @@ export const Introduction = () => {
         <>
         <StatusBar backgroundColor={"transparent"} translucent />
         <View flex={1}>
-            <Carousel autoPlay={true} autoPlayInterval={7000} onSnapToItem={(index) => console.log(index)} loop scrollAnimationDuration={1000} height={deviceHeight} width={deviceWidth} data={data} renderItem={({index,item}) => (
+            <Carousel autoPlay={true} autoPlayInterval={7000}  loop scrollAnimationDuration={1000} height={deviceHeight} width={deviceWidth} data={data} renderItem={({index,item}) => (
                 <React.Fragment key={index}>
                     <Image alt={item.title} width="full" height="5/6" source={(item.image === 1)? require("../../../assets/happy-vendor.jpg"): require("../../../assets/happy-buyer.jpg")} />
                     <LinearGradient locations={[0,0.1,0.6]}  style={{zIndex:1, paddingTop: 20, flex:1,position:"absolute",top:0,bottom:0,left:0,right:0}} colors={["rgba(0,0,0,0)",APP_COLOR_LIGHTER,APP_COLOR]}>
@@ -44,8 +48,8 @@ export const Introduction = () => {
                 </React.Fragment>
             )} />
             <VStack  space={3} width="full" style={{position:"absolute",zIndex:4,bottom:40}} px="15px">
-                <AppBtn backgroundColor="white" textColor="black">Sign Up</AppBtn>
-                <AppBtn backgroundColor="black" textColor="white">I already have an account</AppBtn>
+                <AppBtn onPress={() => navigation.navigate(routes.register)} backgroundColor="white" textColor="black">Sign Up</AppBtn>
+                <AppBtn onPress={() => navigation.navigate(routes.login)} backgroundColor="black" textColor="white">I already have an account</AppBtn>
                 <AppBtn backgroundColor="transparent" textColor="white">Continue as a guest</AppBtn>
             </VStack>
         </View>

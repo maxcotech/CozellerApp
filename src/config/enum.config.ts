@@ -19,3 +19,8 @@ export enum ProfileTabOptions {
     Social = 2,
     Links = 3
 }
+
+export enum AccountGroups {
+    Buyers = 1,
+    Sellers = 2
+}

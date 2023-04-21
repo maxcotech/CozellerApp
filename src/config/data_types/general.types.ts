@@ -41,3 +41,13 @@ export interface PaginationParams {
     page?: number,
     limit?: number
 }
+
+export interface IPAddressPayload {
+    ipAddress: string,
+    continentCode: string,
+    continentName: string,
+    countryCode: string,
+    countryName: string,
+    stateProv: string,
+    city: string
+}

@@ -2,11 +2,15 @@ import { ParamListBase } from "@react-navigation/native"
 
 const GeneralRoutes = {
     introduction: "introduction",
-    login: "auth/login",
     home: "home",
-    logout: "logout",
     drawer: "drawer",
     createContacts: "createContact"
+}
+
+const AuthRoutes = {
+    login: "auth/login",
+    register: "auth/register",
+    logout: "auth/logout"
 }
 
 const AccountRoutes = {
@@ -15,7 +19,7 @@ const AccountRoutes = {
 }
 
 const routes = {
-    ...GeneralRoutes, ...AccountRoutes
+    ...GeneralRoutes, ...AuthRoutes, ...AccountRoutes
 }
 
 export const AppParamList = Object.assign({},...Object.keys(routes).map((key) => { return {[key]:{}}})) as ParamListBase
