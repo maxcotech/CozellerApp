@@ -1,4 +1,4 @@
-import { UserStatuses, UserTypes } from "../enum.config"
+import { AccountTypes, UserStatuses, UserTypes } from "../enum.config"
 
 
 export interface Account {
@@ -31,10 +31,13 @@ export interface LoginData {
 
 export interface AccountFormData {
     id?: number,
-    full_name: string,
-    user_name: string,
-    contact_number: string,
+    first_name: string,
+    last_name: string,
     email: string,
     password: string,
-    confirm_password: string
+    confirm_password: string,
+    staff_token: string,
+    phone_number: string,
+    telephone_code: string,
+    account_type: AccountTypes
 }

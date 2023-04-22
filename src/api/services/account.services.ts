@@ -5,7 +5,11 @@ export const login =  async (data: LoginData): Promise<any> => {
     return client.post("accounts/login", data);
 }
 
-export const  updateAccount = async (data: AccountFormData): Promise<any> => {
+export const register = async (data: Partial<AccountFormData>): Promise<any> => {
+    return client.post(`user/register`,data);
+}
+
+export const updateAccount = async (data: AccountFormData): Promise<any> => {
     return client.put("accounts",data);
 }
 

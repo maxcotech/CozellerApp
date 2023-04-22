@@ -26,5 +26,9 @@ export enum AccountGroups {
 }
 
 export enum AccountTypes {
-    Customer = 1
+    Customer = 1,
+    StoreStaff = 10,
+    StoreOwner = 12,
+    Admin = 20,
+    SuperAdmin = 24
 }
