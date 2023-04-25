@@ -9,9 +9,11 @@ import AppBtn from "../../../components/AppBtn";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppParamList } from "../../config/routes.config";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import SelectAccountGroup from "../Register/fragments/SelectAccountGroup";
 
 export const Introduction = () => {
     const dimensions = Dimensions.get('screen');
+    const [showAccountOptions,setShowAccountOptions] = React.useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>()
     const deviceWidth = dimensions.width;
     const deviceHeight = dimensions.height;
@@ -48,11 +50,12 @@ export const Introduction = () => {
                 </React.Fragment>
             )} />
             <VStack  space={3} width="full" style={{position:"absolute",zIndex:4,bottom:40}} px="15px">
-                <AppBtn toUppercase={false} onPress={() => navigation.navigate(routes.register)} backgroundColor="white" textColor="black">Sign Up</AppBtn>
+                <AppBtn toUppercase={false} onPress={() => setShowAccountOptions(true)} backgroundColor="white" textColor="black">Sign Up</AppBtn>
                 <AppBtn toUppercase={false} onPress={() => navigation.navigate(routes.login)} backgroundColor="black" textColor="white">I already have an account</AppBtn>
                 <AppBtn toUppercase={false} backgroundColor="transparent" textColor="white">Continue as a guest</AppBtn>
             </VStack>
         </View>
+        <SelectAccountGroup isOpen={showAccountOptions} onClose={() => setShowAccountOptions(false)} />
         </>
     )
 }

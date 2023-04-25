@@ -6,3 +6,7 @@ export const renderErrorText = (error: string | []) => {
     }
     return "";
 }
+
+export const createFormErrorObject = (formState: any) => {
+    return Object.assign({},...Object.keys(formState).map(key => ({[key]:[]})))
+}

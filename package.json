@@ -1,7 +1,6 @@
 {
   "name": "cozeller",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
   "keywords": [
     "react",
     "expo",
@@ -11,11 +10,12 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "build-android": "npx expo run:android"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -24,16 +24,19 @@
     "@react-navigation/native-stack": "^6.9.12",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
-    "expo": "^48.0.0",
+    "expo": "~48.0.11",
     "expo-contacts": "~12.0.1",
     "expo-dev-client": "~2.2.1",
+    "expo-image-picker": "~14.1.1",
     "expo-linear-gradient": "^12.1.2",
     "expo-secure-store": "~12.1.1",
     "expo-status-bar": "~1.4.4",
+    "expo-storage": "^48.0.1",
     "native-base": "3.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-confirmation-code-field": "^7.3.1",
     "react-native-env": "^0.0.6",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-reanimated": "~2.14.4",
@@ -43,7 +46,8 @@
     "react-native-svg": "13.4.0",
     "react-native-toast-notifications": "^3.3.1",
     "react-native-web": "~0.18.10",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "expo-splash-screen": "~0.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

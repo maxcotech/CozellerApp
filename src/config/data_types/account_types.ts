@@ -1,4 +1,7 @@
 import { AccountTypes, UserStatuses, UserTypes } from "../enum.config"
+import { Country } from "./country_types"
+import { Currency } from "./currency_types"
+import { Store } from "./store_types"
 
 
 export interface Account {
@@ -8,7 +11,7 @@ export interface Account {
     user_name: string,
     contact_number: string,
     email: string,
-    user_type: UserTypes,
+    user_type: AccountTypes,
     account_status: UserStatuses,
     email_verified_at: null | string,
     number_verified_at: null | string,
@@ -16,17 +19,31 @@ export interface Account {
     created_at: string,
     updated_at: string,
     account_status_text: string,
-    user_type_text: string
+    user_type_text: string,
+    permissions?: string[]
 }
 
 export interface AuthData {
-    user: Account,
+    user_type: AccountTypes,
     token: string
 }
 
 export interface LoginData {
-    user_name: string,
+    email: string,
     password: string
+}
+
+export interface ProfileData {
+    currency: Currency,
+    country: Country,
+    user: Account,
+    logged_in: boolean,
+    current_store: Store | null,
+    stores: Store[]
+}
+
+export interface EmailVerificationData {
+    email: string, password: string
 }
 
 export interface AccountFormData {

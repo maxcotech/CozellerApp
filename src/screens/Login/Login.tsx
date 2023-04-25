@@ -1,58 +1,90 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Box, Button, Center, Input, Text, View } from "native-base";
+import { Box, Center, Checkbox, CloseIcon, HStack,  ScrollView } from "native-base";
 import React, { useState } from "react";
-import { useLogin } from "../../api/queries/account.queries";
-import { UserTypes } from "../../config/enum.config";
-import { renderErrorText } from "../../helpers/message.helpers";
+import { useLogin, useProfile } from "../../api/queries/account.queries";
+import { AccountTypes } from "../../config/enum.config";
+import { createFormErrorObject } from "../../helpers/message.helpers";
 import routes, { AppParamList } from './../../config/routes.config';
 import AppContext from './../../contexts/AppContext';
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { APP_COLOR, AUTH_STORAGE_KEY } from "../../config/constants.config";
+import SafeScaffold from "../../../components/SafeScaffold";
+import CText from "../../../components/CText";
+import { Image } from "native-base";
+import SelectAccountGroup from "../Register/fragments/SelectAccountGroup";
+import CustomInput, { CustomPasswordInput } from "../../../components/CustomInput";
+import AppBtn from "../../../components/AppBtn";
+import { Pressable } from "react-native";
+import { LoginData } from "../../config/data_types/account_types";
+import {Storage} from "expo-storage";
+import IconLoadingPage from "../../../components/IconLoadingPage";
 
 export default function Login(){
+    const [rememberMe,setRememberMe] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>();
     const appContext = React.useContext(AppContext);
-    const [formState,setFormState] = useState({
-        user_name: "",
+    const [signUpDialog,setSignupDialog] = useState(false)
+    const [formState,setFormState] = useState<LoginData>({
+        email: "",
         password: ""
-    })
-    const [passwordVisible,setPasswordVisible] = useState(false);
-    const [errors,setErrors] = useState(formState);
+    } as LoginData)
+    const [errors,setErrors] = useState(createFormErrorObject(formState));
     const {isLoading,mutate} = useLogin({
-        onSuccess: (data) => {
-            if(data.data.user.user_type === UserTypes.customer){
-                toast.show(data.message, {type:"success"});
-                appContext.setAuthData(data.data);
-                navigation.replace(routes.drawer);
+        onSuccess: async (data) => {
+            const authData = data.data;
+            if(authData.user_type != AccountTypes.StoreStaff && authData.user_type != AccountTypes.StoreOwner  ){
+                toast.show("Sorry, we are terminating this process as your account is currently not supported in this version. Support for customers' account will be available in subsequent releases",{type:"danger"});
             } else {
-                toast.show("Sorry , your account is not supported.",{type:"danger"});
+                //toast.show(data.message, {type:"success"});
+                appContext.setAuthData(data.data);
+                if(rememberMe){
+                    await Storage.setItem({
+                        key: AUTH_STORAGE_KEY,
+                        value: JSON.stringify(data.data)
+                    })
+                }
+                navigation.replace(routes.vendorIndex);
             }
         },
         onError:(data) => {
-            console.log(data.errors);
-            setErrors(data.errors)
+            setErrors(data.data)
         }
     })
 
-    return <View flex={1} backgroundColor="white">
-        <Center px={"15px"} mx={"auto"} mt={150} w={["100%","70%","40%"]}>
+
+    return <SafeScaffold>
+        {
+            (navigation.canGoBack())?
+            <Pressable style={{paddingHorizontal:20,paddingTop:20}}  onPress={() => navigation.goBack()}>
+                <CloseIcon  />
+            </Pressable>
+            :<></>
+        }
+        <ScrollView flex={1}>
+        <Center flex={1} mt="100px"  px={"20px"} >
             
-            <Box w="100%">
-                <Box my={3}>
-                   
-                    <Input leftElement={<Box ml={2}><MaterialIcons style={{color:"gray"}} size={18} name="person" /></Box>} fontSize="md" placeholderTextColor={"skyblue"} borderWidth={0} borderBottomWidth={2} onChangeText={(user_name) => setFormState({...formState,user_name})}   placeholder="Username"  value={formState.user_name}  />
-                    <Text color="red.400">{renderErrorText(errors?.user_name)}</Text>
+                <Image alt={"App Logo"} size="md" source={require("../../../assets/icon.png")} />
+                <CText variant="heading">Welcome Back</CText>
+                <CText variant="body2" textAlign={"center"} mb="5px"  px="20px" color="gray.500">Sign in to continue easy and smart shopping.</CText>
+                <CText mb="18px">Don't have an account yet ? <CText onPress={() => setSignupDialog(true)} fontWeight="bold" color={APP_COLOR}>Sign up</CText></CText> 
+                <CustomInput my="8px"  value={formState.email} onChangeText={(email) => setFormState({...formState,email})} error={errors.email}  keyboardType="email-address" labelText="Email" placeholder="Enter Email Address" />
+                <CustomPasswordInput my="8px" onChangeText={(password) => setFormState({...formState,password})} value={formState.password}  error={errors.password}  placeholder="Enter your password" label={
+                    <HStack>
+                        <CText flex={1}  mb="3px" variant="body2" color="gray.500">Password</CText>
+                        <CText color={APP_COLOR} fontWeight={"bold"}>forgot password?</CText>
+                    </HStack>
+                } />
+                <HStack space={2} width="full">
+                    <Checkbox aria-label="remember me check" colorScheme={"success"} tintColor={APP_COLOR} onChange={(val) => setRememberMe(val)} value="Terms And Conditions" isChecked={rememberMe} />
+                    <CText  variant="body2">Remember me</CText>
+                </HStack>
+                <Box width={"full"} my="30px">
+                    <AppBtn isLoading={isLoading} onPress={() => mutate(formState)}  gradient={true}>
+                        Login
+                    </AppBtn>
                 </Box>
-                <Box my={3}>
-                    
-                    
-                    <Input rightElement={<Box mr={2}><MaterialIcons onPress={() => setPasswordVisible(!passwordVisible)} size={18} name={(passwordVisible)? "visibility-off":"visibility"} /></Box>} leftElement={<Box ml={2}><MaterialIcons style={{color:"gray"}} size={18} name="lock" /></Box>} fontSize="md" placeholderTextColor={"skyblue"} borderWidth={0} borderBottomWidth={2} onChangeText={(password) => setFormState({...formState,password})}  secureTextEntry={!passwordVisible} placeholder="Password"  value={formState.password}  />
-                    <Text color="red.400">{renderErrorText(errors?.password)}</Text>
-                </Box>
-                <Box mt={10}>
-                    <Button py={3} isLoading={isLoading} onPress={() => mutate(formState)}>LOGIN</Button>
-                </Box>
-            </Box>
         </Center>
-    </View>
+        </ScrollView>
+        <SelectAccountGroup isOpen={signUpDialog} onClose={() => setSignupDialog(false)} />
+    </SafeScaffold>
 }

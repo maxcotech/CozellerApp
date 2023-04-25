@@ -32,3 +32,11 @@ export enum AccountTypes {
     Admin = 20,
     SuperAdmin = 24
 }
+
+export enum ResourceStatuses {
+    Inactive = 0,
+    Active = 1,
+    InReview = 2,
+    InDraft = 3,
+    Blacklisted = 4
+}

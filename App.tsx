@@ -10,7 +10,10 @@ import AppContext from './src/contexts/AppContext';
 import client from "./src/config/client.config";
 import 'expo-dev-client';
 import axios from 'axios';
-import {IP_FETCH_API, API_BASE_URL } from "@env";
+import {IP_FETCH_API } from "@env";
+import { LogBox } from "react-native";
+import {Storage} from "expo-storage";
+import { AUTH_STORAGE_KEY } from "./src/config/constants.config";
 
 // Define the config
 const config = {
@@ -51,6 +54,15 @@ export function AppComponent() {
   }
 
   React.useEffect(() => {
+    (async () => {
+        const authData = await Storage.getItem({key: AUTH_STORAGE_KEY});
+        if(!!authData === true){
+          appContext.setAuthData(JSON.parse(authData));
+        }
+    })()
+  },[])
+
+  React.useEffect(() => {
     if(appContext.authData?.token !== undefined && appContext.authData?.token !== null){
       client.defaults.headers.common['Authorization'] = "Bearer "+appContext.authData?.token;
     }
@@ -59,7 +71,7 @@ export function AppComponent() {
       client.defaults.headers.common['X-client-ip-payload'] = data;
       console.log(data);
     })()
-    //LogBox.ignoreAllLogs()
+    LogBox.ignoreAllLogs()
   },[appContext.authData?.token])
   return ( 
       <QueryClientProvider client={queryClient} >
@@ -68,6 +80,7 @@ export function AppComponent() {
                <IndexNavigation />
             </NavigationContainer>
         </NativeBaseProvider>
+        
         <Toast
             placement="top"
             dangerIcon={<MaterialIcons size={14} color="white" name="dangerous" />}
@@ -81,8 +94,9 @@ export function AppComponent() {
             dangerColor="red"
             warningColor="orange"
             normalColor="gray"
-            style={{justifyContent:"center",alignItems:"flex-start",paddingHorizontal:15}}
+            style={{justifyContent:"center",alignItems:"center",paddingHorizontal:15,marginTop:30}}
           />
+         
       </QueryClientProvider>
     
   );
