@@ -25,7 +25,17 @@ export interface State {
     state_code: string
 }
 
+export interface StateParams {
+    country_id: number,
+    status?: ResourceStatuses
+}
 
+export interface CityParams {
+    state_id?: number,
+    state?: string,
+    country_id?: number,
+    status?: ResourceStatuses
+}
 
 export interface CountryParams extends PaginationParams {
     paginate?: number

@@ -3,7 +3,7 @@ import React, { useState,useMemo,useEffect } from "react";
 import { TouchableOpacity } from 'react-native';
 import CText from "../../../../components/CText";
 import { Feather } from "@expo/vector-icons";
-import { useCountries } from "../../../api/queries/country.queries";
+import { useCountries } from "../../../api/queries/location.queries";
 import { APP_COLOR_LIGHT } from './../../../config/constants.config';
 
 export default function SelectTelephoneCode({value,setValue}: {value: any, setValue: (val: any) => void}){

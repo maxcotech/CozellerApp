@@ -5,6 +5,7 @@ import VendorOnboarding from "../screens/Vendors/VendorOnboarding/VendorOnboardi
 import CreateStore from "../screens/Vendors/CreateStore/CreateStore";
 import JoinStore from "../screens/Vendors/JoinStore/JoinStore";
 import { APP_COLOR } from "../config/constants.config";
+import Dashboard from "../screens/Vendors/Dashboard/Dashboard";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -26,7 +27,11 @@ export default function VendorNavigation(){
                 name={routes.joinStore}
                 component={JoinStore}
             />
-
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorDashboard}
+                component={Dashboard}
+            />
 
             
 

@@ -22,6 +22,8 @@ const VendorRoutes = {
     createStore: "vendor/settings/create-store",
     selectStore: "vendor/settings/select-store",
     joinStore: "vendor/settings/join-store",
+
+    vendorDashboard: "vendor/home"
 }
 
 const AccountRoutes = {

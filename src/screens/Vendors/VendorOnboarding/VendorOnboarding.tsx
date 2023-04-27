@@ -47,6 +47,8 @@ export default function VendorOnboarding(){
                             navigation.replace(routes.joinStore)
                         }
                     }
+                } else {
+                    navigation.replace(routes.vendorDashboard);
                 }
             } 
         },1000);

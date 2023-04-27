@@ -1,5 +1,5 @@
 import { AccountTypes, UserStatuses, UserTypes } from "../enum.config"
-import { Country } from "./country_types"
+import { Country } from "./location_types"
 import { Currency } from "./currency_types"
 import { Store } from "./store_types"
 
