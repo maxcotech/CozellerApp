@@ -11,11 +11,17 @@ import { useQueryClient } from "react-query";
 import { AccountQueryKeys } from "../../../api/queries/account.queries";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../config/routes.config";
+import IconLoadingPage from "../../../../components/IconLoadingPage";
 
 export default function CreateStore(){
     const navigation = useNavigation<AppNavProps>();
-    const profileQuery = useProfile({});
     const appContext = useContext(AppContext);
+    const profileQuery = useProfile({onSuccess: (data) => {
+        if(!!data?.data?.current_store?.id){
+            appContext.setProfileData(data?.data);
+            navigation.replace(routes.vendorDashboard);
+        }
+    }});
     const queryClient = useQueryClient();
     const {isLoading,mutate} = useCreateStore({
         onSuccess: (data) => {
@@ -27,21 +33,6 @@ export default function CreateStore(){
         mutate(data,{onError:(error) => setErrors(error.data)})
     }
 
-    useEffect(() => {
-        const profileData = profileQuery?.data?.data;
-        let timeHandler = null;
-        if(profileData){
-            appContext.setProfileData(profileData);
-            if(!!profileData?.current_store){
-               timeHandler = setTimeout(() => {
-                 navigation.replace(routes.vendorDashboard)
-               },1000)
-            }
-        }
-        return () => {
-            clearTimeout(timeHandler);
-        }
-    },[JSON.stringify(profileQuery?.data?.data)]);
 
     
     
@@ -50,7 +41,11 @@ export default function CreateStore(){
         <SafeScaffold>
             <AppBar title="Create Store" subtitle="Create a store account" />
             <View flex={1}>
-                <StoreForm isLoading={isLoading} handleSubmit={onCreateStore} />
+                {
+                    (profileQuery.isLoading)? <IconLoadingPage />:
+                    <StoreForm isLoading={isLoading} handleSubmit={onCreateStore} />
+                }
+                
             </View>
         </SafeScaffold>
     )
