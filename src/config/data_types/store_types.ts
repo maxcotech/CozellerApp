@@ -1,4 +1,5 @@
 import { ResourceStatuses } from "../enum.config"
+import { PaginatedData } from "./general.types"
 
 export interface Store {
     id: number,
@@ -16,3 +17,29 @@ export interface Store {
     store_status_text: string
 }
 
+export interface StoreDashboardParams {
+    store_id: number,
+    start_date?: string,
+    in_range?: number,
+    end_date?: string,
+}
+
+export interface StockData {
+    stock_quantity: number,
+    stock_value: number,
+    total_products: number
+}
+
+export interface Revenues {
+    daily_revenue: number,
+    monthly_revenue: number,
+    yearly_revenue: number,
+    all_time_revenue: number
+}
+
+export interface DashboardData extends PaginatedData<any[]> {
+    stock_data: StockData,
+    total_completed_orders: number,
+    total_pending_orders: number,
+    revenues: Revenues
+}

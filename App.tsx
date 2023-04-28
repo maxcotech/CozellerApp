@@ -29,8 +29,10 @@ declare module "native-base" {
 }
 export function AppComponent() {
   const queryClient = new QueryClient({
+    
     defaultOptions: {
       queries: {
+        refetchOnWindowFocus: true,
         refetchOnReconnect: true,
         retry: false,
         refetchOnMount: true

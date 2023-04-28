@@ -1,4 +1,4 @@
-import { AccountTypes, UserStatuses, UserTypes } from "../enum.config"
+import { AccountTypes, ResourceStatuses, UserStatuses, UserTypes } from "../enum.config"
 import { Country } from "./location_types"
 import { Currency } from "./currency_types"
 import { Store } from "./store_types"
@@ -6,21 +6,15 @@ import { Store } from "./store_types"
 
 export interface Account {
     id: number,
-    profile_image_url: null | string,
-    full_name: string,
-    user_name: string,
-    contact_number: string,
+    account_status: ResourceStatuses,
     email: string,
+    first_name: string,
+    last_name: string,
+    permissions: string[],
+    phone_number: string,
+    telephone_code: string,
     user_type: AccountTypes,
-    account_status: UserStatuses,
-    email_verified_at: null | string,
-    number_verified_at: null | string,
-    created_by: number,
-    created_at: string,
-    updated_at: string,
-    account_status_text: string,
     user_type_text: string,
-    permissions?: string[]
 }
 
 export interface AuthData {

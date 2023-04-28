@@ -5,13 +5,13 @@ import VendorOnboarding from "../screens/Vendors/VendorOnboarding/VendorOnboardi
 import CreateStore from "../screens/Vendors/CreateStore/CreateStore";
 import JoinStore from "../screens/Vendors/JoinStore/JoinStore";
 import { APP_COLOR } from "../config/constants.config";
-import Dashboard from "../screens/Vendors/Dashboard/Dashboard";
+import VendorDashboard from "./VendorDashboard";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
     const defaultOptions = { statusBarColor:APP_COLOR, headerShown: false, animation: "slide_from_right" } as NativeStackNavigationOptions | ((props: { route: RouteProp<ParamListBase, string>; navigation: any; }) => NativeStackNavigationOptions)
     return (
-        <Stack.Navigator initialRouteName={routes.vendorOnboarding}>
+        <Stack.Navigator  initialRouteName={routes.vendorOnboarding}>
             <Stack.Screen
                 options={defaultOptions} 
                 name={routes.vendorOnboarding}
@@ -30,7 +30,7 @@ export default function VendorNavigation(){
             <Stack.Screen
                 options={defaultOptions}
                 name={routes.vendorDashboard}
-                component={Dashboard}
+                component={VendorDashboard}
             />
 
             

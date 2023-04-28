@@ -3,7 +3,7 @@ import { InterfaceTextProps } from "native-base/lib/typescript/components/primit
 import { ColorType } from "native-base/lib/typescript/components/types";
 import { useMemo } from "react";
 
-export type CTextVariant = "heading" | "subheading" | "body1" | "body2" | "body3" | "body4";
+export type CTextVariant = "superheading" | "heading" | "subheading" | "body1" | "body2" | "body3" | "body4";
 export interface CTextProps extends InterfaceTextProps {
     variant?: CTextVariant,
     color?: ColorType | string
@@ -21,6 +21,8 @@ export default function CText({
             case "body4" : return {...defaultProps, fontSize : "10px"};
             case "heading" : return {...defaultProps, fontSize: "24px", fontWeight: "bold"};
             case "subheading" : return {...defaultProps, fontSize: "18px", fontWeight: "bold"};
+            case "superheading" : return {...defaultProps, fontSize: "35px", fontWeight: "bold"};
+
             default: return {...defaultProps, fontSize : "16px"};
         }
     },[variant,props,color]);

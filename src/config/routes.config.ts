@@ -22,8 +22,15 @@ const VendorRoutes = {
     createStore: "vendor/settings/create-store",
     selectStore: "vendor/settings/select-store",
     joinStore: "vendor/settings/join-store",
+    vendorDashboard: "vendor/dashboard"
+}
 
-    vendorDashboard: "vendor/home"
+const VendorDashboardRoutes = {
+    vendorDashboardHome: "vendor/dashboard/home",
+    vendorDashboardOrders: "vendor/dashboard/orders",
+    vendorDashboardProducts: "vendor/dashboard/products",
+    vendorDashboardWallet: "vendor/dashboard/wallet",
+    vendorDashboardSettings: "vendor/dashboard/settings"
 }
 
 const AccountRoutes = {
@@ -32,7 +39,7 @@ const AccountRoutes = {
 }
 
 const routes = {
-    ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...AccountRoutes
+    ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...VendorDashboardRoutes, ...AccountRoutes
 }
 
 export const AppParamList = Object.assign({},...Object.keys(routes).map((key) => { return {[key]:{}}})) as ParamListBase

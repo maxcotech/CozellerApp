@@ -29,9 +29,9 @@ export default function AppBar({title,subtitle,left,right,backgroundColor = "whi
             }</Box>
             <Box flex={1}>
                 <VStack alignSelf={"center"}>
-                    <CText textAlign={"center"} variant="subheading">{title}</CText>
+                    <CText textAlign={"center"} numberOfLines={1} variant="subheading">{title}</CText>
                     {
-                        (subtitle)? <CText mt="-5px" textAlign="center" color="gray.400" variant="body2">{subtitle}</CText>:<></>
+                        (subtitle)? <CText numberOfLines={2} mt="-5px" textAlign="center" color="gray.400" variant="body2">{subtitle}</CText>:<></>
                     }
                 </VStack>
             </Box>

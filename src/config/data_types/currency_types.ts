@@ -6,3 +6,10 @@ export interface Currency {
     currency_sym: string,
     base_rate: number
 }
+
+export interface CurrencyParams {
+    paginate?: number,
+    country_id?: number
+}
+
+export type CurrencyData = {currency_id: number}
