@@ -37,6 +37,7 @@ export default function Home(){
             setShowCurrencyOptions(false);
             await queryClient.resetQueries();
             profileQuery.refetch();
+            refetch();
             toast.show(data.message,{type:"success"});
         }
     })

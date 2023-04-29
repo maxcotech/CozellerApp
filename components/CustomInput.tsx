@@ -1,12 +1,14 @@
 import { TextInput, TextInputProps, NativeSyntheticEvent, TextInputFocusEventData} from "react-native";
-import React, {useState} from "react";
-import { Center, HStack, View } from "native-base";
+import React, {LegacyRef, useState} from "react";
+import { Center, HStack, Spinner, View } from "native-base";
 import { APP_COLOR } from "../src/config/constants.config";
 import CText from "./CText";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { debounced } from "../src/helpers/value.helpers";
 
 
 export interface CustomInputProps extends TextInputProps {
+    ref?: React.LegacyRef<TextInput>,
     prefix?: React.ReactNode,
     suffix?: React.ReactNode,
     error?: string | string[],
@@ -22,6 +24,10 @@ export interface CustomInputProps extends TextInputProps {
     onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
 }
 
+export interface CustomSearchProps extends CustomInputProps {
+    isLoading?: boolean
+}
+
 
 export const CustomPasswordInput = (props: CustomInputProps) => {
     const [passwordVisible,setPasswordVisible] = useState(false);
@@ -31,8 +37,61 @@ export const CustomPasswordInput = (props: CustomInputProps) => {
     />
 }
 
+export const UncontrolledCustomTextInput = ({
+    borderRadius = "8px", px = "15px", py = "10px", mx="0px", my="0px",
+    label,labelText,onFocus,onBlur,backgroundColor = "gray.200",height,width = "full",error,prefix,suffix,placeholder,ref,...props}: CustomInputProps) => {
+    const [focused,setFocused] = useState(false);
+    const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        setFocused(true);
+        if(onFocus) onFocus(e);
+    }
+
+    const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        setFocused(false);
+        if(onBlur) onBlur(e);
+    }
+    return (
+        <View mx={mx} my={my} width="full">
+        {
+            (label)? label : ((labelText)? <CText width="full"  mb="3px" variant="body2" color="gray.500">{labelText}</CText>:<></>)
+        }
+        <HStack  style={(focused)? {
+            borderColor: APP_COLOR,
+            borderWidth: 1,
+            borderStyle: "solid"
+        }:undefined} py={py} px={px}  borderRadius={borderRadius} backgroundColor={backgroundColor} height={height} width={width} space={1}>
+            { (!!prefix)? <Center>{prefix}</Center>:<></>}
+            <TextInput  onChangeText={props.onChangeText} ref={ref} placeholder={placeholder} onBlur={handleOnBlur} onFocus={handleOnFocus} style={{ flex:1}}  />
+            { (!!suffix)? <Center>{suffix}</Center>:<></>}
+        </HStack>
+        {
+            (error && ((Array.isArray(error)? error.length > 0 : !!error )))? <CText color="red.400" variant="body4">{(Array.isArray(error))? error.join("\n") : error}</CText> :<></>
+        }
+        </View>
+    )
+}
+
+export const CustomSearchInput = ({prefix,isLoading, ...props}: CustomSearchProps) => {
+    let inputRef: TextInput;
+    const onCancel = () => {
+        if(inputRef){
+            inputRef.clear();
+            props.onChangeText("");
+        }
+        
+    }
+    
+    return <UncontrolledCustomTextInput 
+        {...props}
+        ref={(input) => inputRef = input}
+        prefix={prefix ?? <AntDesign color="gray" size={20} name="search1" />}
+        onChangeText={(val) => debounced(val,props.onChangeText)}
+        suffix={(isLoading)? <Spinner color={APP_COLOR} />:((props.suffix)? props.suffix : (props.value?.length > 0)? <AntDesign onPress={onCancel} size={20} name="close" />:<></> )}
+    />
+}
+
 export default function CustomInput({ 
-    labelText,label, error,
+    labelText,label, error, ref,
     onFocus, onBlur, backgroundColor = "#F5F5F5", width = "full", height, prefix,suffix,borderRadius = "8px", px = "15px", py = "10px", mx="0px", my="0px",...props}: CustomInputProps){
     const [focused,setFocused] = useState(false);
     const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -56,7 +115,7 @@ export default function CustomInput({
             borderStyle: "solid"
         }:undefined} py={py} px={px}  borderRadius={borderRadius} backgroundColor={backgroundColor} height={height} width={width} space={1}>
             { (!!prefix)? <Center>{prefix}</Center>:<></>}
-            <TextInput  {...props} onBlur={handleOnBlur} onFocus={handleOnFocus} style={{ flex:1}}  />
+            <TextInput ref={ref}  {...props} onBlur={handleOnBlur} onFocus={handleOnFocus} style={{ flex:1}}  />
             { (!!suffix)? <Center>{suffix}</Center>:<></>}
         </HStack>
         {

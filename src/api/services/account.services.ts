@@ -26,5 +26,5 @@ export const updateAccount = async (data: AccountFormData): Promise<any> => {
 }
 
 export const logout = async (): Promise<any> => {
-    return client.patch(`accounts/logout`,{});
+    return client.delete(`user/logout`,{});
 }

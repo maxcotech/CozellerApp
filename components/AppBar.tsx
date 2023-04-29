@@ -3,7 +3,7 @@ import { XPADDING } from "../src/config/constants.config";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavProps } from "../src/config/routes.config";
-import { AntDesign, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {  MaterialIcons } from "@expo/vector-icons";
 import CText from "./CText";
 import { TouchableOpacity } from "react-native";
 import { ColorType } from "native-base/lib/typescript/components/types";
@@ -20,11 +20,11 @@ export interface AppBarProps {
 export default function AppBar({title,subtitle,left,right,backgroundColor = "white",shadow = 3}: AppBarProps){
     const navigation = useNavigation<AppNavProps>();
     return (
-        <HStack backgroundColor={backgroundColor} width="full" shadow={shadow} alignItems="center" py="10px" px={XPADDING} >
+        <HStack backgroundColor={backgroundColor} width="full" shadow={shadow} alignItems="center" py="12px" px={XPADDING} >
             <Box   alignItems={"flex-start"}>{
                 (left)? left :
                 ((navigation.canGoBack())? <TouchableOpacity onPress={() => navigation.goBack()}> 
-                        <AntDesign style={{margin:-4}} size={20} name="left" />
+                        <MaterialIcons style={{marginLeft:-10}} size={30} name="keyboard-arrow-left" />
                     </TouchableOpacity>:<></>)
             }</Box>
             <Box flex={1}>
