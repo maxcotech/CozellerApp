@@ -16,7 +16,7 @@ export default function ProductListItem({data}:ProductListItemProps){
     const [optionsVisible,setOptionsVisible] = useState(false);
     return (
         <>
-        <TouchableOpacity onPress={() => setOptionsVisible(true)}>
+        <TouchableOpacity  onPress={() => setOptionsVisible(true)}>
             <HStack rounded="md"  bgColor={APP_COLOR_LIGHTER} overflow={"hidden"} >
                 <Box height="full" width="2/5">
                     <Image width="120px" height="120px"  source={{uri: data.product_image}} />

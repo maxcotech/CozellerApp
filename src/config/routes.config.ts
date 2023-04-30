@@ -22,7 +22,9 @@ const VendorRoutes = {
     createStore: "vendor/settings/create-store",
     selectStore: "vendor/settings/select-store",
     joinStore: "vendor/settings/join-store",
-    vendorDashboard: "vendor/dashboard"
+    vendorDashboard: "vendor/dashboard",
+    vendorCreateProduct: "vendor/dashboard/create-product",
+    categoryOptions: "vendor/category-options"
 }
 
 const VendorDashboardRoutes = {

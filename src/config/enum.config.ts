@@ -40,3 +40,12 @@ export enum ResourceStatuses {
     InDraft = 3,
     Blacklisted = 4
 }
+
+export enum ProductFormIndexes {
+    BasicInformation = 0,
+    ProductGallery = 1,
+    Descriptions = 3,
+    ProductDimensions = 4,
+    OtherAttributes = 5,
+    ProductVariations = 6
+}

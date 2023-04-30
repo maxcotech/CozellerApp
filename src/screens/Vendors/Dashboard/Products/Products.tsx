@@ -1,4 +1,4 @@
-import { Actionsheet, Box, Fab, HStack, Image, View } from "native-base";
+import { Actionsheet, Box, Fab, HStack, View } from "native-base";
 import AppBar from "../../../../../components/AppBar";
 import SafeScaffold from "../../../../../components/SafeScaffold";
 import EmptyPage from "../../../../../components/EmptyPage";
@@ -17,10 +17,14 @@ import CText from "../../../../../components/CText";
 import { TouchableOpacity } from "react-native";
 import { ResourceStatuses } from "../../../../config/enum.config";
 import { getResourceStatusText } from "../../../../helpers/status.helpers";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../config/routes.config";
+
 
 
 export default function Products() {
     const appContext = useContext(AppContext);
+    const navigation = useNavigation<AppNavProps>();
     const { current_store } = appContext.profileData;
     const [filtersVisibility, setFiltersVisibility] = useState(false);
     const [params, setParams] = useState<StoreProductParams>({} as StoreProductParams)
@@ -32,12 +36,12 @@ export default function Products() {
     return (
         <>
             <SafeScaffold>
-                <AppBar title="Manage Products" right={
+                <AppBar subtitle="Create and manage products" title="Manage Products" right={
                     <TouchableOpacity onPress={() => setFiltersVisibility(true)}>
                         <MaterialCommunityIcons size={25} name="filter" />
                     </TouchableOpacity>} />
 
-                <View flex={1} pt="20px" px={XPADDING}>
+                <View flex={1} pt="15px" px={XPADDING}>
                     <Box py="5px">
                         <CustomSearchInput backgroundColor={"gray.200"} placeholder="Search Products" isLoading={isRefetching} onChangeText={(query) => setParams({ ...params, query })} value={params.query} />
                     </Box>
@@ -47,7 +51,7 @@ export default function Products() {
                             <>
                                 {
                                     (data?.data?.data && data?.data?.data?.length > 0) ?
-                                        <PaginatedScrollView pageParams={{ ...params, store_id: current_store?.id } as StoreProductParams} onLoadNewPage={(params: StoreProductParams) => {
+                                        <PaginatedScrollView paginationData={data?.data} pageParams={{ ...params, store_id: current_store?.id } as StoreProductParams} onLoadNewPage={(params: StoreProductParams) => {
                                             setParams(params)
                                         }} style={{ flex: 1 }}>
                                             {
@@ -59,12 +63,12 @@ export default function Products() {
                                             }
                                         </PaginatedScrollView> :
                                         <EmptyPage subtitle="You haven't added any product yet">
-                                            <AppBtn textVariant="body3" gradient={true}>Add New Product</AppBtn>
+                                            <AppBtn onPress={() => navigation.navigate(routes.vendorCreateProduct)} textVariant="body3" gradient={true}>Add New Product</AppBtn>
                                         </EmptyPage>
                                 }
                             </>
                     }
-                    <Fab label={<AntDesign color="white" size={20} name="plus" />} backgroundColor={APP_COLOR} bottom={20} />
+                    <Fab renderInPortal={false} onPress={() => navigation.navigate(routes.vendorCreateProduct)} label={<AntDesign color="white" size={20} name="plus" />} backgroundColor={APP_COLOR} bottom={5} />
                 </View>
             </SafeScaffold>
             <Actionsheet onClose={() => setFiltersVisibility(false)} isOpen={filtersVisibility}>

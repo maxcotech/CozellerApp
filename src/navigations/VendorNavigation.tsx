@@ -6,11 +6,15 @@ import CreateStore from "../screens/Vendors/CreateStore/CreateStore";
 import JoinStore from "../screens/Vendors/JoinStore/JoinStore";
 import { APP_COLOR } from "../config/constants.config";
 import VendorDashboard from "./VendorDashboard";
+import CreateProduct from "../screens/Vendors/Dashboard/Products/CreateProduct";
+import { ProductFormProvider } from "../contexts/ProductFormContext";
+import CategoryOptions from "../screens/Vendors/CategoryOptions/CategoryOptions";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
     const defaultOptions = { statusBarColor:APP_COLOR, headerShown: false, animation: "slide_from_right" } as NativeStackNavigationOptions | ((props: { route: RouteProp<ParamListBase, string>; navigation: any; }) => NativeStackNavigationOptions)
     return (
+        <ProductFormProvider>
         <Stack.Navigator  initialRouteName={routes.vendorOnboarding}>
             <Stack.Screen
                 options={defaultOptions} 
@@ -32,9 +36,20 @@ export default function VendorNavigation(){
                 name={routes.vendorDashboard}
                 component={VendorDashboard}
             />
-
+             <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorCreateProduct}
+                component={CreateProduct}
+            />
+            <Stack.Screen
+                initialParams={{onSelect: () => console.log("hello")}}
+                options={defaultOptions}
+                name={routes.categoryOptions}
+                component={CategoryOptions}
+            />
             
 
         </Stack.Navigator>
+        </ProductFormProvider>
     )
 }
