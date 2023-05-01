@@ -28,7 +28,7 @@ export default function Products() {
     const { current_store } = appContext.profileData;
     const [filtersVisibility, setFiltersVisibility] = useState(false);
     const [params, setParams] = useState<StoreProductParams>({} as StoreProductParams)
-    const { isLoading, data, isRefetching } = useStoreProducts({ store_id: current_store?.id, ...params });
+    const { isLoading, data, isRefetching } = useStoreProducts({store_id: current_store?.id, ...params });
     const onFilterByStatus = (status: ResourceStatuses) => {
         setFiltersVisibility(false);
         setParams({...params,status})

@@ -47,7 +47,7 @@ export default function CategoryOptions(){
                 }}  borderRadius={8} textVariant="body4" gradient={true}>Back to main</AppBtn>:<></>}
                 subtitle={selectedCategory?.category_title ?? "Main Categories"} title="Select Category" />
             <View pt="5px" paddingX={XPADDING} flex={1}>
-                <CustomSearchInput my="10px" placeholder="Search Categories" />
+                <CustomSearchInput onChangeText={(val) => setParams({...params,search:val})} my="10px" placeholder="Search Categories" />
                 { 
                     (isLoading)?
                     <ProductListSkeleton />:

@@ -40,7 +40,7 @@ export default function FileUploader({ratio = 4/3, source, width, onFileChange}:
                     <Center flex={1}>
                         <Spinner color={APP_COLOR} />
                     </Center>:
-                    <Image width="full" height="full" source={(image)? {uri: image} : ((source)? source: require("../assets/placeholder-image.jpg"))}  />
+                    <Image alt="Upload Files Indicator" width="full" height="full" source={(image)? {uri: image} : ((source)? source: require("../assets/placeholder-image.jpg"))}  />
 
                 }
             </AspectRatio>

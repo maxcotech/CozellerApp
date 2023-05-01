@@ -39,7 +39,7 @@ export default function ProductForm(){
         switch(productFormIndex){
             case ProductFormIndexes.BasicInformation: return "Basic Info";
             case ProductFormIndexes.Descriptions: return "Descriptions";
-            case ProductFormIndexes.ProductGallery: return "Gallery";
+            case ProductFormIndexes.ProductGallery: return "Product Gallery";
             case ProductFormIndexes.OtherAttributes: return "Other Attributes";
             case ProductFormIndexes.ProductDimensions: return "Product Dimensions";
             case ProductFormIndexes.ProductVariations: return "Product Variations";
@@ -53,7 +53,7 @@ export default function ProductForm(){
         <View flex={1}>
             <HStack alignItems="center" justifyContent={"space-between"}>
                 <CText variant="body1">{currentTitle}</CText>
-                <CText variant="body1" color={APP_COLOR} fontWeight={"bold"}>{ProductFormIndexes.BasicInformation + 1} / 6</CText>
+                <CText variant="body1" color={APP_COLOR} fontWeight={"bold"}>{productFormIndex + 1} / 6</CText>
             </HStack>
             {CurrentFormStep}
         </View>

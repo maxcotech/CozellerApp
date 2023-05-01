@@ -83,6 +83,7 @@ export const CustomSearchInput = ({prefix,isLoading, ...props}: CustomSearchProp
     
     return <UncontrolledCustomTextInput 
         {...props}
+        borderRadius={props.borderRadius ?? 30}
         ref={(input) => inputRef = input}
         prefix={prefix ?? <AntDesign color="gray" size={20} name="search1" />}
         onChangeText={(val) => debounced(val,props.onChangeText)}

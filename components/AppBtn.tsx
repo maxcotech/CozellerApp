@@ -36,7 +36,7 @@ export default function AppBtn({
                     {
                         (isLoading)?
                         <Spinner size="sm" color={textColor} /> :
-                        <CText variant={textVariant} style={{textTransform:(toUppercase)? "uppercase":"none"}} textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
+                        <CText  alignItems={"center"} variant={textVariant} style={{textTransform:(toUppercase)? "uppercase":"none"}} textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
 
                     }
                 </LinearGradient>
@@ -45,7 +45,7 @@ export default function AppBtn({
             <TouchableOpacity disabled={isLoading} style={[buttonShapeStyle,{backgroundColor,opacity: (isLoading)? 0.6 : 1}]} {...props}>
                 {(isLoading)?
                     <Spinner size="sm" color={textColor} /> :
-                    <CText variant={textVariant} style={{textTransform:(toUppercase)? "uppercase":"none"}} textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
+                    <CText variant={textVariant} style={{textTransform:(toUppercase)? "uppercase":"none"}} alignItems={"center"} textAlign="center" fontWeight={"bold"} color={textColor}>{children}</CText>
                 }
             </TouchableOpacity>
     )

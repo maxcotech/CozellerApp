@@ -9,6 +9,8 @@ import VendorDashboard from "./VendorDashboard";
 import CreateProduct from "../screens/Vendors/Dashboard/Products/CreateProduct";
 import { ProductFormProvider } from "../contexts/ProductFormContext";
 import CategoryOptions from "../screens/Vendors/CategoryOptions/CategoryOptions";
+import BrandOptions from "../screens/Vendors/BrandOptions/BrandOptions";
+import CreateBrand from "../screens/Vendors/BrandOptions/CreateBrand";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -47,7 +49,18 @@ export default function VendorNavigation(){
                 name={routes.categoryOptions}
                 component={CategoryOptions}
             />
-            
+             <Stack.Screen
+                initialParams={{onSelect: () => console.log("hello")}}
+                options={defaultOptions}
+                name={routes.brandOptions}
+                component={BrandOptions}
+            />
+             <Stack.Screen
+               
+                options={defaultOptions}
+                name={routes.vendorCreateBrand}
+                component={CreateBrand}
+            />
 
         </Stack.Navigator>
         </ProductFormProvider>

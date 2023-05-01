@@ -25,25 +25,33 @@ export interface StoreProductParams extends PaginationParams {
 }
 
 export interface ProductFormData {
+    product_id?: number,
     product_name: string,
     store_id: number,
     regular_price: number,
-    sales_price?: number,
+    sales_price: number,
     simple_description: string,
     description: string,
     amount_in_stock: number,
     category_id: number,
     category_name: string,
     main_product_image: string,
-    brand_id: string
+    brand_id: number,
     weight: number,
+    dimension_height: number,
+    dimension_width: number,
+    dimension_length: number,
     front_image: string,
     back_image: string,
     side_image: string,
     fourth_image: string,
-    fifth_image: string
+    fifth_image: string,
+    product_sku: string,
+    youtube_video_id: string,
+    key_features: string,
+    brand_name: string
 }
-
+export type ProductGalleryResult = {image_full_path: string}
 export type ProductFormKeys = keyof ProductFormData;
 export type SetFormValueType = (val: any, key: ProductFormKeys) => void;
 

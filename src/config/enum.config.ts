@@ -44,8 +44,8 @@ export enum ResourceStatuses {
 export enum ProductFormIndexes {
     BasicInformation = 0,
     ProductGallery = 1,
-    Descriptions = 3,
-    ProductDimensions = 4,
-    OtherAttributes = 5,
-    ProductVariations = 6
+    Descriptions = 2,
+    ProductDimensions = 3,
+    OtherAttributes = 4,
+    ProductVariations = 5
 }
