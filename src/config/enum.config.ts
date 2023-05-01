@@ -49,3 +49,10 @@ export enum ProductFormIndexes {
     OtherAttributes = 4,
     ProductVariations = 5
 }
+
+export enum ManageResourceActions {
+    Create = 1,
+    Update = 2,
+    View = 3,
+    Delete = 4
+}

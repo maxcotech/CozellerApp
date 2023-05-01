@@ -11,6 +11,8 @@ import { ProductFormProvider } from "../contexts/ProductFormContext";
 import CategoryOptions from "../screens/Vendors/CategoryOptions/CategoryOptions";
 import BrandOptions from "../screens/Vendors/BrandOptions/BrandOptions";
 import CreateBrand from "../screens/Vendors/BrandOptions/CreateBrand";
+import VariationForm from "../screens/Vendors/Dashboard/Products/fragments/ProductFormFragments/VariationForm";
+import UpdateProduct from "../screens/Vendors/Dashboard/Products/UpdateProduct";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -55,11 +57,20 @@ export default function VendorNavigation(){
                 name={routes.brandOptions}
                 component={BrandOptions}
             />
-             <Stack.Screen
-               
+            <Stack.Screen
                 options={defaultOptions}
                 name={routes.vendorCreateBrand}
                 component={CreateBrand}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.variationForm}
+                component={VariationForm}
+            />
+             <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorUpdateProduct}
+                component={UpdateProduct}
             />
 
         </Stack.Navigator>

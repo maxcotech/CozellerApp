@@ -1,5 +1,5 @@
 import client from "../../config/client.config"
-import { ProductGalleryResult, StoreProductParams } from "../../config/data_types/product_types";
+import { ProductFormData, ProductGalleryResult, StoreProductParams } from "../../config/data_types/product_types";
 import { uploadData } from "./general.services";
 
 
@@ -15,3 +15,22 @@ export const uploadProductImage = async (data: FormData, iloader: any, onComplet
     return await uploadData(`product/image`,data,iloader,onComplete);
 }
 
+export const uploadVariationImage = async (data: FormData,iloader: any, onComplete?: (data: ProductGalleryResult) => void) => {
+    return await uploadData(`product/variation_image`,data,iloader,onComplete)
+}
+
+export const createProduct = async (data: Partial<ProductFormData>): Promise<any> => {
+    return client.post(`product`,data);
+}
+
+export const updateProduct = async (data: Partial<ProductFormData>): Promise<any> => {
+    return client.put(`product`,data);
+}
+
+export const fetchProduct = async (id: string | number): Promise<any> => {
+    return client.get(`product/${id}`)
+}
+
+export const deleteProduct = async (id: number): Promise<any> => {
+    return client.delete(`product/${id}`);
+}

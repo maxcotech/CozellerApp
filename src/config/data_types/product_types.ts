@@ -1,5 +1,8 @@
 import { ResourceStatuses } from "../enum.config"
+import { Brand } from "./brand_types"
+import { Category } from "./category_types"
 import { PaginationParams } from "./general.types"
+import { Store } from "./store_types"
 
 export interface ProductSummary {
     id: number,
@@ -24,7 +27,19 @@ export interface StoreProductParams extends PaginationParams {
     min_price?: number
 }
 
+export interface ProductVariationForm {
+    variation_name: string,
+    variation_sku: string,
+    regular_price:  number,
+    sales_price: number,
+    amount_in_stock: number,
+    variation_image_url: string,
+    variation_image: string,
+    id: number
+}
+
 export interface ProductFormData {
+    product_image: string,
     product_id?: number,
     product_name: string,
     store_id: number,
@@ -49,7 +64,28 @@ export interface ProductFormData {
     product_sku: string,
     youtube_video_id: string,
     key_features: string,
-    brand_name: string
+    brand_name: string,
+    variations: ProductVariationForm[]
+}
+
+export interface Image {
+    id: number,
+    store_id: number,
+    product_id: number | null,
+    image_type: string | null,
+    image_url: string,
+    image_thumbnail: string | null,
+    created_at: string,
+    updated_at: string
+}
+
+export interface Product extends ProductSummary {
+    store: Partial<Store>,
+    brand: Brand | null,
+    category: Category | null,
+    variations: ProductVariationForm[],
+    images: Partial<Image>[]
+
 }
 export type ProductGalleryResult = {image_full_path: string}
 export type ProductFormKeys = keyof ProductFormData;

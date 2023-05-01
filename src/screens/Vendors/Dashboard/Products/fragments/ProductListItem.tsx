@@ -1,4 +1,4 @@
-import { Actionsheet, Box, HStack, Image, VStack } from "native-base";
+import { Actionsheet, Box, HStack, Image, Spinner, VStack } from "native-base";
 import { ProductSummary } from "../../../../../config/data_types/product_types";
 import CText from "../../../../../../components/CText";
 import { APP_COLOR, APP_COLOR_LIGHTER } from "../../../../../config/constants.config";
@@ -7,13 +7,41 @@ import ResourceStatusTag from "../../../../../../components/ResourceStatusTag";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../../config/routes.config";
+import { ManageResourceActions } from "../../../../../config/enum.config";
+import ConfirmDialog from "../../../../../../components/ConfirmDialog";
+import { ProductQueryKeys, useDeleteProduct } from "../../../../../api/queries/product.queries";
+import { useQueryClient } from "react-query";
 
 export interface ProductListItemProps {
     data: ProductSummary
 }
 
 export default function ProductListItem({data}:ProductListItemProps){
+    const navigation = useNavigation<AppNavProps>();
     const [optionsVisible,setOptionsVisible] = useState(false);
+    const queryClient = useQueryClient();
+    const [showDelete,setShowDelete] = useState(false);
+    const {isLoading,mutate} = useDeleteProduct({
+        onSuccess(data) {
+            toast.show(data.message,{type:"success"});
+            queryClient.invalidateQueries({queryKey:[ProductQueryKeys.fetchStoreProducts]})
+        },
+    });
+    const onSelectAction = (action: ManageResourceActions) => {
+        setOptionsVisible(false);
+        if(action === ManageResourceActions.Update){
+            if(data.id){
+                navigation.navigate(routes.vendorUpdateProduct,{id: data.id})
+            } else {
+                navigation.navigate(routes.vendorCreateProduct)
+            }
+        }
+        if(action === ManageResourceActions.Delete){
+            setShowDelete(true);
+        }
+    }
     return (
         <>
         <TouchableOpacity  onPress={() => setOptionsVisible(true)}>
@@ -44,7 +72,10 @@ export default function ProductListItem({data}:ProductListItemProps){
                     } 
                     
                     <CText mt="5px">
-                        <ResourceStatusTag status={data.product_status} />
+                        {
+                            (isLoading)? <Spinner color={APP_COLOR} />:<ResourceStatusTag status={data.product_status} />
+                        }
+                        
                     </CText>
                    
                 </VStack>
@@ -54,7 +85,7 @@ export default function ProductListItem({data}:ProductListItemProps){
             <Actionsheet onClose={() => setOptionsVisible(false)} isOpen={optionsVisible}>
                 <Actionsheet.Content>
                     <CText numberOfLines={1} variant="body1">Manage {data.product_name}</CText>
-                    <Actionsheet.Item alignSelf="stretch">
+                    <Actionsheet.Item onPress={() => onSelectAction(ManageResourceActions.Update)} alignSelf="stretch">
                         <HStack py="5px" borderBottomColor={"gray.200"} width="full" alignItems="center" justifyContent={"space-between"}>
                             <HStack space={4}>
                                 <AntDesign name="edit" size={20} />
@@ -65,7 +96,7 @@ export default function ProductListItem({data}:ProductListItemProps){
                             </Box>
                         </HStack>
                     </Actionsheet.Item>
-                    <Actionsheet.Item alignSelf="stretch">
+                    <Actionsheet.Item onPress={() => onSelectAction(ManageResourceActions.Delete)} alignSelf="stretch">
                         <HStack py="5px" borderBottomColor={"gray.200"} width="full" alignItems="center" justifyContent={"space-between"}>
                             <HStack space={4}>
                                 <AntDesign name="delete" color="red" size={20} />
@@ -78,6 +109,10 @@ export default function ProductListItem({data}:ProductListItemProps){
                     </Actionsheet.Item>
                 </Actionsheet.Content>
             </Actionsheet>
+            <ConfirmDialog onConfirm={() => {
+                setShowDelete(false);
+                mutate(data?.id);
+            }} message="After you delete this product you may not be able to recover the data." isOpen={showDelete} onClose={() => setShowDelete(true)} />
         </>
     )
 }

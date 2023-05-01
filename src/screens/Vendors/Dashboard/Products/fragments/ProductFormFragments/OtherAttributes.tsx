@@ -38,8 +38,8 @@ export default function OtherAttributes(){
 
             </ScrollView>
             <VStack space={2} pb="10px" pt="20px">
-            <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.OtherAttributes)}>Manage Variations <AntDesign name="arrowright" size={18} /></AppBtn>
-            <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.Descriptions)}  backgroundColor={"white"} textColor={"black"}><AntDesign  name="arrowleft" size={18} /> Previous</AppBtn>
+            <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductVariations)}>Manage Variations <AntDesign name="arrowright" size={18} /></AppBtn>
+            <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductDimensions)}  backgroundColor={"white"} textColor={"black"}><AntDesign  name="arrowleft" size={18} /> Previous</AppBtn>
         </VStack>
         </View>
     )

@@ -4,7 +4,7 @@ import CText from "../../../../../../../components/CText";
 import { useContext } from "react";
 import ProductFormContext from "../../../../../../contexts/ProductFormContext";
 import FileUploader from "../../../../../../../components/FileUploader";
-import { uploadProductImage } from "../../../../../../api/services/product.services";
+import { uploadGalleryImage, uploadProductImage } from "../../../../../../api/services/product.services";
 import AppBtn from "../../../../../../../components/AppBtn";
 import { AntDesign } from "@expo/vector-icons";
 import { ProductFormIndexes } from "../../../../../../config/enum.config";
@@ -27,17 +27,17 @@ export default function ProductGallery(){
     }
     const onUploadProductImage = async (file: any, iloader: any) => {
         console.log('prof ',file)
-        const formData = generateFormData(file,"main_product_image");
+        const formData = generateFormData(file,"product_image");
         await uploadProductImage(formData,iloader,(data) => {
             console.log(data);
-            setFormValue(data?.image_full_path,"main_product_image");
+            setFormValue(data?.image_full_path,"product_image");
         }) 
     }
 
     const onUploadGalleryImage = async (file: any, iloader: any, key: keyof ProductFormData) => {
         const formData = generateFormData(file,key);
         formData.append('image_type',key);
-        await uploadProductImage(formData,iloader,(data) => {
+        await uploadGalleryImage(formData,iloader,(data) => {
             console.log(data)
             setFormValue(data?.image_full_path,key);
         })
@@ -46,10 +46,10 @@ export default function ProductGallery(){
     return (
         <View pt="15px" flex={1}>
             <ScrollView flex={1}>
-                <CText mb="5px" fontWeight={"bold"}>Main Product Image*</CText>
+                <CText mb="10px" fontWeight={"bold"}>Main Product Image*</CText>
                 <HStack width="full" space={2}>
                     
-                    <FileUploader ratio={4/5} width="100px"  source={(productForm.main_product_image)? {uri: productForm.main_product_image}:undefined} onFileChange={onUploadProductImage} />
+                    <FileUploader ratio={4/5} width="150px"  source={(productForm.product_image)? {uri: productForm.product_image}:undefined} onFileChange={onUploadProductImage} />
                     <Box flex={1}>
                         <CText variant="body3" color="gray.400">This is the image that will be used in product catalog cards to present your product.</CText>
                         <CText variant="body3" color="gray.400">Only jpg, png, wepb, jpeg and gif supported</CText>

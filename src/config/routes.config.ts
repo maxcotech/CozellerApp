@@ -24,6 +24,8 @@ const VendorRoutes = {
     joinStore: "vendor/settings/join-store",
     vendorDashboard: "vendor/dashboard",
     vendorCreateProduct: "vendor/dashboard/create-product",
+    vendorUpdateProduct: "vendor/dashboard/update-product",
+    variationForm: "vendor/dashboard/variation-form",
     categoryOptions: "vendor/category-options",
     brandOptions: "vendor/brand-options",
     vendorCreateBrand: "vendor/create-brand"

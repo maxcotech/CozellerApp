@@ -1,5 +1,6 @@
 import { ResourceStatuses } from "../enum.config"
 import { PaginatedData } from "./general.types"
+import { City, Country, State } from "./location_types"
 
 export interface Store {
     id: number,
@@ -12,8 +13,9 @@ export interface Store {
     store_email: string,
     store_telephone: string,
     store_status: ResourceStatuses,
-    state: string | null,
-    city: string | null,
+    state: string | null | Partial<State>,
+    city: string | null | Partial<City>,
+    country: Partial<Country>,
     store_status_text: string
 }
 

@@ -11,7 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 export default function ProductDescriptions(){
     const {productForm, setFormValue, setProductFormIndex} = useContext(ProductFormContext);
     let simpleDRef = React.useRef(productForm.simple_description);
-    let detailedDRef = React.useRef(productForm.description);
+    let keyFeatureRef = React.useRef(productForm.key_features);
 
     const handleHead = ({tintColor}) => <Text style={{color: tintColor}}>h1</Text>
     const handleHead2 = ({tintColor}) => <Text style={{color: tintColor}}>h2</Text>
@@ -24,7 +24,7 @@ export default function ProductDescriptions(){
             <CText>Simple Description</CText>
             <RichEditor ref={simpleDRef} 
                 onChange={(val) => setFormValue(val,"simple_description")}
-                initialContentHTML="Include a brief description of your product."
+                initialContentHTML={productForm.simple_description ?? "Include a brief description of your product."}
             />
             <RichToolbar
                 
@@ -33,10 +33,10 @@ export default function ProductDescriptions(){
                 iconMap={{ [actions.heading1]: handleHead, [actions.heading2]: handleHead2, [actions.heading3]: handleHead3   }}
             />
 
-            <CText mt="20px">Detailed Description</CText>
-            <RichEditor ref={simpleDRef} 
-                onChange={(val) => setFormValue(val,"description")}
-                initialContentHTML="Include a more detailed description of your product."
+            <CText mt="20px">Key Features</CText>
+            <RichEditor ref={keyFeatureRef} 
+                onChange={(val) => setFormValue(val,"key_features")}
+                initialContentHTML={productForm?.key_features ?? "List out the key features of the product."}
             />
             <RichToolbar
                 editor={simpleDRef}
