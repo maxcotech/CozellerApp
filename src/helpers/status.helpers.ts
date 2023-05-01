@@ -1,4 +1,4 @@
-import { ResourceStatuses } from "../config/enum.config";
+import { OrderStatuses, ResourceStatuses } from "../config/enum.config";
 
 export const getResourceStatusColorScheme = (status: ResourceStatuses) => {
     switch(status){
@@ -19,5 +19,38 @@ export const getResourceStatusText = (status: ResourceStatuses) => {
         case ResourceStatuses.InDraft: return "In Draft";
         case ResourceStatuses.Active: return "Active";
         default: "Unknown";
+    }
+}
+
+export const getOrderStatusLabel = (status: OrderStatuses) => {
+    switch(status){
+        case OrderStatuses.STATUS_AWAITING_FULFILLMENT: return "Awaiting Fulfillment";
+        case OrderStatuses.STATUS_AWAITING_PICKUP: return "Awaiting Pickup";
+        case OrderStatuses.STATUS_AWAITING_REFUND: return "Awaiting Refund";
+        case OrderStatuses.STATUS_AWAITING_SHIPPING: return "Awaiting Shipping";
+        case OrderStatuses.STATUS_CANCELLED: return "Cancelled";
+        case OrderStatuses.STATUS_COMPLETED: return "Completed";
+        case OrderStatuses.STATUS_DISPUTED: return 'Disputed';
+        case OrderStatuses.STATUS_PARTIALLY_SHIPPED: return "Partially Shipped";
+        case OrderStatuses.STATUS_PENDING: return "Pending";
+        case OrderStatuses.STATUS_REFUNDED: return "Refunded";
+        case OrderStatuses.STATUS_SHIPPED: return "Shipped";
+        default: return 'Unknown';
+    }
+}
+
+export const getOrderStatusColorScheme = (status: OrderStatuses) => {
+    switch(status){
+        case OrderStatuses.STATUS_REFUNDED:
+        case OrderStatuses.STATUS_CANCELLED: return {color: "danger.500", bgColor: "danger.200"};
+        case OrderStatuses.STATUS_AWAITING_SHIPPING:
+        case OrderStatuses.STATUS_AWAITING_FULFILLMENT: return {color: "info.500", bgColor: "info.200"};
+        case OrderStatuses.STATUS_AWAITING_REFUND:
+        case OrderStatuses.STATUS_DISPUTED:
+        case OrderStatuses.STATUS_PENDING: return {color: "gray.200", bgColor: "gray.500"};
+        case OrderStatuses.STATUS_SHIPPED:
+        case OrderStatuses.STATUS_COMPLETED:
+        case OrderStatuses.STATUS_AWAITING_PICKUP:
+        default: return {color: "success.200", bgColor: "success.500"}; 
     }
 }

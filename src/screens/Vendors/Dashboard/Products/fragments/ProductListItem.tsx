@@ -112,7 +112,7 @@ export default function ProductListItem({data}:ProductListItemProps){
             <ConfirmDialog onConfirm={() => {
                 setShowDelete(false);
                 mutate(data?.id);
-            }} message="After you delete this product you may not be able to recover the data." isOpen={showDelete} onClose={() => setShowDelete(true)} />
+            }} message="After you delete this product you may not be able to recover the data." isOpen={showDelete} onClose={() => setShowDelete(false)} />
         </>
     )
 }

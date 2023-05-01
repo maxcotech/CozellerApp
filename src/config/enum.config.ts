@@ -56,3 +56,39 @@ export enum ManageResourceActions {
     View = 3,
     Delete = 4
 }
+
+export enum OrderStatuses {
+    STATUS_PENDING = 1,
+    STATUS_AWAITING_FULFILLMENT = 2,
+    STATUS_AWAITING_SHIPPING = 3,
+    STATUS_PARTIALLY_SHIPPED = 4,
+    STATUS_SHIPPED = 5,
+    STATUS_AWAITING_PICKUP = 6,
+    STATUS_COMPLETED = 7,
+    STATUS_CANCELLED = 8,
+    STATUS_DISPUTED = 9,
+    STATUS_AWAITING_REFUND = 10,
+    STATUS_REFUNDED = 11,
+}
+
+export enum TransactionStatuses {
+    STATUS_PENDING = 0,
+    STATUS_COMPLETED = 1,
+    STATUS_VERIFIED = 2,
+    STATUS_CANCELLED = 3
+}
+
+export enum PaymentStatuses {
+    PAYMENT_STATUS_PAID = 1,
+    PAYMENT_STATUS_NOT_PAID = 0
+}
+
+export enum WalletLockStatuses {
+    STATUS_LOCKED = 0,
+    STATUS_OPENED = 1
+}
+
+export enum LedgerTypes {
+    LEDGER_CREDIT = 1,
+    LEDGER_DEBIT = 0,
+}

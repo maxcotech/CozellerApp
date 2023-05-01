@@ -25,7 +25,7 @@ export default function EmptyPage({icon,title = "Not Found",subtitle,children}: 
             }
             {
                 (subtitle)?
-                <CText textAlign="center" variant="body3" color={"gray.400"}>{subtitle}</CText>:<></>
+                <CText textAlign="center" variant="body3" px="40px" color={"gray.400"}>{subtitle}</CText>:<></>
             }
             <Box mt="14px">
                 {children}
