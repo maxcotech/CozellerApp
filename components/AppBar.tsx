@@ -14,13 +14,14 @@ export interface AppBarProps {
     left?: React.ReactNode,
     right?: React.ReactNode,
     backgroundColor?: string | ColorType,
-    shadow?: number
+    shadow?: number,
+    centered?: boolean
 }
 
-export default function AppBar({title,subtitle,left,right,backgroundColor = "white",shadow = 3}: AppBarProps){
+export default function AppBar({title,subtitle,left,right, centered = false, backgroundColor = "white",shadow = 3}: AppBarProps){
     const navigation = useNavigation<AppNavProps>();
     return (
-        <HStack backgroundColor={backgroundColor} width="full" shadow={shadow} alignItems="center" py="12px" px={XPADDING} >
+        <HStack backgroundColor={backgroundColor} width="full" space={1} shadow={shadow} alignItems="center" py="12px" px={XPADDING} >
             <Box   alignItems={"flex-start"}>{
                 (left)? left :
                 ((navigation.canGoBack())? <TouchableOpacity onPress={() => navigation.goBack()}> 
@@ -28,10 +29,10 @@ export default function AppBar({title,subtitle,left,right,backgroundColor = "whi
                     </TouchableOpacity>:<></>)
             }</Box>
             <Box flex={1}>
-                <VStack alignSelf={"center"}>
-                    <CText textAlign={"center"} numberOfLines={1} variant="subheading">{title}</CText>
+                <VStack  alignSelf={(centered)?"center":"flex-start"}>
+                    <CText  numberOfLines={1} variant="subheading">{title}</CText>
                     {
-                        (subtitle)? <CText numberOfLines={2} mt="-5px" textAlign="center" color="gray.400" variant="body2">{subtitle}</CText>:<></>
+                        (subtitle)? <CText numberOfLines={2} mt="-5px"  color="gray.400" variant="body2">{subtitle}</CText>:<></>
                     }
                 </VStack>
             </Box>

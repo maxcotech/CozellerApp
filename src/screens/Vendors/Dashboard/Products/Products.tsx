@@ -41,7 +41,7 @@ export default function Products() {
                         <MaterialCommunityIcons size={25} name="filter" />
                     </TouchableOpacity>} />
 
-                <View flex={1} pt="15px" px={XPADDING}>
+                <View flex={1} pt="10px" px={XPADDING}>
                     <Box py="5px">
                         <CustomSearchInput backgroundColor={"gray.200"} placeholder="Search Products" isLoading={isRefetching} onChangeText={(query) => setParams({ ...params, query })} value={params.query} />
                     </Box>

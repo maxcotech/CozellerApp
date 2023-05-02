@@ -54,7 +54,7 @@ export default function Home(){
                 right={<AppBtn isLoading={changeCurrency?.isLoading || profileQuery?.isLoading} onPress={() => setShowCurrencyOptions(true)} textVariant="body4"  gradient={true}>
                     {currency?.currency_code} ({decode(currency?.currency_sym)})
                 </AppBtn>}
-                left={<Image width="40px" height="40px" borderRadius={"lg"} source={{uri:store?.store_logo}} />}
+                left={<Image width="40px" backgroundColor={"gray.200"} height="40px" borderRadius={"lg"} source={{uri:store?.store_logo}} />}
                 subtitle={store?.store_address} title={store?.store_name} 
             />
             <ScrollView refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={() => {refetch()}} />} px={XPADDING} flex={1}>
@@ -171,6 +171,7 @@ export default function Home(){
             </ScrollView>
             <Actionsheet isOpen={showCurrencyOptions} onClose={() => setShowCurrencyOptions(false)}>
                 <Actionsheet.Content>
+                    
                     <Box width="full" px="15px" py="25px">
                         <CustomSelect  placeholder="Select New Currency"  label={<CText fontWeight="bold" mb="7px">Change Currency</CText>} isLoading={currencyQuery?.isLoading} onValueChange={onChangeCurrency} value={currency.id} titleKey="currency_name" valueKey="id" options={currencyQuery.data?.data ?? []} />
                     </Box>

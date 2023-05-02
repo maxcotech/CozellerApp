@@ -4,7 +4,7 @@ import CText from "../../../../../components/CText";
 import SafeScaffold from "../../../../../components/SafeScaffold";
 import { useStoreWallet } from "../../../../api/queries/wallet.queries";
 import { WalletParams } from "../../../../config/data_types/wallet_types";
-import { Box, HStack, ScrollView, VStack, View } from "native-base";
+import { Box, HStack, Icon, ScrollView, VStack, View } from "native-base";
 import WalletSkeleton from "./Fragments/WalletSkeleton";
 import { XPADDING } from "../../../../config/constants.config";
 import { LinearGradient } from "expo-linear-gradient";
@@ -15,9 +15,12 @@ import EmptyPage from "../../../../../components/EmptyPage";
 import PaginatedScrollView from "../../../../../components/PaginatedScrollView";
 import WalletRecordItem from "./Fragments/WalletRecordItem";
 import AppBtn from "../../../../../components/AppBtn";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../config/routes.config";
 
 export default function Wallet() {
     const appContext = useContext(AppContext);
+    const navigation = useNavigation<AppNavProps>();
     const [queryParams, setQueryParams] = useState<WalletParams>(
         { store_id: appContext?.profileData?.current_store?.id } as WalletParams
     )
@@ -31,8 +34,8 @@ export default function Wallet() {
 
     return (
         <SafeScaffold>
-            <AppBar title="Store Wallet" right={
-                <AppBtn paddingX={10} borderRadius={8} gradient={true} textVariant="body4">Withdraw</AppBtn>
+            <AppBar centered={false} title="Store Wallet" subtitle="Manage Store Wallet Funds " right={
+                <AppBtn onPress={() => navigation.navigate(routes.vendorRequestWithdrawal)} paddingX={10} borderRadius={8} gradient={true} textVariant="body4">Withdraw Fund</AppBtn>
             }  />
             <View flex={1} pt="10px" px={XPADDING}>
                 {
@@ -71,11 +74,13 @@ export default function Wallet() {
                                     />
                                 </LinearGradient>
                             </View>
-                            <HStack justifyContent={"space-between"} alignItems="center">
-                                <CText my="10px" color="gray.400">Transaction History</CText>
-                                <Box>
-                                    <MaterialCommunityIcons name="chevron-down" size={25} />
-                                </Box>
+                            <HStack py="10px" justifyContent={"space-between"} alignItems="center">
+                                <CText my="10px" color="gray.400" variant="body1">Transaction History</CText>
+                                <AppBtn paddingY={10} borderRadius={8} gradient={true}>
+                                    <Icon  color="gray.200" size="md" as={<MaterialCommunityIcons  name="filter"  />} />
+                                </AppBtn>
+                                
+                               
                             </HStack>
                             {
                                 (walletRecords && walletRecords?.length > 0)?

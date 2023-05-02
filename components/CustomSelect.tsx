@@ -6,14 +6,14 @@ import CText from "./CText";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import CustomInput from "./CustomInput";
 
-export interface CustomInputProps extends TextInputProps {
+export interface CustomInputProps<T> extends TextInputProps {
     searchPlaceholder?: string,
     includeSearch?: boolean,
     value?: any, error?: string | string[],
     isLoading?: boolean,
     titleKey? : string,
     valueKey? : string,
-    options: any[],
+    options: T[],
     prefix?: React.ReactNode,
     suffix?: React.ReactNode,
     px?: any, py?: any,
@@ -26,14 +26,16 @@ export interface CustomInputProps extends TextInputProps {
     width?: any,
     height?: any,
     onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void,
-    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void,
+    renderItem?: (item: T, index: number) => JSX.Element
 }
 
 
-export default function CustomSelect({ 
+export default function CustomSelect<T>({ 
+    renderItem,
     error,isLoading = false, includeSearch = false,searchPlaceholder = "Search Items",
     labelText,label,options, value, onValueChange, titleKey = "title", valueKey = "value",
-    onFocus, onBlur, backgroundColor = "#F5F5F5", width = "full", height, prefix,suffix,borderRadius = "8px", px = "15px", py = "10px", mx="0px", my="0px",...props}: CustomInputProps){
+    onFocus, onBlur, backgroundColor = "#F5F5F5", width = "full", height, prefix,suffix,borderRadius = "8px", px = "15px", py = "10px", mx="0px", my="0px",...props}: CustomInputProps<T>){
     const [focused,setFocused] = useState(false);
     const [optionsCopy,setOptionsCopy] = useState([...options]);
     const [search,setSearch] = useState("");
@@ -111,7 +113,10 @@ export default function CustomSelect({
                 {
                     <FlatList width={"full"} renderItem={({item,index}) => (
                         <Actionsheet.Item key={item[valueKey]+"/"+index} onPress={() => {onValueChange(item[valueKey],setLoading); onClose();}}>
-                            <CText>{item[titleKey]}</CText>
+                            {
+                                (!!renderItem)? renderItem(item,index):<CText>{ item[titleKey]}</CText>
+                            }
+                            
                         </Actionsheet.Item>
                     )} data={optionsCopy} />
 
