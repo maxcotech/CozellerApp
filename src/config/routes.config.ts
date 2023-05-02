@@ -32,7 +32,8 @@ const VendorRoutes = {
     vendorBankAccounts: "vendor/bank-accounts",
     vendorCreateBankAccount: "vendor/create-bankaccount",
     vendorUpdateBankAccount: "vendor/update-bankaccount",
-    vendorRequestWithdrawal: "vendor/request-withdrawal"
+    vendorRequestWithdrawal: "vendor/request-withdrawal",
+    vendorOrderDetails: "vendor/order-details"
 }
 
 const VendorDashboardRoutes = {

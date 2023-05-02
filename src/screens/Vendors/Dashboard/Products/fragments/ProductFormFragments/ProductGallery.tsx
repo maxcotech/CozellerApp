@@ -42,7 +42,7 @@ export default function ProductGallery(){
 
     return (
         <View pt="15px" flex={1}>
-            <ScrollView flex={1}>
+            <ScrollView showsVerticalScrollIndicator={false} flex={1}>
                 <CText mb="10px" fontWeight={"bold"}>Main Product Image*</CText>
                 <HStack width="full" space={2}>
                     

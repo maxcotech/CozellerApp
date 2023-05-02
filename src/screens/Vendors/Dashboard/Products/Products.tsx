@@ -51,7 +51,7 @@ export default function Products() {
                             <>
                                 {
                                     (data?.data?.data && data?.data?.data?.length > 0) ?
-                                        <PaginatedScrollView paginationData={data?.data} pageParams={{ ...params, store_id: current_store?.id } as StoreProductParams} onLoadNewPage={(params: StoreProductParams) => {
+                                        <PaginatedScrollView showsVerticalScrollIndicator={false} paginationData={data?.data} pageParams={{ ...params, store_id: current_store?.id } as StoreProductParams} onLoadNewPage={(params: StoreProductParams) => {
                                             setParams(params)
                                         }} style={{ flex: 1 }}>
                                             {

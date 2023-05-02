@@ -1,4 +1,4 @@
-import { OrderStatuses, ResourceStatuses } from "../config/enum.config";
+import { OrderStatuses, PaymentStatuses, ResourceStatuses } from "../config/enum.config";
 
 export const getResourceStatusColorScheme = (status: ResourceStatuses) => {
     switch(status){
@@ -47,10 +47,17 @@ export const getOrderStatusColorScheme = (status: OrderStatuses) => {
         case OrderStatuses.STATUS_AWAITING_FULFILLMENT: return {color: "info.500", bgColor: "info.200"};
         case OrderStatuses.STATUS_AWAITING_REFUND:
         case OrderStatuses.STATUS_DISPUTED:
-        case OrderStatuses.STATUS_PENDING: return {color: "gray.200", bgColor: "gray.500"};
+        case OrderStatuses.STATUS_PENDING: return {color: "gray.500", bgColor: "gray.200"};
         case OrderStatuses.STATUS_SHIPPED:
         case OrderStatuses.STATUS_COMPLETED:
         case OrderStatuses.STATUS_AWAITING_PICKUP:
-        default: return {color: "success.200", bgColor: "success.500"}; 
+        default: return {color: "success.500", bgColor: "success.200"}; 
     }
+}
+
+export const getPaymentStatusColorScheme = (status: PaymentStatuses) => {
+    if(status === PaymentStatuses.STATUS_NOT_PAID){
+        return {color: "danger.500", bgColor: "danger.200"}
+    }
+    return {color: "success.500", bgColor: "success.200"}
 }

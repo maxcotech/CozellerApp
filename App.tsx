@@ -10,7 +10,7 @@ import AppContext from './src/contexts/AppContext';
 import client from "./src/config/client.config";
 import 'expo-dev-client';
 import axios from 'axios';
-import {IP_FETCH_API } from "@env";
+import {IP_FETCH_API } from "./src/config/constants.config";
 import { LogBox } from "react-native";
 import {Storage} from "expo-storage";
 import { AUTH_STORAGE_KEY } from "./src/config/constants.config";

@@ -1,7 +1,8 @@
-import { OrderStatuses, PaymentStatuses } from "../enum.config";
+import { OrderStatuses, PaymentStatuses, ProductTypes } from "../enum.config";
 import { Account } from "./account_types";
 import { BillingAddress } from "./billing_address.types";
 import { PaginationParams } from "./general.types";
+import { ProductSummary } from "./product_types";
 import { Store } from "./store_types";
 
 export interface Order {
@@ -39,5 +40,28 @@ export interface SubOrder {
     payment_status_text: string,
     user: Partial<Account>,
     order: Partial<Order>,
-    store: Partial<Store>
+    store: Partial<Store>,
+    items?: OrderProductItem[]
+}
+
+export interface SubOrderStatusParams {
+    new_status: OrderStatuses,
+    store_id: number,
+    user_id: number,
+    sub_order_id: number,
+    fund_password: string,
+}
+
+export interface OrderProductItem {
+    id: number,
+    user_id: number,
+    paid_amount: number,
+    quantity: number,
+    product_type: ProductTypes,
+    sub_order_id: number,
+    product_id: number,
+    variation_id: null | number,
+    product: Partial<ProductSummary>,
+    variation: any
+
 }

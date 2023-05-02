@@ -8,3 +8,10 @@ export const debounced = <T>(val: T,actionFunc: (val: T) => void, timeoutDuratio
         actionFunc(val);
     },timeoutDuration)
 }
+
+export const enumToArray = (enumme) => {
+    const StringIsNumber = value => isNaN(Number(value)) === false;
+    return Object.keys(enumme)
+        .filter(StringIsNumber)
+        .map(key => enumme[key]);
+}

@@ -46,7 +46,7 @@ export default function CategoryOptions(){
                     setSelectedCategory(null);
                 }}  borderRadius={8} textVariant="body4" gradient={true}>Back to main</AppBtn>:<></>}
                 subtitle={selectedCategory?.category_title ?? "Main Categories"} title="Select Category" />
-            <View pt="5px" paddingX={XPADDING} flex={1}>
+            <View py="5px" paddingX={XPADDING} flex={1}>
                 <CustomSearchInput onChangeText={(val) => setParams({...params,search:val})} my="10px" placeholder="Search Categories" />
                 { 
                     (isLoading)?
@@ -54,7 +54,7 @@ export default function CategoryOptions(){
                     <>
                         {
                             (data?.data?.data && data?.data?.data?.length > 0)?
-                            <PaginatedScrollView paginationData={data?.data} pageParams={params} onLoadNewPage={(newParams: CategoryParams) => setParams({...params,...newParams})} style={{flex:1}}>
+                            <PaginatedScrollView showsVerticalScrollIndicator={false} paginationData={data?.data} pageParams={params} onLoadNewPage={(newParams: CategoryParams) => setParams({...params,...newParams})} style={{flex:1}}>
                                 {
                                     data?.data?.data?.map((item) => (
                                         <Box py="8px">

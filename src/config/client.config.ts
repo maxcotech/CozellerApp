@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { HttpDataResponse } from "./data_types/general.types";
-import { API_BASE_URL } from "@env";
+import { API_BASE_URL } from "./constants.config";
 
 
 

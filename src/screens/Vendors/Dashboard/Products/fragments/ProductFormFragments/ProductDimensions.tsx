@@ -14,7 +14,7 @@ export default function ProductDimensions(){
     const {productForm, setFormValue,productFormErrors, setProductFormIndex} = formContext;
     return (
         <View flex={1}>
-        <ScrollView pt="20px" contentContainerStyle={{paddingBottom:20}} flex={1}>
+        <ScrollView showsVerticalScrollIndicator={false} pt="20px" contentContainerStyle={{paddingBottom:20}} flex={1}>
             <CText fontWeight="bold">Size By Weight</CText>
             <CText variant="body3" color="gray.400">
                 Use product weight to determine the bulk of the product(s) when calculating shipping cost.

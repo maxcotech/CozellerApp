@@ -79,8 +79,8 @@ export enum TransactionStatuses {
 }
 
 export enum PaymentStatuses {
-    PAYMENT_STATUS_PAID = 1,
-    PAYMENT_STATUS_NOT_PAID = 0
+    STATUS_PAID = 1,
+    STATUS_NOT_PAID = 0
 }
 
 export enum WalletLockStatuses {
@@ -91,4 +91,9 @@ export enum WalletLockStatuses {
 export enum LedgerTypes {
     LEDGER_CREDIT = 1,
     LEDGER_DEBIT = 0,
+}
+
+export enum ProductTypes {
+    SimpleProduct = "simple_product",
+    VariationProduct = "variation_product"
 }

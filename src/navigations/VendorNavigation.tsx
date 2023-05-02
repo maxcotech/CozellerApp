@@ -17,6 +17,7 @@ import BankAccounts from "../screens/Vendors/BankAccount/BankAccounts";
 import CreateBankAccount from "../screens/Vendors/BankAccount/CreateBankAccount";
 import RequestWithdrawal from "../screens/Vendors/Withdrawal/RequestWithdrawal";
 import UpdateBankAccount from "../screens/Vendors/BankAccount/UpdateBankAccount";
+import OrderDetails from "../screens/Vendors/Dashboard/Orders/OrderDetails";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -95,6 +96,11 @@ export default function VendorNavigation(){
                 options={defaultOptions}
                 name={routes.vendorRequestWithdrawal}
                 component={RequestWithdrawal}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorOrderDetails}
+                component={OrderDetails}
             />
         </Stack.Navigator>
         </ProductFormProvider>

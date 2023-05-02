@@ -10,7 +10,12 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "API_BASE_URL": "https://api.cozeller.com/api/v1/",
+        "IP_FETCH_API": "https://api.db-ip.com/v2/free/self"
+      }
+    }
   },
   "submit": {
     "production": {}
