@@ -26,10 +26,8 @@ export default function ProductGallery(){
         return formData;
     }
     const onUploadProductImage = async (file: any, iloader: any) => {
-        console.log('prof ',file)
         const formData = generateFormData(file,"product_image");
         await uploadProductImage(formData,iloader,(data) => {
-            console.log(data);
             setFormValue(data?.image_full_path,"product_image");
         }) 
     }
@@ -38,7 +36,6 @@ export default function ProductGallery(){
         const formData = generateFormData(file,key);
         formData.append('image_type',key);
         await uploadGalleryImage(formData,iloader,(data) => {
-            console.log(data)
             setFormValue(data?.image_full_path,key);
         })
     }

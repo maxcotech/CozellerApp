@@ -21,7 +21,6 @@ export default function UpdateProduct(){
         onSuccess:(data) => {
             const newData = generateFormFromProduct(data?.data);
             formContext.setProductForm(newData);
-            console.log(newData);
         },
         onError:(error) => {
             toast.show(error.message,{type:"danger"});

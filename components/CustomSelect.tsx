@@ -1,6 +1,6 @@
 import { TextInput, TextInputProps, NativeSyntheticEvent, TextInputFocusEventData} from "react-native";
 import React, {useState, useMemo, useEffect} from "react";
-import { Actionsheet, Box, Center, HStack, Pressable, ScrollView, Spinner, View } from "native-base";
+import { Actionsheet, Box, Center, FlatList, HStack, Pressable, ScrollView, Spinner, View } from "native-base";
 import { APP_COLOR } from "../src/config/constants.config";
 import CText from "./CText";
 import { Feather, Ionicons } from "@expo/vector-icons";
@@ -96,10 +96,10 @@ export default function CustomSelect({
                     }
                 </View>
             </Pressable>
-            <Actionsheet collapsable={true} onClose={onClose}  isOpen={optionsVisible}>
+            <Actionsheet removeClippedSubviews={true} onClose={onClose}  isOpen={optionsVisible}>
                 
         
-                <Actionsheet.Content maxHeight={"full"} >
+                <Actionsheet.Content maxHeight={"full"}>
                       {
                         (includeSearch)?
                         <Box px="10px" alignSelf={"stretch"} width="full">
@@ -109,16 +109,12 @@ export default function CustomSelect({
                         
                     
                 {
-                    (optionsCopy && optionsCopy?.length > 0)?
-                    <>
-                        {
-                            optionsCopy.map((item) => (
-                                <Actionsheet.Item key={item[valueKey]} onPress={() => {onValueChange(item[valueKey],setLoading); onClose();}}>
-                                    <CText>{item[titleKey]}</CText>
-                                </Actionsheet.Item>
-                            ))
-                        }
-                    </>:<></>
+                    <FlatList width={"full"} renderItem={({item,index}) => (
+                        <Actionsheet.Item key={item[valueKey]+"/"+index} onPress={() => {onValueChange(item[valueKey],setLoading); onClose();}}>
+                            <CText>{item[titleKey]}</CText>
+                        </Actionsheet.Item>
+                    )} data={optionsCopy} />
+
                 }
                 </Actionsheet.Content>
                 

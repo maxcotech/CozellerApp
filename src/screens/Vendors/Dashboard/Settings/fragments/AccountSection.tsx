@@ -37,7 +37,7 @@ export default function AccountSection() {
 
     return (
         <>
-            <View >
+            <View mb="20px" >
                 <CText mb="8px" fontWeight="bold">Account</CText>
                 <Box borderRadius="lg" backgroundColor={"rgba(0,148,69,0.1)"} >
                     <TouchableOpacity>

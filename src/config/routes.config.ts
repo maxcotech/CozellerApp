@@ -28,7 +28,11 @@ const VendorRoutes = {
     variationForm: "vendor/dashboard/variation-form",
     categoryOptions: "vendor/category-options",
     brandOptions: "vendor/brand-options",
-    vendorCreateBrand: "vendor/create-brand"
+    vendorCreateBrand: "vendor/create-brand",
+    vendorBankAccounts: "vendor/bank-accounts",
+    vendorCreateBankAccount: "vendor/create-bankaccount",
+    vendorUpdateBankAccount: "vendor/update-bankaccount",
+    vendorRequestWithdrawal: "vendor/request-withdrawal"
 }
 
 const VendorDashboardRoutes = {

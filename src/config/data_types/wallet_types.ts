@@ -1,4 +1,5 @@
-import { WalletLockStatuses } from "../enum.config"
+import { LedgerTypes, WalletLockStatuses } from "../enum.config"
+import { PaginatedData, PaginationParams } from "./general.types"
 
 export interface WalletRecord {
         id: number,
@@ -25,4 +26,21 @@ export interface WalletLock {
     status: WalletLockStatuses,
     wallet_fund_id: number,
     status_text: string
+}
+
+export interface WalletParams extends PaginationParams {
+    store_id: number,
+    start_date: string ,
+    in_range: string,
+    end_date: string,
+    ledger_type: LedgerTypes
+}
+
+export interface WalletViewData extends PaginatedData<WalletRecord[]> {
+    total_balance: number,
+    locked_credits: number,
+    unlocked_credits: number,
+    total_debits: number,
+    pending_requests: number,
+    current_page: number,
 }

@@ -13,6 +13,10 @@ import BrandOptions from "../screens/Vendors/BrandOptions/BrandOptions";
 import CreateBrand from "../screens/Vendors/BrandOptions/CreateBrand";
 import VariationForm from "../screens/Vendors/Dashboard/Products/fragments/ProductFormFragments/VariationForm";
 import UpdateProduct from "../screens/Vendors/Dashboard/Products/UpdateProduct";
+import BankAccounts from "../screens/Vendors/BankAccount/BankAccounts";
+import CreateBankAccount from "../screens/Vendors/BankAccount/CreateBankAccount";
+import RequestWithdrawal from "../screens/Vendors/Withdrawal/RequestWithdrawal";
+import UpdateBankAccount from "../screens/Vendors/BankAccount/UpdateBankAccount";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -72,7 +76,26 @@ export default function VendorNavigation(){
                 name={routes.vendorUpdateProduct}
                 component={UpdateProduct}
             />
-
+             <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorBankAccounts}
+                component={BankAccounts}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorCreateBankAccount}
+                component={CreateBankAccount}
+            />
+             <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorUpdateBankAccount}
+                component={UpdateBankAccount}
+            />
+             <Stack.Screen
+                options={defaultOptions}
+                name={routes.vendorRequestWithdrawal}
+                component={RequestWithdrawal}
+            />
         </Stack.Navigator>
         </ProductFormProvider>
     )
