@@ -1,5 +1,5 @@
 import { UseMutationOptions, UseQueryOptions, useMutation, useQuery } from "react-query";
-import { createBankAccount, deleteBankAccount, fetchBankAccounts, fetchBankCodes } from "../services/bank.services";
+import { createBankAccount, deleteBankAccount, fetchBankAccounts, fetchBankCodes, updateBankAccount } from "../services/bank.services";
 import { GenericDataResponse, HttpDataResponse } from "../../config/data_types/general.types";
 import { BankAccount, BankCode, BankFormData, DeleteBankParams } from "../../config/data_types/bank_types";
 
@@ -34,6 +34,13 @@ export const useCreateBankAccounts = (options: UseMutationOptions<HttpDataRespon
 export const useDeleteBankAccount = (options: UseMutationOptions<HttpDataResponse,HttpDataResponse,DeleteBankParams>) => {
     return useMutation<HttpDataResponse,HttpDataResponse,DeleteBankParams>(
         deleteBankAccount,
+        options
+    )
+}
+
+export const useUpdateBankAccount = (options: UseMutationOptions<HttpDataResponse,HttpDataResponse,BankFormData>) => {
+    return useMutation<HttpDataResponse,HttpDataResponse,BankFormData>(
+        updateBankAccount,
         options
     )
 }

@@ -103,7 +103,7 @@ export default function CustomSelect({
                       {
                         (includeSearch)?
                         <Box px="10px" alignSelf={"stretch"} width="full">
-                            <CustomInput suffix={(search?.length > 0)? <Ionicons onPress={onCloseSearch} size={20} name="close" />:<></>} onChangeText={onSearchChange} value={search}  prefix={<Ionicons color="gray" size={20} name="search" />} placeholder={searchPlaceholder} />
+                            <CustomInput autoFocus={true} backgroundColor={"gray.200"} borderRadius={30} suffix={(search?.length > 0)? <Ionicons onPress={onCloseSearch} size={20} name="close" />:<></>} onChangeText={onSearchChange} value={search}  prefix={<Ionicons color="gray" size={20} name="search" />} placeholder={searchPlaceholder} />
                         </Box>:<></>
                       }
                         

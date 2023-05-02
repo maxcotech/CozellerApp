@@ -9,7 +9,6 @@ import { ManageResourceActions } from "../../../../config/enum.config";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
 import ConfirmDialog from "../../../../../components/ConfirmDialog";
-import { ConfirmDialogProps } from './../../../../../components/ConfirmDialog';
 import { BankQueryKeys, useDeleteBankAccount } from "../../../../api/queries/bank.queries";
 import { useQueryClient } from "react-query";
 import { APP_COLOR } from './../../../../config/constants.config';
@@ -28,7 +27,7 @@ export default function BankAccountItem({data}:{data:BankAccount}){
     const onSelectAction = (option: ManageResourceActions) => {
         setShowOptions(false);
         if(option === ManageResourceActions.Update){
-            navigation.navigate(routes.vendorUpdateBankAccount);
+            navigation.navigate(routes.vendorUpdateBankAccount,{bank: data});
         }
         if(option === ManageResourceActions.Delete){
             setShowDelete(true);
@@ -41,8 +40,8 @@ export default function BankAccountItem({data}:{data:BankAccount}){
                 {
                     (deleteQuery.isLoading)?
                     <Spinner size="lg" color={APP_COLOR} />:
-                    <Box borderRadius="full" backgroundColor={"info.200"} justifyContent={"center"} alignItems="center" width="50px" height="50px">
-                        <Icon size="md" color="info.500" as={<MaterialCommunityIcons name="bank" />} />
+                    <Box borderRadius="full" backgroundColor={"gray.200"} justifyContent={"center"} alignItems="center" width="50px" height="50px">
+                        <Icon size="md" color="gray.500" as={<MaterialCommunityIcons name="bank" />} />
                     </Box>
                 }
                 
@@ -94,10 +93,12 @@ export default function BankAccountItem({data}:{data:BankAccount}){
                     </Actionsheet.Item>
             </Actionsheet.Content>
         </Actionsheet>
-        <ConfirmDialog onConfirm={() => deleteQuery.mutate({
-            store_id: data.store_id,
-            bank_account_id: data.id
-        })} message="This bank account will be permanently deleted." isOpen={showDelete} onClose={() => setShowDelete(false)} />
+        <ConfirmDialog onConfirm={() => {
+            setShowDelete(false);
+            deleteQuery.mutate({
+                store_id: data.store_id,
+                bank_account_id: data.id
+        })}} message="This bank account will be permanently deleted." isOpen={showDelete} onClose={() => setShowDelete(false)} />
         </>
     )
 }
