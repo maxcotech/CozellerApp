@@ -15,6 +15,7 @@ import { AccountTypes } from "../config/enum.config";
 import VendorNavigation from "./VendorNavigation";
 import ComingSoon from "../screens/ComingSoon/ComingSoon";
 import { APP_COLOR } from "../config/constants.config";
+import ChangePassword from "../screens/ChangePassword/ChangePassword";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation(){
@@ -83,7 +84,11 @@ export default function IndexNavigation(){
                 name={routes.drawer}
                 component={DrawerNavigation}
             />
-            
+            <Stack.Screen 
+                options={defaultOptions} 
+                name={routes.changePassword}
+                component={ChangePassword}
+            />
 
 
             

@@ -52,3 +52,9 @@ export interface AccountFormData {
     telephone_code: string,
     account_type: AccountTypes
 }
+
+export interface PasswordFormData {
+    old_password:string,
+    new_password:string,
+    confirm_password:string
+}

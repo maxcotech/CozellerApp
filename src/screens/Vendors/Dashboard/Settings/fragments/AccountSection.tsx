@@ -40,7 +40,7 @@ export default function AccountSection() {
             <View mb="20px" >
                 <CText mb="8px" fontWeight="bold">Account</CText>
                 <Box borderRadius="lg" backgroundColor={"rgba(0,148,69,0.1)"} >
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.changePassword)}>
                         <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                             <HStack space={2} alignItems="center">

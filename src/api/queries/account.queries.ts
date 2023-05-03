@@ -1,7 +1,7 @@
 import { QueryFunction, useMutation, UseMutationOptions, useQuery, UseQueryOptions } from "react-query";
-import { AccountFormData, AuthData, EmailVerificationData, LoginData, ProfileData } from "../../config/data_types/account_types";
+import { AccountFormData, AuthData, EmailVerificationData, LoginData, PasswordFormData, ProfileData } from "../../config/data_types/account_types";
 import { GenericDataResponse, HttpDataResponse } from "../../config/data_types/general.types";
-import { completeEmailVerification, fetchProfile, login, logout, register, sendEmailVerification, updateAccount } from "../services/account.services";
+import { completeEmailVerification, fetchProfile, login, logout, register, sendEmailVerification, updateAccount, updatePassword } from "../services/account.services";
 
 export const AccountQueryKeys = {
     fetchProfile: "get/profile"
@@ -34,4 +34,8 @@ export const useUpdateAccount = (options: UseMutationOptions<HttpDataResponse,Ht
 
 export const useLogoutAccount = (options: UseMutationOptions<HttpDataResponse,HttpDataResponse,unknown>) => {
     return useMutation<HttpDataResponse,HttpDataResponse,unknown>(logout,options)
+}
+
+export const useUpdatePassword = (options: UseMutationOptions<HttpDataResponse,HttpDataResponse,PasswordFormData>) => {
+    return useMutation<HttpDataResponse,HttpDataResponse,PasswordFormData>(updatePassword,options)
 }

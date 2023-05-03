@@ -13,7 +13,8 @@ const AuthRoutes = {
     login: "auth/login",
     register: "auth/register",
     logout: "auth/logout",
-    emailVerification: "auth/email-verification"
+    emailVerification: "auth/email-verification",
+    changePassword: "auth/change-password"
 }
 
 const VendorRoutes = {
