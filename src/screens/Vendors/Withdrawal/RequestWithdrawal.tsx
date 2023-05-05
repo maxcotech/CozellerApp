@@ -60,7 +60,7 @@ export default function RequestWithdrawal(){
                                 <CText color="gray.400" variant="body3">{item.account_number}</CText>
                             </VStack>
                         )}
-                    options={data?.data ?? []} my="8px" onValueChange={(val) => setFormValue(val,"bank_account_id")}  labelText="Bank Account*" keyboardType="number-pad" placeholder="Enter Amount" />
+                    options={data?.data ?? []} my="8px" onValueChange={(val) => setFormValue(val,"bank_account_id")}  labelText="Bank Account*" keyboardType="number-pad" placeholder="Select Bank Account " />
                     <CustomPasswordInput error={errors?.password} value={formState.password} my="8px" onChangeText={(val) => setFormValue(val,"password")}  labelText="Password*"  placeholder="Enter Password to authenticate" />
                 </ScrollView>
                 <Box my="10px">

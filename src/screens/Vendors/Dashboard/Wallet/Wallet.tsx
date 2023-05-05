@@ -33,7 +33,7 @@ export default function Wallet() {
     },[walletQuery?.data?.data?.data])
 
     return (
-        <SafeScaffold>
+        <View flex={1}>
             <AppBar centered={false} title="Store Wallet" subtitle="Manage Store Wallet Funds " right={
                 <AppBtn onPress={() => navigation.navigate(routes.vendorRequestWithdrawal)} paddingX={10} borderRadius={8} gradient={true} textVariant="body4">Withdraw Fund</AppBtn>
             }  />
@@ -99,6 +99,6 @@ export default function Wallet() {
                 }
 
             </View>
-        </SafeScaffold>
+        </View>
     )
 }

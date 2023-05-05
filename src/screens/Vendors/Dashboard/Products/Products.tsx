@@ -35,7 +35,7 @@ export default function Products() {
     }
     return (
         <>
-            <SafeScaffold>
+            <View flex={1}>
                 <AppBar subtitle="Create and manage products" title="Manage Products" right={
                     <TouchableOpacity onPress={() => setFiltersVisibility(true)}>
                         <MaterialCommunityIcons size={25} name="filter" />
@@ -70,7 +70,7 @@ export default function Products() {
                     }
                     <Fab renderInPortal={false} onPress={() => navigation.navigate(routes.vendorCreateProduct)} label={<AntDesign color="white" size={20} name="plus" />} backgroundColor={APP_COLOR} bottom={5} />
                 </View>
-            </SafeScaffold>
+            </View>
             <Actionsheet onClose={() => setFiltersVisibility(false)} isOpen={filtersVisibility}>
                 <Actionsheet.Content>
                     <CText variant="body1">Filter By Status</CText>

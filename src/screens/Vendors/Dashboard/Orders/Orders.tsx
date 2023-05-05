@@ -26,7 +26,7 @@ export default function Orders(){
     const {isLoading,data} = useSubOrders(queryParams)
     return (
         <>
-        <SafeScaffold>
+        <View flex={1}>
             <AppBar title="Manage Orders" right={
                 <TouchableOpacity onPress={() => setFiltersVisibility(true)}>
                     <MaterialCommunityIcons size={25} name="filter" />
@@ -54,7 +54,7 @@ export default function Orders(){
                 }
             
             </View>
-        </SafeScaffold>
+        </View>
         <OrderStatusOptions title="Filter By Order Status" onSelect={(status: OrderStatuses) => {
             setFiltersVisibility(false);
             setQueryParams({...queryParams,status})

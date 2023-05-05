@@ -47,6 +47,7 @@ export default function Login(){
             }
         },
         onError:(data) => {
+            toast.show(data?.message, {type:"danger"})
             setErrors(data.data)
         }
     })

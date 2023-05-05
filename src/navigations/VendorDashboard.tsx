@@ -7,6 +7,7 @@ import Orders from "../screens/Vendors/Dashboard/Orders/Orders";
 import Products from "../screens/Vendors/Dashboard/Products/Products";
 import Wallet from "../screens/Vendors/Dashboard/Wallet/Wallet";
 import Settings from "../screens/Vendors/Dashboard/Settings/Settings";
+import SafeScaffold from "../../components/SafeScaffold";
 
 const Tab = createBottomTabNavigator();
 export enum VendorTabLabels {
@@ -16,37 +17,39 @@ export enum VendorTabLabels {
     Wallet = "Wallet",
     Settings = "Settings"
 }
-export default function VendorDashboard(){
-    const defaultOptions = { statusBarColor:APP_COLOR, headerShown: false, animation: "slide_from_right" } 
+export default function VendorDashboard() {
+    const defaultOptions = { statusBarColor: APP_COLOR, headerShown: false, animation: "slide_from_right" }
 
     return (
-        <Tab.Navigator screenOptions={{unmountOnBlur:true}} tabBar={(props) => <VendorTabBar {...props} />}>
-            <Tab.Screen
-                options={{...defaultOptions, tabBarLabel: VendorTabLabels.Home}}
-                component={Home}
-                name={routes.vendorDashboardHome}
-            />
-            <Tab.Screen
-                options={{...defaultOptions, tabBarLabel: VendorTabLabels.Orders}}
-                component={Orders}
-                name={routes.vendorDashboardOrders}
-            />
-            <Tab.Screen
-                options={{...defaultOptions, tabBarLabel: VendorTabLabels.Products}}
-                component={Products}
-                name={routes.vendorDashboardProducts}
-            />
-            <Tab.Screen
-                options={{...defaultOptions, tabBarLabel: VendorTabLabels.Wallet}}
-                component={Wallet}
-                name={routes.vendorDashboardWallet}
-            />
-            <Tab.Screen
-                options={{...defaultOptions, tabBarLabel: VendorTabLabels.Settings}}
-                component={Settings}
-                name={routes.vendorDashboardSettings}
-            />
-        </Tab.Navigator>
+        <SafeScaffold>
+            <Tab.Navigator screenOptions={{ unmountOnBlur: true }} tabBar={(props) => <VendorTabBar {...props} />}>
+                <Tab.Screen
+                    options={{ ...defaultOptions, tabBarLabel: VendorTabLabels.Home }}
+                    component={Home}
+                    name={routes.vendorDashboardHome}
+                />
+                <Tab.Screen
+                    options={{ ...defaultOptions, tabBarLabel: VendorTabLabels.Orders }}
+                    component={Orders}
+                    name={routes.vendorDashboardOrders}
+                />
+                <Tab.Screen
+                    options={{ ...defaultOptions, tabBarLabel: VendorTabLabels.Products }}
+                    component={Products}
+                    name={routes.vendorDashboardProducts}
+                />
+                <Tab.Screen
+                    options={{ ...defaultOptions, tabBarLabel: VendorTabLabels.Wallet }}
+                    component={Wallet}
+                    name={routes.vendorDashboardWallet}
+                />
+                <Tab.Screen
+                    options={{ ...defaultOptions, tabBarLabel: VendorTabLabels.Settings }}
+                    component={Settings}
+                    name={routes.vendorDashboardSettings}
+                />
+            </Tab.Navigator>
+        </SafeScaffold>
     )
-    
+
 }

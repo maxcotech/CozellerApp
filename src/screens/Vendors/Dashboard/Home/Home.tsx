@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "../../../../../components/AppBar";
 import CText from "../../../../../components/CText";
-import SafeScaffold from "../../../../../components/SafeScaffold";
 import AppContext from "../../../../contexts/AppContext";
 import { Actionsheet, Box, HStack, Image, ScrollView, VStack, View } from "native-base";
 import { AntDesign, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
@@ -49,7 +48,7 @@ export default function Home(){
 
 
     return (
-        <SafeScaffold>
+        <View flex={1}>
             <AppBar 
                 right={<AppBtn isLoading={changeCurrency?.isLoading || profileQuery?.isLoading} onPress={() => setShowCurrencyOptions(true)} textVariant="body4"  gradient={true}>
                     {currency?.currency_code} ({decode(currency?.currency_sym)})
@@ -177,6 +176,6 @@ export default function Home(){
                     </Box>
                 </Actionsheet.Content>
             </Actionsheet>
-        </SafeScaffold>
+        </View>
     )
 }

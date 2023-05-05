@@ -13,7 +13,7 @@ export default function CText({
     children, variant = "body2", color = "black", ...props
 }:CTextProps){
     const finalProps = useMemo(() => {
-        const defaultProps: CTextProps = {fontFamily:"body", color, ...props}
+        const defaultProps: CTextProps = { color, ...props}
         switch(variant){
             case "body1" : return {...defaultProps, fontSize : "16px"};
             case "body2" : return {...defaultProps, fontSize : "14px"};
