@@ -22,7 +22,7 @@ export default function VendorDashboard() {
 
     return (
         <SafeScaffold>
-            <Tab.Navigator screenOptions={{ unmountOnBlur: true }} tabBar={(props) => <VendorTabBar {...props} />}>
+            <Tab.Navigator sceneContainerStyle={{backgroundColor:"white"}}  screenOptions={{ unmountOnBlur: true }} tabBar={(props) => <VendorTabBar {...props} />}>
                 <Tab.Screen
                     options={{ ...defaultOptions, tabBarLabel: VendorTabLabels.Home }}
                     component={Home}

@@ -64,7 +64,7 @@ export default function Login(){
         <ScrollView flex={1}>
         <Center flex={1} mt="100px"  px={"20px"} >
             
-                <Image alt={"App Logo"} size="md" source={require("../../../assets/icon.png")} />
+                <Image alt={"App Logo"} size="md" source={require("../../../assets/launcher_icon.png")} />
                 <CText variant="heading">Welcome Back</CText>
                 <CText variant="body2" textAlign={"center"} mb="5px"  px="20px" color="gray.500">Sign in to continue easy and smart shopping.</CText>
                 <CText mb="18px">Don't have an account yet ? <CText onPress={() => setSignupDialog(true)} fontWeight="bold" color={APP_COLOR}>Sign up</CText></CText> 

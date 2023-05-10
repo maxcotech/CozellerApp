@@ -4,7 +4,7 @@
     "slug": "cozeller",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/launcher_icon.png",
     "plugins": [
       "expo-image-picker"
     ],
@@ -29,13 +29,13 @@
         "android.permission.RECORD_AUDIO"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/launcher_icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.Maxcotech.Cozeller"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "extra": {
       "eas": {

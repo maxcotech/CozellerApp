@@ -71,7 +71,7 @@ export default function Register(){
                 }
                 
                 <Center width="full" px="20px" pt="15px">
-                    <Image alt={"App Logo"} size="md" source={require("../../../assets/icon.png")} />
+                    <Image alt={"App Logo"} size="md" source={require("../../../assets/launcher_icon.png")} />
                     <CText variant="heading">Sign Up</CText>
                     <CText variant="body2" textAlign={"center"} mb="5px"  px="20px" color="gray.500">Join our community of buyers and sellers today! Register now to start shopping and selling with Cozeller – it's quick and easy.</CText>
                     <CText mb="18px">Already have an account ? <CText onPress={() => navigation.navigate(routes.login as never)} fontWeight="bold" color={APP_COLOR}>Login</CText></CText> 

@@ -1,9 +1,9 @@
-import { HStack, VStack } from "native-base";
+import { Box, HStack, VStack } from "native-base";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import CText from "../../../components/CText";
-import { APP_COLOR, XPADDING } from "../../config/constants.config";
+import { APP_COLOR, APP_COLOR_LIGHTER, XPADDING } from "../../config/constants.config";
 import { VendorTabLabels } from "../VendorDashboard";
 
 export default function VendorTabBar({state,descriptors,navigation}:BottomTabBarProps){
@@ -20,7 +20,8 @@ export default function VendorTabBar({state,descriptors,navigation}:BottomTabBar
     }
 
     return (
-        <HStack  borderTopLeftRadius={"md"} borderTopRightRadius={"md"} style={{overflow:"hidden"}} alignItems="center" px={"5px"} py="8px" justifyContent={"space-evenly"}>
+      
+        <HStack  shadow={3}  backgroundColor={"gray.100"} borderTopLeftRadius={"md"} borderTopRightRadius={"md"} style={{overflow:"hidden"}} alignItems="center" px={"5px"} py="8px" justifyContent={"space-evenly"}>
             {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel ?? route.name;
@@ -71,5 +72,6 @@ export default function VendorTabBar({state,descriptors,navigation}:BottomTabBar
         );
       })}
         </HStack>
+       
     )
 }

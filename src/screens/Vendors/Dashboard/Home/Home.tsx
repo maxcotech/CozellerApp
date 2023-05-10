@@ -56,7 +56,7 @@ export default function Home(){
                 left={<Image width="40px" backgroundColor={"gray.200"} height="40px" borderRadius={"lg"} source={{uri:store?.store_logo}} />}
                 subtitle={store?.store_address} title={store?.store_name} 
             />
-            <ScrollView pt="10px" refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={() => {refetch()}} />} px={XPADDING} flex={1}>
+            <ScrollView contentContainerStyle={{paddingVertical:15}} refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={() => {refetch()}} />} px={XPADDING} flex={1}>
                 <TouchableOpacity>
                     <HStack borderRadius={"md"} px="15px" pb="15px" mt="10px" alignItems={"center"} justifyContent={"space-between"} backgroundColor={APP_COLOR}>
                         <Box>
