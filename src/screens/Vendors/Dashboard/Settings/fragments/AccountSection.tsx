@@ -45,7 +45,7 @@ export default function AccountSection() {
 
                             <HStack space={2} alignItems="center">
                                 <Ionicons size={18} name="key-outline" />
-                                <CText fontWeight="bold">Reset Password</CText>
+                                <CText>Reset Password</CText>
                             </HStack>
 
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
@@ -60,7 +60,7 @@ export default function AccountSection() {
                                     <Spinner color="red.400" />:
                                     <Ionicons color="red" size={18} name="ios-log-out-outline" />
                                 }
-                                <CText color="red.400" fontWeight="bold">Sign Out</CText>
+                                <CText color="red.400" fontWeight={"bold"}>Sign Out</CText>
                             </HStack>
 
                             <MaterialIcons size={20} name="keyboard-arrow-right" />

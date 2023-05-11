@@ -4,6 +4,7 @@ import SafeScaffold from "../../../../../components/SafeScaffold";
 import { XPADDING } from "../../../../config/constants.config";
 import AccountSection from "./fragments/AccountSection";
 import FundSection from "./fragments/FundSection";
+import StoreSection from "./fragments/StoreSection";
 
 
 export default function Settings(){
@@ -13,6 +14,7 @@ export default function Settings(){
             <AppBar title="Settings" />
             <ScrollView flex={1} py={"20px"} px={XPADDING}>
                <FundSection />
+               <StoreSection />
                <AccountSection />
                
             </ScrollView>

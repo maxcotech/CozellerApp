@@ -17,7 +17,7 @@ export default function FundSection() {
 
                             <HStack space={2} alignItems="center">
                             <MaterialCommunityIcons size={18} name="bank-outline" />
-                                <CText fontWeight="bold">Bank Accounts</CText>
+                                <CText>Bank Accounts</CText>
                             </HStack>
 
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
@@ -30,7 +30,7 @@ export default function FundSection() {
                                 
                                 <Ionicons size={18} name="ios-receipt-outline" />
                                 
-                                <CText  fontWeight="bold">Request Withdrawal</CText>
+                                <CText>Request Withdrawal</CText>
                             </HStack>
 
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
