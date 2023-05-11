@@ -58,3 +58,10 @@ export interface PasswordFormData {
     new_password:string,
     confirm_password:string
 }
+
+export interface EmailResetPasswordFormData {
+    token: string,
+    new_password: string,
+    confirm_password: string,
+    email: string
+}

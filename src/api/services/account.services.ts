@@ -1,5 +1,5 @@
 import client from "../../config/client.config"
-import { AccountFormData, EmailVerificationData, LoginData, PasswordFormData } from "../../config/data_types/account_types"
+import { AccountFormData, EmailResetPasswordFormData, EmailVerificationData, LoginData, PasswordFormData } from "../../config/data_types/account_types"
 
 export const login =  async (data: LoginData): Promise<any> => {
     return client.post("user/login", data);
@@ -31,4 +31,12 @@ export const logout = async (): Promise<any> => {
 
 export const updatePassword = async (data: PasswordFormData): Promise<any> => {
     return client.put("user/password",data);
+}
+
+export const initEmailPasswordReset = async (email:string): Promise<any> => {
+    return client.post(`reset_password/email/init`,{email})
+}
+
+export const completeEmailPasswordReset = async (data: EmailResetPasswordFormData): Promise<any> => {
+    return client.post(`reset_password/email/complete`,data);
 }

@@ -14,7 +14,8 @@ const AuthRoutes = {
     register: "auth/register",
     logout: "auth/logout",
     emailVerification: "auth/email-verification",
-    changePassword: "auth/change-password"
+    changePassword: "auth/change-password",
+    emailPasswordReset: "auth/email/password-reset"
 }
 
 const VendorRoutes = {

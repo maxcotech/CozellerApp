@@ -16,6 +16,7 @@ import VendorNavigation from "./VendorNavigation";
 import ComingSoon from "../screens/ComingSoon/ComingSoon";
 import { APP_COLOR } from "../config/constants.config";
 import ChangePassword from "../screens/ChangePassword/ChangePassword";
+import EmailPasswordReset from "../screens/EmailPasswordReset/EmailPasswordReset";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation(){
@@ -88,6 +89,11 @@ export default function IndexNavigation(){
                 options={defaultOptions} 
                 name={routes.changePassword}
                 component={ChangePassword}
+            />
+             <Stack.Screen 
+                options={defaultOptions} 
+                name={routes.emailPasswordReset}
+                component={EmailPasswordReset}
             />
 
 

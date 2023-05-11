@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Box, Center, Checkbox, CloseIcon, HStack,  ScrollView } from "native-base";
+import { Actionsheet, Box, Center, Checkbox, CloseIcon, HStack,  ScrollView } from "native-base";
 import React, { useState } from "react";
-import { useLogin, useProfile } from "../../api/queries/account.queries";
+import { useInitEmailPasswordReset, useLogin } from "../../api/queries/account.queries";
 import { AccountTypes } from "../../config/enum.config";
 import { createFormErrorObject } from "../../helpers/message.helpers";
 import routes, { AppParamList } from './../../config/routes.config';
@@ -17,10 +17,10 @@ import AppBtn from "../../../components/AppBtn";
 import { Pressable } from "react-native";
 import { LoginData } from "../../config/data_types/account_types";
 import {Storage} from "expo-storage";
-import IconLoadingPage from "../../../components/IconLoadingPage";
 
 export default function Login(){
     const [rememberMe,setRememberMe] = useState(false);
+    const [showForgotPassword,setShowForgotPassword] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>();
     const appContext = React.useContext(AppContext);
     const [signUpDialog,setSignupDialog] = useState(false)
@@ -29,6 +29,16 @@ export default function Login(){
         password: ""
     } as LoginData)
     const [errors,setErrors] = useState(createFormErrorObject(formState));
+    const forgotPasswordHandle = useInitEmailPasswordReset({
+        onSuccess: (data) => {
+            toast.show(data?.message,{type:"success"});
+            setShowForgotPassword(false);
+            navigation.navigate(routes.emailPasswordReset,{email: formState.email})
+        },
+        onError: (data) => {
+            toast.show(data?.message,{type:"danger"});
+        }
+    })
     const {isLoading,mutate} = useLogin({
         onSuccess: async (data) => {
             const authData = data.data;
@@ -52,8 +62,12 @@ export default function Login(){
         }
     })
 
+    const onInitForgotPassword = () => {
+        forgotPasswordHandle.mutate(formState.email)
+    }
 
-    return <SafeScaffold>
+
+    return <><SafeScaffold>
         {
             (navigation.canGoBack())?
             <Pressable style={{paddingHorizontal:20,paddingTop:20}}  onPress={() => navigation.goBack()}>
@@ -72,7 +86,7 @@ export default function Login(){
                 <CustomPasswordInput my="8px" onChangeText={(password) => setFormState({...formState,password})} value={formState.password}  error={errors.password}  placeholder="Enter your password" label={
                     <HStack>
                         <CText flex={1}  mb="3px" variant="body2" color="gray.500">Password</CText>
-                        <CText color={APP_COLOR} fontWeight={"bold"}>forgot password?</CText>
+                        <CText onPress={() => setShowForgotPassword(true)} color={APP_COLOR} fontWeight={"bold"}>forgot password?</CText>
                     </HStack>
                 } />
                 <HStack space={2} width="full">
@@ -88,4 +102,15 @@ export default function Login(){
         </ScrollView>
         <SelectAccountGroup isOpen={signUpDialog} onClose={() => setSignupDialog(false)} />
     </SafeScaffold>
+    <Actionsheet isOpen={showForgotPassword} onClose={() => setShowForgotPassword(false)}>
+        <Actionsheet.Content>
+            <Box px={"15px"} py="20px">
+                <CustomInput onChangeText={(email) => setFormState({...formState,email})} value={formState.email} autoFocus={true} backgroundColor={"gray.200"} my="8px" labelText="Enter Recovery Email Address" placeholder="Enter email address" />
+                <Box pt="50px">
+                    <AppBtn isLoading={forgotPasswordHandle.isLoading} onPress={onInitForgotPassword} gradient={true}>Continue</AppBtn>
+                </Box>
+            </Box>
+        </Actionsheet.Content>
+    </Actionsheet>
+    </>
 }
