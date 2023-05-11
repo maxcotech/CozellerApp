@@ -45,3 +45,8 @@ export interface DashboardData extends PaginatedData<any[]> {
     total_pending_orders: number,
     revenues: Revenues
 }
+
+export interface JoinStoreFormData {
+    store_id: number,
+    access_key: string
+}

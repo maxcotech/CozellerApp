@@ -21,9 +21,6 @@ const AuthRoutes = {
 const VendorRoutes = {
     vendorIndex: "vendor",
     vendorOnboarding: "vendor/onboarding",
-    createStore: "vendor/settings/create-store",
-    selectStore: "vendor/settings/select-store",
-    joinStore: "vendor/settings/join-store",
     vendorDashboard: "vendor/dashboard",
     vendorCreateProduct: "vendor/dashboard/create-product",
     vendorUpdateProduct: "vendor/dashboard/update-product",
@@ -36,6 +33,12 @@ const VendorRoutes = {
     vendorUpdateBankAccount: "vendor/update-bankaccount",
     vendorRequestWithdrawal: "vendor/request-withdrawal",
     vendorOrderDetails: "vendor/order-details"
+}
+
+const vendorStoreSettingsRoute = {
+    createStore: "vendor/settings/create-store",
+    selectStore: "vendor/settings/select-store",
+    joinStore: "vendor/settings/join-store"
 }
 
 const VendorDashboardRoutes = {
@@ -52,7 +55,7 @@ const AccountRoutes = {
 }
 
 const routes = {
-    ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...VendorDashboardRoutes, ...AccountRoutes
+    ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...VendorDashboardRoutes, ...AccountRoutes, ...vendorStoreSettingsRoute
 }
 
 export const AppParamList = Object.assign({},...Object.keys(routes).map((key) => { return {[key]:{}}})) as ParamListBase

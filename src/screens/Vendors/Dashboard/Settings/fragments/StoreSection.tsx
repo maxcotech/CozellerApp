@@ -12,7 +12,7 @@ export default function StoreSection() {
             <View mb="20px">
                 <CText mb="8px" fontWeight="bold">Store Settings</CText>
                 <Box borderRadius="lg" backgroundColor={"rgba(0,148,69,0.1)"} >
-                    <TouchableOpacity onPress={() => navigation.navigate(routes.vendorBankAccounts)}>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.joinStore)}>
                         <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                             <HStack space={2} alignItems="center">
