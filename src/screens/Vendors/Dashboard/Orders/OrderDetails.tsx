@@ -16,6 +16,7 @@ import OrderStatusOptions from "./Fragment/OrderStatusOptions";
 import { OrderStatuses } from "../../../../config/enum.config";
 import Money from "../../../../../components/Money";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
+import OrderStatusIcon from "./Fragment/OrderStatusIcon";
 
 export interface OrderDetailsProps extends RouteProp<ParamListBase> {
     params?: Partial<SubOrderParams>
@@ -78,7 +79,10 @@ export default function OrderDetails(){
                             <ScrollView  flex={1}>
                                 <Box px="10px" py="10px" mt="10px" mb="20px" bgColor={APP_COLOR} borderRadius={"md"}>
                                     <HStack alignItems="center" >
-                                        <Icon mr="10px" color="white" size="lg" as={<SimpleLineIcons name="handbag" />} />
+                                        <Box mr="10px">
+                                        <OrderStatusIcon color="white" iconSize="lg" status={data?.data?.status} />
+                                        </Box>
+                                        {/* <Icon mr="10px" color="white" size="lg" as={<SimpleLineIcons name="handbag" />} /> */}
                                         <Box>
                                             
                                             <Money color="white" variant="subheading">{data?.data?.amount}</Money>
