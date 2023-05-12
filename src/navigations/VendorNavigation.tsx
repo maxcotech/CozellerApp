@@ -18,6 +18,9 @@ import CreateBankAccount from "../screens/Vendors/BankAccount/CreateBankAccount"
 import RequestWithdrawal from "../screens/Vendors/Withdrawal/RequestWithdrawal";
 import UpdateBankAccount from "../screens/Vendors/BankAccount/UpdateBankAccount";
 import OrderDetails from "../screens/Vendors/Dashboard/Orders/OrderDetails";
+import StoreStaffs from "../screens/Vendors/StoreStaffs/StoreStaffs";
+import StaffTokens from "../screens/Vendors/StoreStaffs/StaffTokens";
+import CreateStaffToken from "../screens/Vendors/StoreStaffs/CreateStaffToken";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -39,6 +42,21 @@ export default function VendorNavigation(){
                 options={defaultOptions}
                 name={routes.joinStore}
                 component={JoinStore}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.storeStaffs}
+                component={StoreStaffs}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.staffTokens}
+                component={StaffTokens}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.createStaffToken}
+                component={CreateStaffToken}
             />
             <Stack.Screen
                 options={defaultOptions}

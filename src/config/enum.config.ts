@@ -97,3 +97,9 @@ export enum ProductTypes {
     SimpleProduct = "simple_product",
     VariationProduct = "variation_product"
 }
+
+export enum StoreStaffTypes {
+    StoreWorker = 10,
+    StoreManager = 11,
+    StoreOwner = 12
+}

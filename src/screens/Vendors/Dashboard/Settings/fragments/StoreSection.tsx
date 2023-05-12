@@ -23,7 +23,7 @@ export default function StoreSection() {
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
                         </HStack>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate(routes.vendorRequestWithdrawal)}>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.storeStaffs)}>
                         <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
                             <HStack space={2} alignItems="center">
                                 <AntDesign size={18} name="team" />
@@ -32,7 +32,7 @@ export default function StoreSection() {
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
                         </HStack>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate(routes.vendorRequestWithdrawal)}>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.staffTokens)}>
                         <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
                             <HStack space={2} alignItems="center">
                                 <Ionicons size={18} name="md-barcode-outline" />

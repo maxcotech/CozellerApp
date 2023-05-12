@@ -38,7 +38,10 @@ const VendorRoutes = {
 const vendorStoreSettingsRoute = {
     createStore: "vendor/settings/create-store",
     selectStore: "vendor/settings/select-store",
-    joinStore: "vendor/settings/join-store"
+    joinStore: "vendor/settings/join-store",
+    storeStaffs: "vendor/settings/store-staffs",
+    staffTokens: "vendor/settings/staff-tokens",
+    createStaffToken: "vendor/settings/create-staff-token"
 }
 
 const VendorDashboardRoutes = {
