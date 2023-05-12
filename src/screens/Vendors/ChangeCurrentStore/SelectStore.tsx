@@ -1,8 +1,8 @@
-import { Box, CheckCircleIcon, CircleIcon, HStack, Icon, Image, ScrollView, VStack, View } from "native-base";
+import { Box, HStack, Icon, Image, ScrollView, VStack, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import SafeScaffold from "../../../../components/SafeScaffold";
 import { XPADDING } from "../../../config/constants.config";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import AppContext from "../../../contexts/AppContext";
 import EmptyPage from "../../../../components/EmptyPage";
 import AppBtn from "../../../../components/AppBtn";
@@ -13,21 +13,19 @@ import { TouchableOpacity } from "react-native";
 import CText from "../../../../components/CText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useProfile } from "../../../api/queries/account.queries";
-import { useQueryClient } from "react-query";
 
 export default function SelectStore(){
     const appContext = useContext(AppContext);
     const [stores,setStores] = useState(appContext.profileData?.stores ?? [])
-    const queryClient = useQueryClient();
     const navigation = useNavigation<AppNavProps>();
     useProfile({
         onSuccess: (data) => {
-            appContext.setProfileData(data?.data);
+            appContext.setProfileData({...appContext.profileData,...data?.data});
             setStores(data?.data?.stores ?? []);
         }
     })
 
-    const [selectedStore,setSelectedStore] = useState<Store>(null);
+    const [selectedStore,setSelectedStore] = useState<Store>(appContext?.profileData?.current_store ?? null);
     const onApplySelection = async () => {
         appContext.setProfileData({...appContext.profileData, current_store: selectedStore});
         navigation.replace(routes.vendorDashboard)

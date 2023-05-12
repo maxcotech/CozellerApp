@@ -41,7 +41,7 @@ export default function StoreSection() {
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
                         </HStack>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate(routes.vendorRequestWithdrawal)}>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.selectStore)}>
                         <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
                             <HStack space={2} alignItems="center">
                                 <MaterialIcons size={18} name="published-with-changes" />
