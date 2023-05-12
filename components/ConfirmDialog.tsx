@@ -20,7 +20,7 @@ export interface ConfirmDialogProps {
 
 export default function ConfirmDialog({
     isLoading = false,
-    confirmLabel = "Continue", cancelLabel = "Cancel",isOpen,onClose, onConfirm,confirmColor = APP_COLOR, cancelColor = "red",
+    confirmLabel = "Continue", cancelLabel = "Cancel",isOpen,onClose, onConfirm,confirmColor = "red", cancelColor = "silver",
     title = "Are you sure?",message = "This action, once executed may be irreversible"}:ConfirmDialogProps
 ){
     const alertRef = useRef();

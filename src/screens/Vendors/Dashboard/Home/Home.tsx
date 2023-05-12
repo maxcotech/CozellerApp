@@ -18,15 +18,17 @@ import { useChangeCurrency, useCurrencies } from "../../../../api/queries/curren
 import CustomSelect from "../../../../../components/CustomSelect";
 import { useQueryClient } from "react-query";
 import { AccountQueryKeys, useProfile } from "../../../../api/queries/account.queries";
+import { AccountTypes, UserTypes } from "../../../../config/enum.config";
 
 export default function Home(){
     const appContext = React.useContext(AppContext);
     const [showCurrencyOptions,setShowCurrencyOptions] = useState(false);
     const store = appContext.profileData?.current_store;
     const {currency = {} as Currency, user} = appContext.profileData;
-    const {isLoading,data,refetch,isRefetching} = useStoreDashboard({store_id:store.id});
+    const {isLoading,data,refetch,isRefetching} = useStoreDashboard({store_id:store?.id});
     const currencyQuery = useCurrencies({},{enabled: showCurrencyOptions});
     const profileQuery = useProfile({
+        enabled: (appContext.profileData?.user?.user_type === AccountTypes.StoreOwner),
         onSuccess:(data) => {
         appContext.setProfileData(data.data);
     }})
@@ -172,7 +174,7 @@ export default function Home(){
                 <Actionsheet.Content>
                     
                     <Box width="full" px="15px" py="25px">
-                        <CustomSelect  placeholder="Select New Currency"  label={<CText fontWeight="bold" mb="7px">Change Currency</CText>} isLoading={currencyQuery?.isLoading} onValueChange={onChangeCurrency} value={currency.id} titleKey="currency_name" valueKey="id" options={currencyQuery.data?.data ?? []} />
+                        <CustomSelect  placeholder="Select New Currency"  label={<CText fontWeight="bold" mb="7px">Change Currency</CText>} isLoading={currencyQuery?.isLoading} onValueChange={onChangeCurrency} value={currency?.id} titleKey="currency_name" valueKey="id" options={currencyQuery.data?.data ?? []} />
                     </Box>
                 </Actionsheet.Content>
             </Actionsheet>

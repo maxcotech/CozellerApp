@@ -33,7 +33,7 @@ export default function VendorOnboarding(){
     useEffect(() => {
         const profile = appContext.profileData;
         const timeHandler = setTimeout(() => {
-            if(profile.logged_in){
+            if(profile?.logged_in){
                 if(!!profile.current_store === false){
                     if(profile.stores?.length > 0){
                         console.log('no selected store, select from list')

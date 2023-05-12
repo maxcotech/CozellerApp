@@ -21,6 +21,7 @@ import OrderDetails from "../screens/Vendors/Dashboard/Orders/OrderDetails";
 import StoreStaffs from "../screens/Vendors/StoreStaffs/StoreStaffs";
 import StaffTokens from "../screens/Vendors/StoreStaffs/StaffTokens";
 import CreateStaffToken from "../screens/Vendors/StoreStaffs/CreateStaffToken";
+import SelectStore from "../screens/Vendors/ChangeCurrentStore/SelectStore";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -57,6 +58,11 @@ export default function VendorNavigation(){
                 options={defaultOptions}
                 name={routes.createStaffToken}
                 component={CreateStaffToken}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.selectStore}
+                component={SelectStore}
             />
             <Stack.Screen
                 options={defaultOptions}

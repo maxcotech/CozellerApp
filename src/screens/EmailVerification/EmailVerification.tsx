@@ -52,7 +52,7 @@ export default function EmailVerification(){
                     </Pressable>
                 </View>
                 <Center  flex={1}>
-                    <Image alt={"App Logo"} size="md" source={require("../../../assets/icon.png")} />
+                    <Image alt={"App Logo"} size="md" source={require("../../../assets/launcher_icon.png")} />
                     <CText textAlign={"center"} variant="heading">Verify Your Email</CText>
                     <CText textAlign="center" color="gray.500">Enter the verification code sent to your email address at {formState.email} to complete your email verification.</CText>
                     <Box>

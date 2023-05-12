@@ -68,7 +68,7 @@ export default function AccountSection() {
                     </TouchableOpacity>
                 </Box>
             </View>
-            <ConfirmDialog onConfirm={onLogout} isOpen={showLogout} onClose={() => setShowLogout(false)} />
+            <ConfirmDialog message="You will be logged out of your current session" onConfirm={onLogout} isOpen={showLogout} onClose={() => setShowLogout(false)} />
 
         </>
     )

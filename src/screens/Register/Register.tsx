@@ -11,9 +11,9 @@ import SelectTelephoneCode from "./fragments/SelectTelephoneCode";
 import { APP_COLOR_LIGHT } from './../../config/constants.config';
 import routes from "../../config/routes.config";
 import CustomSelect from "../../../components/CustomSelect";
-import { AccountGroups, AccountTypes } from "../../config/enum.config";
+import { AccountGroups, AccountTypes, StoreStaffTypes } from "../../config/enum.config";
 import {useRegister} from "../../api/queries/account.queries";
-import { createFormErrorObject } from "../../helpers/message.helpers";
+import { createFormErrorObject, errorMessage } from "../../helpers/message.helpers";
 import { Linking } from "react-native";
 
 export default function Register(){
@@ -43,7 +43,10 @@ export default function Register(){
         })
     }
     const {isLoading, mutate} = useRegister({
-        onError:(error) => { setErrors(error.data);},
+        onError:(error) => { 
+            errorMessage(error?.message);
+            setErrors(error.data);
+        },
         onSuccess: (data) => {
             toast.show(data.message,{type:"success"});
             navigation.navigate(routes.emailVerification as never,{email:formState.email} as never)
@@ -87,13 +90,14 @@ export default function Register(){
                     {
                         (accountGroup && accountGroup != AccountGroups.Buyers)?
                         <CustomSelect error={errors.account_type} my="8px" onValueChange={(val) => setFormValue(val,"account_type")} options={[
-                            {value: AccountTypes.StoreOwner, title: "Store Owner"},
-                            {value: AccountTypes.StoreStaff, title: "Store Staff"},
+                            {value: StoreStaffTypes.StoreOwner, title: "Store Owner"},
+                            {value: StoreStaffTypes.StoreManager, title: "Store Manager"},
+                            {value: StoreStaffTypes.StoreWorker, title: "Store Worker"},
                         ]} value={formState.account_type} labelText="Account Type" placeholder="Select Account Type" />: 
                         <></>
                     }
                     {
-                        (formState.account_type == AccountTypes.StoreStaff)? 
+                        (formState.account_type == StoreStaffTypes.StoreManager || formState.account_type == StoreStaffTypes.StoreWorker)? 
                         <CustomInput error={errors.staff_token} my="8px" labelText="Staff Token" placeholder="Enter token issued to you" value={formState.staff_token} onChangeText={(val) => setFormValue(val,"staff_token")} />:<></>
                     }
                     
