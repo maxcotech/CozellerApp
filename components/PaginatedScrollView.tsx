@@ -19,7 +19,7 @@ export const LoadingRow = ({title = "Load More", params, onLoadNewPage}) => {
 }
 
 export interface PaginatedScrollParams<T,C> extends ScrollViewProps {
-    pageParams?: object | any,
+    pageParams?: C,
     prevTitle?: string,
     nextTitle?: string,
     children: React.ReactNode,

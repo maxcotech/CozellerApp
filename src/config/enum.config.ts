@@ -54,7 +54,8 @@ export enum ManageResourceActions {
     Create = 1,
     Update = 2,
     View = 3,
-    Delete = 4
+    Delete = 4,
+    ManageSubResource = 5
 }
 
 export enum OrderStatuses {

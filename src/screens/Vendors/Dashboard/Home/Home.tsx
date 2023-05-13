@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppBar from "../../../../../components/AppBar";
 import CText from "../../../../../components/CText";
 import AppContext from "../../../../contexts/AppContext";
@@ -11,16 +11,19 @@ import { Currency } from "../../../../config/data_types/currency_types";
 import { LinearGradient } from "expo-linear-gradient";
 import HomeSkeleton from "./components/HomeSkeleton";
 import Money from "../../../../../components/Money";
-import { StoreQueryKeys, useStoreDashboard } from "../../../../api/queries/store.queries";
+import { useStoreDashboard } from "../../../../api/queries/store.queries";
 import { formatNumber } from "../../../../helpers/string.helpers";
 import { RefreshControl, TouchableOpacity } from "react-native";
 import { useChangeCurrency, useCurrencies } from "../../../../api/queries/currency.queries";
 import CustomSelect from "../../../../../components/CustomSelect";
 import { useQueryClient } from "react-query";
-import { AccountQueryKeys, useProfile } from "../../../../api/queries/account.queries";
-import { AccountTypes, UserTypes } from "../../../../config/enum.config";
+import { useProfile } from "../../../../api/queries/account.queries";
+import { AccountTypes } from "../../../../config/enum.config";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../config/routes.config";
 
 export default function Home(){
+    const navigation = useNavigation<AppNavProps>();
     const appContext = React.useContext(AppContext);
     const [showCurrencyOptions,setShowCurrencyOptions] = useState(false);
     const store = appContext.profileData?.current_store;
@@ -59,7 +62,7 @@ export default function Home(){
                 subtitle={store?.store_address} title={store?.store_name} 
             />
             <ScrollView contentContainerStyle={{paddingVertical:15}} refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={() => {refetch()}} />} px={XPADDING} flex={1}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate(routes.updateStore)}>
                     <HStack borderRadius={"md"} px="15px" pb="15px" mt="10px" alignItems={"center"} justifyContent={"space-between"} backgroundColor={APP_COLOR}>
                         <Box>
                             <CText  color="white" variant="heading" mt="10px">Welcome {user?.last_name}</CText>

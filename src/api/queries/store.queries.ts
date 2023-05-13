@@ -1,6 +1,6 @@
 import { QueryFunction, UseMutationOptions, UseQueryOptions, useMutation, useQuery } from "react-query";
 import { GenericDataResponse, HttpDataResponse } from "../../config/data_types/general.types";
-import { createStore, fetchStoreDashboard, joinStore, searchStores } from "../services/store.services";
+import { createStore, fetchStoreDashboard, joinStore, searchStores, updateStore } from "../services/store.services";
 import { DashboardData, JoinStoreFormData, Store, StoreDashboardParams } from "../../config/data_types/store_types";
 
 export const StoreQueryKeys = {
@@ -31,4 +31,8 @@ export const useJoinStore = (options?: UseMutationOptions<HttpDataResponse,HttpD
     return useMutation<HttpDataResponse,HttpDataResponse,JoinStoreFormData>(
         joinStore, options
     )
+}
+
+export const useUpdateStore = (options?: UseMutationOptions<HttpDataResponse,HttpDataResponse,FormData>) => {
+    return useMutation<HttpDataResponse,HttpDataResponse,FormData>(updateStore,options)
 }

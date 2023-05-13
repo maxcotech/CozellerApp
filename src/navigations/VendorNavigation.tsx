@@ -22,6 +22,10 @@ import StoreStaffs from "../screens/Vendors/StoreStaffs/StoreStaffs";
 import StaffTokens from "../screens/Vendors/StoreStaffs/StaffTokens";
 import CreateStaffToken from "../screens/Vendors/StoreStaffs/CreateStaffToken";
 import SelectStore from "../screens/Vendors/ChangeCurrentStore/SelectStore";
+import UpdateStore from "../screens/Vendors/UpdateStore/UpdateStore";
+import ShippingGroups from "../screens/Vendors/ShippingGroups/ShippingGroups";
+import CreateShippingGroup from "../screens/Vendors/ShippingGroups/CreateShippingGroup";
+import UpdateShippingGroup from "../screens/Vendors/ShippingGroups/UpdateShippingGroup";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -51,6 +55,11 @@ export default function VendorNavigation(){
             />
             <Stack.Screen
                 options={defaultOptions}
+                name={routes.updateStore}
+                component={UpdateStore}
+            />
+            <Stack.Screen
+                options={defaultOptions}
                 name={routes.staffTokens}
                 component={StaffTokens}
             />
@@ -63,6 +72,21 @@ export default function VendorNavigation(){
                 options={defaultOptions}
                 name={routes.selectStore}
                 component={SelectStore}
+            />
+             <Stack.Screen
+                options={defaultOptions}
+                name={routes.shippingGroups}
+                component={ShippingGroups}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.createShippingGroup}
+                component={CreateShippingGroup}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.updateShippingGroup}
+                component={UpdateShippingGroup}
             />
             <Stack.Screen
                 options={defaultOptions}

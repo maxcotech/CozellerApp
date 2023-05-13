@@ -116,7 +116,7 @@ export default function CustomInput({
             borderStyle: "solid"
         }:undefined} py={py} px={px}  borderRadius={borderRadius} backgroundColor={backgroundColor} height={height} width={width} space={1}>
             { (!!prefix)? <Center>{prefix}</Center>:<></>}
-            <TextInput ref={ref}  {...props} onBlur={handleOnBlur} onFocus={handleOnFocus} style={{ flex:1}}  />
+            <TextInput  ref={ref}  {...props} onBlur={handleOnBlur} onFocus={handleOnFocus} style={{ flex:1}}  />
             { (!!suffix)? <Center>{suffix}</Center>:<></>}
         </HStack>
         {
