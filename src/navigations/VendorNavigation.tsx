@@ -26,6 +26,7 @@ import UpdateStore from "../screens/Vendors/UpdateStore/UpdateStore";
 import ShippingGroups from "../screens/Vendors/ShippingGroups/ShippingGroups";
 import CreateShippingGroup from "../screens/Vendors/ShippingGroups/CreateShippingGroup";
 import UpdateShippingGroup from "../screens/Vendors/ShippingGroups/UpdateShippingGroup";
+import DimensionRangeView from "../screens/Vendors/ShippingGroups/DimensionRangeView";
 
 const Stack = createNativeStackNavigator();
 export default function VendorNavigation(){
@@ -82,6 +83,11 @@ export default function VendorNavigation(){
                 options={defaultOptions}
                 name={routes.createShippingGroup}
                 component={CreateShippingGroup}
+            />
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.shippingDimensionRange}
+                component={DimensionRangeView}
             />
             <Stack.Screen
                 options={defaultOptions}

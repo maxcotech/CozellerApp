@@ -1,5 +1,5 @@
 import { Box, HStack, ScrollView, View } from "native-base";
-import { ShippingGroup, ShippingGroupFormData } from "../../../../config/data_types/shipping_types";
+import { DimensionRangeRates, ShippingGroup, ShippingGroupFormData } from "../../../../config/data_types/shipping_types";
 import { useContext, useState } from "react";
 import AppContext from "../../../../contexts/AppContext";
 import CustomInput from "../../../../../components/CustomInput";
@@ -7,9 +7,12 @@ import { createFormErrorObject } from "../../../../helpers/message.helpers";
 import CText from "../../../../../components/CText";
 import { decode } from "html-entities";
 import AppBtn from "../../../../../components/AppBtn";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../config/routes.config";
 
 export default function ShippingGroupForm({defaultData,handleSubmit,isLoading}:{isLoading: boolean,defaultData?: ShippingGroup<string>, handleSubmit: (data: ShippingGroupFormData, setErrors: (errors: any) => void) => void }){
     const appContext = useContext(AppContext);
+    const navigation = useNavigation<AppNavProps>();
     const currency = appContext?.profileData?.currency;
     const [formState,setFormState] = useState({
         store_id: appContext?.profileData?.current_store?.id,
@@ -45,10 +48,13 @@ export default function ShippingGroupForm({defaultData,handleSubmit,isLoading}:{
                     <HStack space={1} >
                         <CText flex={1.5} color="gray.400" variant="body3">Manage rates based on product/package dimensions and weight</CText>
                         <Box flex={1}>
-                        <AppBtn paddingX={2} textVariant="body4" gradient={true}>Dimension Ranges</AppBtn>
+                        <AppBtn onPress={() => navigation.navigate(routes.shippingDimensionRange,{
+                            defaultData: formState.dimension_range_rates,
+                            onApply: (data: DimensionRangeRates) => setFormValue(JSON.stringify(data ?? []),"dimension_range_rates")
+                        })} paddingX={2} textVariant="body4" gradient={true}>Dimension Ranges</AppBtn>
                         </Box>
                     </HStack>
-                </Box>
+                </Box> 
                 <CustomInput my="8px" error={errors?.group_name} onChangeText={(val) => setFormValue(val,"group_name")} value={formState.group_name} labelText="Shipping Group Name*" placeholder="Enter shipping group name" />
                 <CustomInput prefix={<CText color="gray.400">{decode(currency?.currency_sym)}</CText>} keyboardType="number-pad" my="8px" error={errors?.shipping_rate} onChangeText={(val) => setFormValue(val,"shipping_rate")} value={formState.shipping_rate?.toString()} labelText="Shipping Rate*" placeholder="Enter shipping Rate" />
                 <CustomInput  keyboardType="number-pad" my="8px" error={errors?.delivery_duration} onChangeText={(val) => setFormValue(val,"delivery_duration")} value={formState.delivery_duration?.toString()} labelText="Delivery Duration*" suffix={<CText color="gray.400">Days</CText>} placeholder="Enter Delivery Duration (in days)" />
@@ -63,7 +69,8 @@ export default function ShippingGroupForm({defaultData,handleSubmit,isLoading}:{
                 <CustomInput prefix={<CText color="gray.400">{decode(currency?.currency_sym)}</CText>} keyboardType="number-pad" my="8px" error={errors?.high_value_rate} onChangeText={(val) => setFormValue(val,"high_value_rate")} value={formState.high_value_rate?.toString()} labelText="High Value Rate" placeholder="For high-end packages" />
                 <CustomInput prefix={<CText color="gray.400">{decode(currency?.currency_sym)}</CText>} keyboardType="number-pad" my="8px" error={errors?.mid_value_rate} onChangeText={(val) => setFormValue(val,"mid_value_rate")} value={formState.mid_value_rate?.toString()} labelText="Mid Value Rate" placeholder="For medium value packages" />
                 <CustomInput prefix={<CText color="gray.400">{decode(currency?.currency_sym)}</CText>} keyboardType="number-pad" my="8px" error={errors?.low_value_rate} onChangeText={(val) => setFormValue(val,"low_value_rate")} value={formState.low_value_rate?.toString()} labelText="Low Value Rate" placeholder="For low value packages" />
-               
+                <CustomInput prefix={<CText color="gray.400">{decode(currency?.currency_sym)}</CText>} keyboardType="number-pad" my="8px" error={errors?.door_delivery_rate} onChangeText={(val) => setFormValue(val,"door_delivery_rate")} value={formState.door_delivery_rate?.toString()} labelText="Door Delivery Rate" placeholder="Additional fees for door-delivery" />
+
             </ScrollView>
             <Box mt="10px" mb="10px">
                     <AppBtn isLoading={isLoading} onPress={() => handleSubmit(formState,setErrors)} gradient={true}>SUBMIT</AppBtn>

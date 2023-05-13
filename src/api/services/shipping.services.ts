@@ -12,3 +12,7 @@ export const deleteShippingGroup = async (params: DeleteShippingGroupParams): Pr
 export const updateShippingGroup = async (data: ShippingGroupFormData): Promise<any> => {
     return client.put(`shipping/group`,data)
 }
+
+export const createShippingGroup = async (data: ShippingGroupFormData): Promise<any> => {
+    return client.post(`shipping/group`,data);
+}

@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import { ShippingGroup } from "../../../../config/data_types/shipping_types";
 import { Actionsheet, Box, Circle, HStack, Icon, VStack } from "native-base";
-import { APP_COLOR_LIGHTER, XPADDING } from "../../../../config/constants.config";
+import { APP_COLOR_LIGHT, APP_COLOR_LIGHTER, XPADDING } from "../../../../config/constants.config";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import CText from "../../../../../components/CText";
 import Money from "../../../../../components/Money";
@@ -67,14 +67,14 @@ export default function ShippingGroupItem({data}:{data:ShippingGroup<string>}) {
         <>
         <TouchableOpacity onPress={() => setShowMore(true)}>
             <HStack alignItems={"center"} space={2} borderBottomColor={"gray.100"} borderBottomWidth={1} px={XPADDING} py="10px" my="6px">
-                <Circle backgroundColor={APP_COLOR_LIGHTER} size="sm">
+                <Circle backgroundColor={"blue.100"} size="sm">
                     <Icon size="md" as={<MaterialIcons name="location-on" />} />
                 </Circle>
                 <VStack flex={1}>
                     <CText numberOfLines={1}>{data.group_name}</CText>
-                    <CText color="gray.400" variant="body4">SHIPPING RATE: <Money variant="body3">{data?.shipping_rate}</Money></CText>
-                    <CText color="gray.400" variant="body4">DELIVERY DURATION: <CText variant="body3">{data?.delivery_duration ?? 0} days</CText></CText>
-                    <CText color="gray.400" variant="body4">DOOR DELIVERY RATE: <Money variant="body3">{data?.door_delivery_rate}</Money></CText>
+                    <CText color={APP_COLOR_LIGHT} variant="body4">SHIPPING RATE: <Money variant="body3">{data?.shipping_rate}</Money></CText>
+                    <CText color={APP_COLOR_LIGHT} variant="body4">DELIVERY DURATION: <CText variant="body3">{data?.delivery_duration ?? 0} days</CText></CText>
+                    <CText color={APP_COLOR_LIGHT} variant="body4">DOOR DELIVERY RATE: <Money variant="body3">{data?.door_delivery_rate}</Money></CText>
 
                 </VStack>
                 <Icon size="md" as={<MaterialIcons name="more-vert" />} />

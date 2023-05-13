@@ -17,7 +17,7 @@ export default function ShippingSection() {
 
                             <HStack space={2} alignItems="center">
                             <MaterialCommunityIcons size={18} name="bus-marker" />
-                                <CText>Create Shipping Groups</CText>
+                                <CText>Manage Shipping / Billing</CText>
                             </HStack>
 
                             <MaterialIcons size={20} name="keyboard-arrow-right" />

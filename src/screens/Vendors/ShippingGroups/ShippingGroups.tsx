@@ -1,4 +1,4 @@
-import { Fab, Icon, View } from "native-base";
+import { Box, Fab, Icon, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import SafeScaffold from "../../../../components/SafeScaffold";
 import { useShippingGroups } from "../../../api/queries/shipping.queries";
@@ -10,7 +10,7 @@ import PaginatedScrollView from "../../../../components/PaginatedScrollView";
 import OrderSkeleton from "../Dashboard/Orders/Fragment/OrderSkeleton";
 import ShippingGroupItem from "./fragments/ShippingGroupItem";
 import { AntDesign } from '@expo/vector-icons';
-import { APP_COLOR } from "../../../config/constants.config";
+import { APP_COLOR, XPADDING } from "../../../config/constants.config";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../config/routes.config";
 
@@ -30,7 +30,9 @@ export default function ShippingGroups(){
             <View  pt="15px" flex={1}>
                 {
                     (isLoading)?
-                    <OrderSkeleton />:
+                    <Box paddingX={XPADDING}>
+                    <OrderSkeleton />
+                    </Box>:
                     <>
                         {
                             (shippingGroups.length > 0)?
@@ -47,7 +49,7 @@ export default function ShippingGroups(){
                 }
                 
             </View>
-            <Fab onPress={() => navigation.navigate(routes.createShippingGroup)} backgroundColor={APP_COLOR} label={<Icon size="md" color="white" as={<AntDesign  name="plus" />}  />} />
+            <Fab renderInPortal={false} onPress={() => navigation.navigate(routes.createShippingGroup)} backgroundColor={APP_COLOR} label={<Icon size="md" color="white" as={<AntDesign  name="plus" />}  />} />
         </SafeScaffold>
     )
 }
