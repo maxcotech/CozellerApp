@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import { ShippingGroup } from "../../../../config/data_types/shipping_types";
-import { Actionsheet, Box, Circle, HStack, Icon, VStack } from "native-base";
-import { APP_COLOR_LIGHT, APP_COLOR_LIGHTER, XPADDING } from "../../../../config/constants.config";
+import { Actionsheet, Box, Circle, HStack, Icon, Spinner, VStack } from "native-base";
+import { APP_COLOR, APP_COLOR_LIGHT, APP_COLOR_LIGHTER, XPADDING } from "../../../../config/constants.config";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import CText from "../../../../../components/CText";
 import Money from "../../../../../components/Money";
@@ -45,7 +45,7 @@ export default function ShippingGroupItem({data}:{data:ShippingGroup<string>}) {
                 navigation.navigate(routes.updateShippingGroup,{group: data})
             };break;
             case ManageResourceActions.ManageSubResource: {
-
+                navigation.navigate(routes.shippingLocations,{group: data})
             }
         }
     }
@@ -58,6 +58,7 @@ export default function ShippingGroupItem({data}:{data:ShippingGroup<string>}) {
     });
 
     const onConfirmDelete = () => {
+        setShowDelete(false)
         deleteQuery.mutate({
             store_id: data.store_id,
             id: data.id
@@ -67,9 +68,14 @@ export default function ShippingGroupItem({data}:{data:ShippingGroup<string>}) {
         <>
         <TouchableOpacity onPress={() => setShowMore(true)}>
             <HStack alignItems={"center"} space={2} borderBottomColor={"gray.100"} borderBottomWidth={1} px={XPADDING} py="10px" my="6px">
-                <Circle backgroundColor={"blue.100"} size="sm">
-                    <Icon size="md" as={<MaterialIcons name="location-on" />} />
-                </Circle>
+                {
+                    (deleteQuery.isLoading)?
+                    <Spinner color={APP_COLOR} size="lg" />:
+                    <Circle backgroundColor={"blue.100"} size="sm">
+                        <Icon color="blue.500" size="md" as={<MaterialIcons name="location-on" />} />
+                    </Circle>
+                }
+               
                 <VStack flex={1}>
                     <CText numberOfLines={1}>{data.group_name}</CText>
                     <CText color={APP_COLOR_LIGHT} variant="body4">SHIPPING RATE: <Money variant="body3">{data?.shipping_rate}</Money></CText>

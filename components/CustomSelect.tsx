@@ -1,5 +1,5 @@
 import { TextInput, TextInputProps, NativeSyntheticEvent, TextInputFocusEventData} from "react-native";
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useState, useMemo, useEffect, ReactNode} from "react";
 import { Actionsheet, Box, Center, FlatList, HStack, Pressable, ScrollView, Spinner, View } from "native-base";
 import { APP_COLOR } from "../src/config/constants.config";
 import CText from "./CText";
@@ -11,8 +11,8 @@ export interface CustomInputProps<T> extends TextInputProps {
     includeSearch?: boolean,
     value?: any, error?: string | string[],
     isLoading?: boolean,
-    titleKey? : string,
-    valueKey? : string,
+    titleKey? : keyof T,
+    valueKey? : keyof T,
     options: T[],
     prefix?: React.ReactNode,
     suffix?: React.ReactNode,
@@ -34,7 +34,7 @@ export interface CustomInputProps<T> extends TextInputProps {
 export default function CustomSelect<T>({ 
     renderItem,
     error,isLoading = false, includeSearch = false,searchPlaceholder = "Search Items",
-    labelText,label,options, value, onValueChange, titleKey = "title", valueKey = "value",
+    labelText,label,options, value, onValueChange, titleKey = "title" as keyof T, valueKey = "value" as keyof T,
     onFocus, onBlur, backgroundColor = "#F5F5F5", width = "full", height, prefix,suffix,borderRadius = "8px", px = "15px", py = "10px", mx="0px", my="0px",...props}: CustomInputProps<T>){
     const [focused,setFocused] = useState(false);
     const [optionsCopy,setOptionsCopy] = useState([...options]);
@@ -114,7 +114,7 @@ export default function CustomSelect<T>({
                     <FlatList width={"full"} renderItem={({item,index}) => (
                         <Actionsheet.Item key={item[valueKey]+"/"+index} onPress={() => {onValueChange(item[valueKey],setLoading); onClose();}}>
                             {
-                                (!!renderItem)? renderItem(item,index):<CText>{ item[titleKey]}</CText>
+                                (!!renderItem)? renderItem(item,index):<CText>{ item[titleKey] as ReactNode}</CText>
                             }
                             
                         </Actionsheet.Item>

@@ -49,7 +49,10 @@ const vendorShippingSettingsRoutes = {
     shippingGroups : "vendor/settings/shipping-groups",
     updateShippingGroup : "vendor/settings/update-shipping-group",
     createShippingGroup: "vendor/settings/create-shipping-group",
-    shippingDimensionRange: "vendor/settings/dimension-range"
+    shippingDimensionRange: "vendor/settings/dimension-range",
+    shippingLocations: "vendor/settings/shipping-locations",
+    createShippingLocations: "vendor/settings/create-shipping-locations",
+    updateShippingLocations: "vendor/settings/update-shipping-locations"
 }
 
 const VendorDashboardRoutes = {

@@ -30,7 +30,7 @@ export default function AppBar({title,subtitle,left,right, centered = false, bac
             }</Box>
             <Box flex={1}>
                 <VStack  alignSelf={(centered)?"center":"flex-start"}>
-                    <CText  numberOfLines={1} variant="body1" fontWeight={"bold"}>{title}</CText>
+                    <CText  numberOfLines={1} variant="body1" mb="2px" fontWeight={"bold"}>{title}</CText>
                     {
                         (subtitle)? <CText numberOfLines={2} mt="-5px"  color="gray.400" variant="body2">{subtitle}</CText>:<></>
                     }

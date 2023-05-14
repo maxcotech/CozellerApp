@@ -1,4 +1,5 @@
 import { PaginationParams } from "./general.types";
+import { City, Country, State } from "./location_types";
 
 export interface ShippingGroupParams extends PaginationParams {
     store_id: number
@@ -38,4 +39,34 @@ export interface ShippingGroupFormData {
     door_delivery_rate: number,
     delivery_duration: number
     dimension_range_rates: string
+}
+
+export interface ShippingLocation {
+    id: number,
+    city: Partial<City>,
+    state: Partial<State>,
+    country: Partial<Country>,
+    country_id: number,
+    state_id: number,
+    city_id: number,
+    store_id: number,
+    shipping_group_id: number
+}
+
+export interface ShippingLocationFormData {
+    store_id: number,
+    shipping_group_id: number,
+    country_id: number,
+    state: string,
+    city: string
+}
+
+export interface ShippingLocationsParams extends PaginationParams {
+    store_id: number,
+    shipping_group_id: number
+}
+
+export interface LocationDeleteParams {
+    location_id: number,
+    store_id: number
 }

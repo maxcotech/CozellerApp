@@ -21,7 +21,6 @@ export default function UpdateStore(){
             const stores = data?.data?.stores ?? [];
             appContext.setProfileData({
                 ...appContext.profileData,
-                current_store: stores.find((item) => (item.id == appContext?.profileData?.current_store?.id)),
                 stores
             })
         }

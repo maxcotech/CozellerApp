@@ -30,7 +30,7 @@ export default function ShippingGroups(){
             <View  pt="15px" flex={1}>
                 {
                     (isLoading)?
-                    <Box paddingX={XPADDING}>
+                    <Box flex={1} paddingX={XPADDING}>
                     <OrderSkeleton />
                     </Box>:
                     <>
