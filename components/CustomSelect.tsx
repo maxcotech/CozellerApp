@@ -1,6 +1,6 @@
 import { TextInput, TextInputProps, NativeSyntheticEvent, TextInputFocusEventData} from "react-native";
 import React, {useState, useMemo, useEffect, ReactNode} from "react";
-import { Actionsheet, Box, Center, FlatList, HStack, Pressable, ScrollView, Spinner, View } from "native-base";
+import { Actionsheet, Box, Center, FlatList, HStack, KeyboardAvoidingView, Pressable, ScrollView, Spinner, View } from "native-base";
 import { APP_COLOR } from "../src/config/constants.config";
 import CText from "./CText";
 import { Feather, Ionicons } from "@expo/vector-icons";
@@ -98,30 +98,31 @@ export default function CustomSelect<T>({
                     }
                 </View>
             </Pressable>
-            <Actionsheet removeClippedSubviews={true} onClose={onClose}  isOpen={optionsVisible}>
+            <Actionsheet  removeClippedSubviews={true} onClose={onClose}  isOpen={optionsVisible}>
                 
-        
-                <Actionsheet.Content maxHeight={"full"}>
-                      {
-                        (includeSearch)?
-                        <Box px="10px" alignSelf={"stretch"} width="full">
-                            <CustomInput autoFocus={true} backgroundColor={"gray.200"} borderRadius={30} suffix={(search?.length > 0)? <Ionicons onPress={onCloseSearch} size={20} name="close" />:<></>} onChangeText={onSearchChange} value={search}  prefix={<Ionicons color="gray" size={20} name="search" />} placeholder={searchPlaceholder} />
-                        </Box>:<></>
-                      }
-                        
-                    
-                {
-                    <FlatList width={"full"} renderItem={({item,index}) => (
-                        <Actionsheet.Item key={item[valueKey]+"/"+index} onPress={() => {onValueChange(item[valueKey],setLoading); onClose();}}>
-                            {
-                                (!!renderItem)? renderItem(item,index):<CText>{ item[titleKey] as ReactNode}</CText>
-                            }
+                <KeyboardAvoidingView pt="20px"  alignSelf={"stretch"} behavior="padding">
+                    <Actionsheet.Content   maxHeight={"full"}>
+                        {
+                            (includeSearch)?
+                            <Box px="10px" alignSelf={"stretch"} width="full">
+                                <CustomInput autoFocus={true} backgroundColor={"gray.200"} borderRadius={30} suffix={(search?.length > 0)? <Ionicons onPress={onCloseSearch} size={20} name="close" />:<></>} onChangeText={onSearchChange} value={search}  prefix={<Ionicons color="gray" size={20} name="search" />} placeholder={searchPlaceholder} />
+                            </Box>:<></>
+                        }
                             
-                        </Actionsheet.Item>
-                    )} data={optionsCopy} />
+                        
+                    {
+                        <FlatList  showsVerticalScrollIndicator={false} alignSelf={"stretch"}  width={"full"} renderItem={({item,index}) => (
+                            <Actionsheet.Item  key={item[valueKey]+"/"+index} onPress={() => {onValueChange(item[valueKey],setLoading); onClose();}}>
+                                {
+                                    (!!renderItem)? renderItem(item,index):<CText>{ item[titleKey] as ReactNode}</CText>
+                                }
+                                
+                            </Actionsheet.Item>
+                        )} data={optionsCopy} />
 
-                }
-                </Actionsheet.Content>
+                    }
+                    </Actionsheet.Content>
+                </KeyboardAvoidingView>
                 
             </Actionsheet>
         </>

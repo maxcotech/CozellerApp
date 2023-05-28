@@ -32,7 +32,7 @@ export interface CustomSearchProps extends CustomInputProps {
 export const CustomPasswordInput = (props: CustomInputProps) => {
     const [passwordVisible,setPasswordVisible] = useState(false);
     return <CustomInput 
-        {...props} secureTextEntry={!passwordVisible} 
+        {...props} blurOnSubmit={false} secureTextEntry={!passwordVisible} 
         suffix={<MaterialIcons onPress={() => setPasswordVisible(!passwordVisible)} color="gray" size={20} name={(passwordVisible)? "visibility-off":"visibility"} />}
     />
 }

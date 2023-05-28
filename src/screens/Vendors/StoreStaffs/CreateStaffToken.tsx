@@ -1,4 +1,4 @@
-import { Box, ScrollView, View } from "native-base";
+import { Box, KeyboardAvoidingView, ScrollView, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import SafeScaffold from "../../../../components/SafeScaffold";
 import { XPADDING } from "../../../config/constants.config";
@@ -37,21 +37,23 @@ export default function CreateStaffToken(){
     return (
         <SafeScaffold>
             <AppBar subtitle="Create New Access Tokens" title="New Staff Tokens" />
-            <View flex={1} pt="15px" px={XPADDING}>
-                <ScrollView flex={1}>
-                    <CustomSelect labelText="Staff Type" placeholder="Select staff type" error={errors?.staff_type} my="8px" onValueChange={(staff_type) => setFormState({...formState,staff_type})} value={formState.staff_type}  options={
-                        [
-                            {title: "Store Manager", value: StoreStaffTypes.StoreManager},
-                            {title: "Store Worker", value: StoreStaffTypes.StoreWorker}
-                        ]
-                    } />
-                    <CustomInput onChangeText={(amount) => setFormState({...formState,amount})} value={formState?.amount?.toString()} error={errors?.amount} my="8px" labelText="Amount" placeholder="Enter amount of token to generate" keyboardType="number-pad"  />
-                    <Box mt="40px">
-                        <AppBtn onPress={() => createToken.mutate(formState)} isLoading={createToken.isLoading} gradient={true}>Generate Token</AppBtn>
-                    </Box>
-                </ScrollView>
-               
-            </View>
+            <KeyboardAvoidingView flex={1} behavior="padding">
+                <View flex={1} pt="15px" px={XPADDING}>
+                    <ScrollView flex={1}>
+                        <CustomSelect labelText="Staff Type" placeholder="Select staff type" error={errors?.staff_type} my="8px" onValueChange={(staff_type) => setFormState({...formState,staff_type})} value={formState.staff_type}  options={
+                            [
+                                {title: "Store Manager", value: StoreStaffTypes.StoreManager},
+                                {title: "Store Worker", value: StoreStaffTypes.StoreWorker}
+                            ]
+                        } />
+                        <CustomInput onChangeText={(amount) => setFormState({...formState,amount})} value={formState?.amount?.toString()} error={errors?.amount} my="8px" labelText="Amount" placeholder="Enter amount of token to generate" keyboardType="number-pad"  />
+                        <Box mt="40px">
+                            <AppBtn onPress={() => createToken.mutate(formState)} isLoading={createToken.isLoading} gradient={true}>Generate Token</AppBtn>
+                        </Box>
+                    </ScrollView>
+                
+                </View>
+            </KeyboardAvoidingView>
         </SafeScaffold>
     )
 }

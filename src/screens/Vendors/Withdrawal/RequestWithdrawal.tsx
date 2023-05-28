@@ -1,4 +1,4 @@
-import { Box, ScrollView, VStack, View } from "native-base";
+import { Box, KeyboardAvoidingView, ScrollView, VStack, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import SafeScaffold from "../../../../components/SafeScaffold";
 import { XPADDING } from "../../../config/constants.config";
@@ -51,21 +51,23 @@ export default function RequestWithdrawal(){
         <SafeScaffold>
             <AppBar title="Request Withdrawal" />
             <View flex={1} pt="15px" px={XPADDING}>
-                <ScrollView flex={1} showsVerticalScrollIndicator={false}>
-                    <CustomInput value={formState.amount?.toString()} error={errors?.amount} my="8px" onChangeText={(val) => setFormValue(val,"amount")}  labelText="Amount*" keyboardType="number-pad" placeholder="Enter Amount" />
-                    <CustomSelect error={errors?.bank_account_id} value={formState.bank_account_id} valueKey="id" titleKey="bank_name" isLoading={isLoading} 
-                        renderItem={(item) => (
-                            <VStack>
-                                <CText>{item.bank_name}</CText>
-                                <CText color="gray.400" variant="body3">{item.account_number}</CText>
-                            </VStack>
-                        )}
-                    options={data?.data ?? []} my="8px" onValueChange={(val) => setFormValue(val,"bank_account_id")}  labelText="Bank Account*" keyboardType="number-pad" placeholder="Select Bank Account " />
-                    <CustomPasswordInput error={errors?.password} value={formState.password} my="8px" onChangeText={(val) => setFormValue(val,"password")}  labelText="Password*"  placeholder="Enter Password to authenticate" />
-                </ScrollView>
-                <Box my="10px">
-                    <AppBtn onPress={onCreateWithdrawal} isLoading={withdrawQuery.isLoading} gradient={true}>Send Request</AppBtn>
-                </Box>
+                <KeyboardAvoidingView flex={1} behavior="padding">
+                    <ScrollView flex={1} showsVerticalScrollIndicator={false}>
+                        <CustomInput value={formState.amount?.toString()} error={errors?.amount} my="8px" onChangeText={(val) => setFormValue(val,"amount")}  labelText="Amount*" keyboardType="number-pad" placeholder="Enter Amount" />
+                        <CustomSelect error={errors?.bank_account_id} value={formState.bank_account_id} valueKey="id" titleKey="bank_name" isLoading={isLoading} 
+                            renderItem={(item) => (
+                                <VStack>
+                                    <CText>{item.bank_name}</CText>
+                                    <CText color="gray.400" variant="body3">{item.account_number}</CText>
+                                </VStack>
+                            )}
+                        options={data?.data ?? []} my="8px" onValueChange={(val) => setFormValue(val,"bank_account_id")}  labelText="Bank Account*" keyboardType="number-pad" placeholder="Select Bank Account " />
+                        <CustomPasswordInput error={errors?.password} value={formState.password} my="8px" onChangeText={(val) => setFormValue(val,"password")}  labelText="Password*"  placeholder="Enter Password to authenticate" />
+                    </ScrollView>
+                    <Box my="10px">
+                        <AppBtn onPress={onCreateWithdrawal} isLoading={withdrawQuery.isLoading} gradient={true}>Send Request</AppBtn>
+                    </Box>
+                </KeyboardAvoidingView>
             </View>
         </SafeScaffold>
     )

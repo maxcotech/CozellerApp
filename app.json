@@ -35,7 +35,7 @@
       "package": "com.Maxcotech.Cozeller"
     },
     "web": {
-      "favicon": "./assets/icon.png"
+      "favicon": "./assets/launcher_icon.png"
     },
     "extra": {
       "eas": {

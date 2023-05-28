@@ -9,7 +9,7 @@ import ProductListSkeleton from "./fragments/ProductListSkeleton";
 import { useStoreProducts } from "../../../../api/queries/product.queries";
 import { useContext, useState } from "react";
 import AppContext from "../../../../contexts/AppContext";
-import { StoreProductParams } from "../../../../config/data_types/product_types";
+import { ProductFormData, StoreProductParams } from "../../../../config/data_types/product_types";
 import { CustomSearchInput } from "../../../../../components/CustomInput";
 import ProductListItem from './fragments/ProductListItem';
 import PaginatedScrollView from './../../../../../components/PaginatedScrollView';
@@ -19,11 +19,13 @@ import { ResourceStatuses } from "../../../../config/enum.config";
 import { getResourceStatusText } from "../../../../helpers/status.helpers";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
+import ProductFormContext from "../../../../contexts/ProductFormContext";
 
 
 
 export default function Products() {
     const appContext = useContext(AppContext);
+    const productContext = useContext(ProductFormContext);
     const navigation = useNavigation<AppNavProps>();
     const { current_store } = appContext.profileData;
     const [filtersVisibility, setFiltersVisibility] = useState(false);
@@ -32,6 +34,29 @@ export default function Products() {
     const onFilterByStatus = (status: ResourceStatuses) => {
         setFiltersVisibility(false);
         setParams({...params,status})
+    }
+
+    const [showLabel, setShowLabel] = useState(false);
+    const [prevScrollY, setPrevScrollY] = useState(0);
+
+    const handleScroll = (event) => {
+        const currentScrollY = event.nativeEvent.contentOffset.y;
+
+        if (currentScrollY > prevScrollY && showLabel) {
+        // Scrolling down, hide the label
+        setShowLabel(false);
+        } else if (currentScrollY < prevScrollY && !showLabel) {
+        // Scrolling up, show the label
+        setShowLabel(true);
+        }
+
+        setPrevScrollY(currentScrollY);
+    };
+
+    const onCreateProduct = () => {
+        productContext.setProductForm({} as ProductFormData);
+        productContext.setProductFormErrors({});
+        navigation.navigate(routes.vendorCreateProduct)
     }
     return (
         <>
@@ -51,7 +76,7 @@ export default function Products() {
                             <>
                                 {
                                     (data?.data?.data && data?.data?.data?.length > 0) ?
-                                        <PaginatedScrollView showsVerticalScrollIndicator={false} paginationData={data?.data} pageParams={{ ...params, store_id: current_store?.id } as StoreProductParams} onLoadNewPage={(params: StoreProductParams) => {
+                                        <PaginatedScrollView onScroll={handleScroll} showsVerticalScrollIndicator={false} paginationData={data?.data} pageParams={{ ...params, store_id: current_store?.id } as StoreProductParams} onLoadNewPage={(params: StoreProductParams) => {
                                             setParams(params)
                                         }} style={{ flex: 1 }}>
                                             {
@@ -68,7 +93,14 @@ export default function Products() {
                                 }
                             </>
                     }
-                    <Fab renderInPortal={false} onPress={() => navigation.navigate(routes.vendorCreateProduct)} label={<AntDesign color="white" size={20} name="plus" />} backgroundColor={APP_COLOR} bottom={5} />
+                
+                    <Fab renderInPortal={false} onPress={() => onCreateProduct()} label={<HStack alignItems="center">
+                        <AntDesign color="white" size={20} name="plus" />
+                        {
+                            showLabel && <CText  color="white" mr={"2px"}>Add Product</CText>
+
+                        }
+                    </HStack>}  backgroundColor={APP_COLOR} bottom={5} />
                 </View>
             </View>
             <Actionsheet onClose={() => setFiltersVisibility(false)} isOpen={filtersVisibility}>

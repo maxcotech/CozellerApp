@@ -14,6 +14,7 @@ import { useQueryClient } from "react-query";
 import { successMessage } from "../../../../helpers/message.helpers";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
+import AppBtn from "../../../../../components/AppBtn";
 
 export const DataRow = ({title,value}) => {
     return (
@@ -80,8 +81,11 @@ export default function ShippingGroupItem({data}:{data:ShippingGroup<string>}) {
                     <CText numberOfLines={1}>{data.group_name}</CText>
                     <CText color={APP_COLOR_LIGHT} variant="body4">SHIPPING RATE: <Money variant="body3">{data?.shipping_rate}</Money></CText>
                     <CText color={APP_COLOR_LIGHT} variant="body4">DELIVERY DURATION: <CText variant="body3">{data?.delivery_duration ?? 0} days</CText></CText>
-                    <CText color={APP_COLOR_LIGHT} variant="body4">DOOR DELIVERY RATE: <Money variant="body3">{data?.door_delivery_rate}</Money></CText>
-
+                    <HStack mt="10px" mb="10px">
+                        <AppBtn textColor="rgba(0,0,255,1)" backgroundColor={"rgba(0,0,255,0.1)"} onPress={() => {
+                            onSelectOption(ManageResourceActions.ManageSubResource);
+                        }}  textVariant="body4" paddingY={7}>Manage Locations</AppBtn>
+                    </HStack>
                 </VStack>
                 <Icon size="md" as={<MaterialIcons name="more-vert" />} />
             </HStack>

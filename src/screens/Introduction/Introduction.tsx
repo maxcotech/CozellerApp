@@ -1,6 +1,6 @@
 import { Box, HStack, Image, StatusBar, VStack, View } from "native-base";
 import React from "react";
-import {Dimensions} from "react-native"
+import {Dimensions, Platform} from "react-native"
 import CText from "../../../components/CText";
 import { LinearGradient } from "expo-linear-gradient";
 import { APP_COLOR, APP_COLOR_LIGHTER } from "../../config/constants.config";
@@ -49,7 +49,7 @@ export const Introduction = () => {
                     </LinearGradient>
                 </React.Fragment>
             )} />
-            <VStack  space={3} width="full" style={{position:"absolute",zIndex:4,bottom:40}} px="15px">
+            <VStack  space={3} width="full" style={{position:"absolute",zIndex:4,bottom: (Platform.OS === "android")? 40: 100 }} px="15px">
                 <AppBtn textVariant="body2" toUppercase={false} onPress={() => setShowAccountOptions(true)} backgroundColor="white" textColor="black">Sign Up</AppBtn>
                 <AppBtn textVariant="body2" toUppercase={false} onPress={() => navigation.navigate(routes.login)} backgroundColor="black" textColor="white">I already have an account</AppBtn>
                 <AppBtn textVariant="body2" toUppercase={false} backgroundColor="transparent" textColor="white">Continue as a guest</AppBtn>

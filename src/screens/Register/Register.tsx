@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { APP_COLOR } from "../../config/constants.config";
-import { Box, Center, Checkbox, CloseIcon, HStack, Image, Pressable, ScrollView, Switch, View } from "native-base";
+import { Box, Center, Checkbox, CloseIcon, HStack, Image, KeyboardAvoidingView, Pressable, ScrollView, Switch, View } from "native-base";
 import CText from "../../../components/CText";
 import AppBtn from "../../../components/AppBtn";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomInput from "../../../components/CustomInput";
 import { AntDesign } from "@expo/vector-icons";
 import SelectTelephoneCode from "./fragments/SelectTelephoneCode";
-import { APP_COLOR_LIGHT } from './../../config/constants.config';
 import routes from "../../config/routes.config";
 import CustomSelect from "../../../components/CustomSelect";
 import { AccountGroups, AccountTypes, StoreStaffTypes } from "../../config/enum.config";
@@ -30,7 +29,7 @@ export default function Register(){
         email:"",
         password:"",
         confirm_password:"",
-        telephone_code:"",
+        telephone_code:"+44",
         account_type:1,
         staff_token: ""
     })
@@ -63,6 +62,7 @@ export default function Register(){
     
     return (
         <SafeAreaView style={{flex:1,backgroundColor: APP_COLOR}}>
+            <KeyboardAvoidingView flex={1} behavior="padding">
             <ScrollView flex={1} backgroundColor="white">
                 {
                     (navigation.canGoBack())?
@@ -101,8 +101,8 @@ export default function Register(){
                         <CustomInput error={errors.staff_token} my="8px" labelText="Staff Token" placeholder="Enter token issued to you" value={formState.staff_token} onChangeText={(val) => setFormValue(val,"staff_token")} />:<></>
                     }
                     
-                    <CustomInput error={errors.password} onChangeText={(val) => setFormValue(val,"password")} prefix={<AntDesign color="gray" name="lock" size={16} />} secureTextEntry={!showPassword} value={formState.password} labelText="Password" my="8px" placeholder="Enter a password" />
-                    <CustomInput error={errors.confirm_password} onChangeText={(val) => setFormValue(val,"confirm_password")} prefix={<AntDesign color="gray" name="lock" size={16} />} secureTextEntry={!showPassword} value={formState.confirm_password} labelText="Confirm Password" my="8px" placeholder="Confirm Password" />
+                    <CustomInput blurOnSubmit={false} error={errors.password} onChangeText={(val) => setFormValue(val,"password")} prefix={<AntDesign color="gray" name="lock" size={16} />} secureTextEntry={!showPassword} value={formState.password} labelText="Password" my="8px" placeholder="Enter a password" />
+                    <CustomInput blurOnSubmit={false} error={errors.confirm_password} onChangeText={(val) => setFormValue(val,"confirm_password")} prefix={<AntDesign color="gray" name="lock" size={16} />} secureTextEntry={!showPassword} value={formState.confirm_password} labelText="Confirm Password" my="8px" placeholder="Confirm Password" />
                     <HStack width="full" space={1}>
                         <Switch colorScheme={"success"} value={showPassword} onValueChange={(val) => setShowPassword(val)} />
                         <CText>Password Visibility</CText>
@@ -126,6 +126,7 @@ export default function Register(){
                 </Center>
                
             </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }

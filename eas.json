@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 3.0.0"
+    "version": ">= 3.0.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "development-simulator": {
@@ -18,6 +19,7 @@
       "distribution": "internal"
     },
     "production": {
+      "autoIncrement": true,
       "env": {
         "API_BASE_URL": "https://api.cozeller.com/api/v1/",
         "IP_FETCH_API": "https://api.db-ip.com/v2/free/self"

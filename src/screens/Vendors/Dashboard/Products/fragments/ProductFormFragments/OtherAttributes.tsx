@@ -1,5 +1,4 @@
-import { ScrollView, VStack, View } from "native-base";
-import { ProductFormPageProps } from "../../../../../../config/data_types/product_types";
+import { KeyboardAvoidingView, ScrollView, VStack, View } from "native-base";
 import CustomInput from "../../../../../../../components/CustomInput";
 import { useContext } from "react";
 import ProductFormContext from "../../../../../../contexts/ProductFormContext";
@@ -29,18 +28,20 @@ export default function OtherAttributes(){
     }
     return (
         <View flex={1}>
-            <ScrollView pt="20px" flex={1} contentContainerStyle={{paddingBottom:20}}>
-                <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"product_sku")} placeholder="Enter Product SKU (Optional)" error={productFormErrors.product_sku} value={productForm.product_sku} labelText="Product SKU" />
-                <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"youtube_video_id")} placeholder="Enter Youtube Video ID (Optional)" error={productFormErrors.youtube_video_id} value={productForm.youtube_video_id} labelText="Youtube Video" />
-                <TouchableOpacity onPress={onSelectBrand}>
-                    <CustomInput  editable={false} my="8px" placeholder="Eg. Gucci, Balenciaga (Optional)" error={productFormErrors.brand_id} value={productForm.brand_name} labelText="Select Brand" />
-                </TouchableOpacity>
+            <KeyboardAvoidingView flex={1} behavior="padding">
+                <ScrollView pt="20px" flex={1} contentContainerStyle={{paddingBottom:20}}>
+                    <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"product_sku")} placeholder="Enter Product SKU (Optional)" error={productFormErrors.product_sku} value={productForm.product_sku} labelText="Product SKU" />
+                    <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"youtube_video_id")} placeholder="Enter Youtube Video ID (Optional)" error={productFormErrors.youtube_video_id} value={productForm.youtube_video_id} labelText="Youtube Video" />
+                    <TouchableOpacity onPress={onSelectBrand}>
+                        <CustomInput  editable={false} my="8px" placeholder="Eg. Gucci, Balenciaga (Optional)" error={productFormErrors.brand_id} value={productForm.brand_name} labelText="Select Brand" />
+                    </TouchableOpacity>
 
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
             <VStack space={2} pb="10px" pt="20px">
-            <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductVariations)}>Manage Variations <AntDesign name="arrowright" size={18} /></AppBtn>
-            <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductDimensions)}  backgroundColor={"white"} textColor={"black"}><AntDesign  name="arrowleft" size={18} /> Previous</AppBtn>
-        </VStack>
+                <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductVariations)}>Manage Variations <AntDesign name="arrowright" size={18} /></AppBtn>
+                <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductDimensions)}  backgroundColor={"white"} textColor={"black"}><AntDesign  name="arrowleft" size={18} /> Previous</AppBtn>
+            </VStack>
         </View>
     )
 }

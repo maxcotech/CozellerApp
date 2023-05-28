@@ -1,4 +1,4 @@
-import { Box, ScrollView, View } from "native-base";
+import { Box, KeyboardAvoidingView, ScrollView, View } from "native-base";
 import AppBar from "../../../components/AppBar";
 import SafeScaffold from "../../../components/SafeScaffold";
 import { XPADDING } from "../../config/constants.config";
@@ -32,14 +32,17 @@ export default function ChangePassword(){
         <SafeScaffold>
             <AppBar title="Update Password" />
             <View flex={1} pt="10px" px={XPADDING}>
-                <ScrollView flex={1}>
-                    <CustomPasswordInput error={errors.old_password} value={formState.old_password} onChangeText={(old_password) => setFormState({...formState,old_password})}  my="8px" placeholder="Enter Current Password" labelText="Current Pasword" />
-                    <CustomPasswordInput value={formState.new_password} error={errors.new_password} onChangeText={(new_password) => setFormState({...formState,new_password})} my="8px" placeholder="Enter New Password" labelText="New Pasword" />
-                    <CustomPasswordInput onChangeText={(confirm_password) => setFormState({...formState,confirm_password})} value={formState.confirm_password} error={errors.confirm_password} my="8px" placeholder="Re-enter New Password" labelText="Confirm Pasword" />
-                </ScrollView>
-                <Box my="10px">
-                    <AppBtn gradient={true} isLoading={isLoading} onPress={() => mutate(formState)}>CHANGE PASSWORD</AppBtn>
-                </Box>
+                <KeyboardAvoidingView flex={1} behavior="padding">
+                    <ScrollView flex={1}>
+                        <CustomPasswordInput error={errors.old_password} value={formState.old_password} onChangeText={(old_password) => setFormState({...formState,old_password})}  my="8px" placeholder="Enter Current Password" labelText="Current Pasword" />
+                        <CustomPasswordInput value={formState.new_password} error={errors.new_password} onChangeText={(new_password) => setFormState({...formState,new_password})} my="8px" placeholder="Enter New Password" labelText="New Pasword" />
+                        <CustomPasswordInput onChangeText={(confirm_password) => setFormState({...formState,confirm_password})} value={formState.confirm_password} error={errors.confirm_password} my="8px" placeholder="Re-enter New Password" labelText="Confirm Pasword" />
+                    </ScrollView>
+                    
+                    <Box my="10px">
+                        <AppBtn gradient={true} isLoading={isLoading} onPress={() => mutate(formState)}>CHANGE PASSWORD</AppBtn>
+                    </Box>
+                </KeyboardAvoidingView>
             </View>
         </SafeScaffold>
     )

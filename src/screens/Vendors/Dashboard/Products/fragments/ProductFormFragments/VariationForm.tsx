@@ -1,4 +1,4 @@
-import { Box, HStack, ScrollView, View } from "native-base";
+import { Box, HStack, KeyboardAvoidingView, ScrollView, View } from "native-base";
 import AppBar from "../../../../../../../components/AppBar";
 import SafeScaffold from "../../../../../../../components/SafeScaffold";
 import AppBtn from "../../../../../../../components/AppBtn";
@@ -90,27 +90,30 @@ export default function VariationForm(){
         <SafeScaffold>
             <AppBar title="Manage Variations" />
             <View px={XPADDING} flex={1} pt="20px">
-                <ScrollView contentContainerStyle={{paddingBottom: 20}}  flex={1}>
-                    <CText variant="body2" color="gray.500" mb="5px">Variation Image</CText>
-                    <HStack width="full"  space={2}>
-                        <FileUploader source={(formState.variation_image)?{uri: formState.variation_image}:undefined} onFileChange={onUploadImage} ratio={2/3} width="130px" />
-                        <Box flex={1}>
-                            <CText variant="body3" color="gray.400">
-                                Add an image for variation (only jpg,png,jpeg,webp supported)
-                            </CText>
-                        </Box>
-                        
-                    </HStack>
-                    <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"variation_name")} value={formState.variation_name} placeholder="Enter Variation Name" labelText="Variation Name*" />
-                    <CustomInput my="8px" prefix={<CText variant="body1">{decode(profileData?.currency?.currency_sym)}</CText>} keyboardType="number-pad" onChangeText={(val) => setFormValue(val,"regular_price")} value={formState?.regular_price?.toString()} placeholder={`Enter Regular Price in ${profileData?.currency?.currency_code}`} labelText={`Regular Price (${profileData?.currency?.currency_code})*`} />
-                    <CustomInput my="8px" prefix={<CText variant="body1">{decode(profileData?.currency?.currency_sym)}</CText>} keyboardType="number-pad" onChangeText={(val) => setFormValue(val,"sales_price")} value={formState?.sales_price?.toString()} placeholder={`Enter Sales Price in ${profileData?.currency?.currency_code} (Optional)`} labelText={`Sales Price (${profileData?.currency?.currency_code})`} />
-                    <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"amount_in_stock")} value={formState.amount_in_stock?.toString()} keyboardType="number-pad" placeholder="Enter Amount in stock" labelText="Amount In Stock*" />
-                    <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"variation_sku")} value={formState.variation_sku?.toString()} placeholder="Enter Variation SKU" labelText="Variation SKU*" />
+                <KeyboardAvoidingView flex={1} behavior="padding">
+                    <ScrollView contentContainerStyle={{paddingBottom: 20}}  flex={1}>
+                        <CText variant="body2" color="gray.500" mb="5px">Variation Image</CText>
+                        <HStack width="full"  space={2}>
+                            <FileUploader source={(formState.variation_image)?{uri: formState.variation_image}:undefined} onFileChange={onUploadImage} ratio={2/3} width="130px" />
+                            <Box flex={1}>
+                                <CText variant="body3" color="gray.400">
+                                    Add an image for variation (only jpg,png,jpeg,webp supported)
+                                </CText>
+                            </Box>
+                            
+                        </HStack>
+                        <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"variation_name")} value={formState.variation_name} placeholder="Enter Variation Name" labelText="Variation Name*" />
+                        <CustomInput my="8px" prefix={<CText variant="body1">{decode(profileData?.currency?.currency_sym)}</CText>} keyboardType="number-pad" onChangeText={(val) => setFormValue(val,"regular_price")} value={formState?.regular_price?.toString()} placeholder={`Enter Regular Price in ${profileData?.currency?.currency_code}`} labelText={`Regular Price (${profileData?.currency?.currency_code})*`} />
+                        <CustomInput my="8px" prefix={<CText variant="body1">{decode(profileData?.currency?.currency_sym)}</CText>} keyboardType="number-pad" onChangeText={(val) => setFormValue(val,"sales_price")} value={formState?.sales_price?.toString()} placeholder={`Enter Sales Price in ${profileData?.currency?.currency_code} (Optional)`} labelText={`Sales Price (${profileData?.currency?.currency_code})`} />
+                        <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"amount_in_stock")} value={formState.amount_in_stock?.toString()} keyboardType="number-pad" placeholder="Enter Amount in stock" labelText="Amount In Stock*" />
+                        <CustomInput my="8px" onChangeText={(val) => setFormValue(val,"variation_sku")} value={formState.variation_sku?.toString()} placeholder="Enter Variation SKU" labelText="Variation SKU*" />
 
-                </ScrollView>
+                    </ScrollView>
+                
                 <Box my="10px">
                     <AppBtn gradient={true} onPress={onApply}>apply</AppBtn>
                 </Box>
+                </KeyboardAvoidingView>
             </View>
         </SafeScaffold>
     )

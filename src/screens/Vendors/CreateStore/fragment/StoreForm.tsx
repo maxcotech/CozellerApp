@@ -1,4 +1,4 @@
-import { Box, HStack, ScrollView } from "native-base";
+import { Box, HStack, KeyboardAvoidingView, ScrollView } from "native-base";
 import CustomInput from "../../../../../components/CustomInput";
 import { useState } from "react";
 import { Store } from "../../../../config/data_types/store_types";
@@ -67,6 +67,7 @@ export default function StoreForm({defaultData,handleSubmit,isLoading = false,bt
         }
     }
     return (
+        <KeyboardAvoidingView flex={1} behavior="padding">
         <ScrollView contentContainerStyle={{paddingHorizontal:20, paddingVertical: 20}} flex={1}>
             <Box >
                 <CText variant="body1" fontWeight="bold">Business ID And Contact</CText>
@@ -98,5 +99,6 @@ export default function StoreForm({defaultData,handleSubmit,isLoading = false,bt
             </Box>
 
         </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
