@@ -1,6 +1,5 @@
 import { Actionsheet, Box, Fab, HStack, View } from "native-base";
 import AppBar from "../../../../../components/AppBar";
-import SafeScaffold from "../../../../../components/SafeScaffold";
 import EmptyPage from "../../../../../components/EmptyPage";
 import AppBtn from "../../../../../components/AppBtn";
 import { APP_COLOR, XPADDING } from "../../../../config/constants.config";

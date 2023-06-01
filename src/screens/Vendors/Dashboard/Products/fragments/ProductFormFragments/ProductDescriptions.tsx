@@ -19,21 +19,15 @@ export default function ProductDescriptions() {
 
     return (
         <View flex={1}>
-            <KeyboardAvoidingView flex={1} behavior="padding">
-                <ScrollView pt="20px" flex={1}>
+            <ScrollView pt="20px" flex={1}>
+                <KeyboardAvoidingView flex={1} behavior="padding">
+
                     <CText>Simple Description</CText>
                     <RichEditor ref={simpleDRef}
                         onChange={(val) => setFormValue(val, "simple_description")}
                         initialContentHTML={productForm.simple_description ?? "Include a brief description of your product."}
                     />
-                    <RichToolbar
-
-                        editor={simpleDRef}
-                        actions={[actions.setBold, actions.heading1, actions.heading2, actions.heading3, actions.setItalic, actions.insertBulletsList, actions.insertOrderedList, actions.setUnderline]}
-                        iconMap={{ [actions.heading1]: handleHead, [actions.heading2]: handleHead2, [actions.heading3]: handleHead3 }}
-                    />
-
-                    <CText mt="20px">Key Features</CText>
+                  {/* <CText mt="20px">Key Features</CText>
                     <RichEditor ref={keyFeatureRef}
                         onChange={(val) => setFormValue(val, "key_features")}
                         initialContentHTML={productForm?.key_features ?? "List out the key features of the product."}
@@ -42,13 +36,24 @@ export default function ProductDescriptions() {
                         editor={simpleDRef}
                         actions={[actions.setBold, actions.heading1, actions.heading2, actions.heading3, actions.setItalic, actions.insertBulletsList, actions.insertOrderedList, actions.setUnderline]}
                         iconMap={{ [actions.heading1]: handleHead, [actions.heading2]: handleHead2, [actions.heading3]: handleHead3 }}
-                    />
-                </ScrollView>
-                <VStack space={2} pb="10px" pt="60px">
-                    <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductDimensions)}>Continue <AntDesign name="arrowright" size={18} /></AppBtn>
-                    <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductGallery)} backgroundColor={"white"} textColor={"black"}><AntDesign name="arrowleft" size={18} /> Previous</AppBtn>
-                </VStack>
-            </KeyboardAvoidingView>
+                    /> */}
+
+                    
+                </KeyboardAvoidingView>
+            </ScrollView>
+           
+            <RichToolbar
+                editor={simpleDRef}
+                actions={[actions.setBold, actions.heading1, actions.heading2, actions.heading3, actions.setItalic, actions.insertBulletsList, actions.insertOrderedList, actions.setUnderline]}
+                iconMap={{ [actions.heading1]: handleHead, [actions.heading2]: handleHead2, [actions.heading3]: handleHead3 }}
+            />
+          
+            
+            <VStack space={2} pb="10px" pt="60px">
+                <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductDimensions)}>Continue <AntDesign name="arrowright" size={18} /></AppBtn>
+                <AppBtn textVariant="body3" onPress={() => setProductFormIndex(ProductFormIndexes.ProductGallery)} backgroundColor={"white"} textColor={"black"}><AntDesign name="arrowleft" size={18} /> Previous</AppBtn>
+            </VStack>
+
         </View>
     )
 }
