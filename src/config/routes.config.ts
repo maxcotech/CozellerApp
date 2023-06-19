@@ -1,7 +1,7 @@
 import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 
-const GeneralRoutes = {
+export const GeneralRoutes = {
     introduction: "introduction",
     home: "home",
     drawer: "drawer",
@@ -9,7 +9,7 @@ const GeneralRoutes = {
     comingSoon: "comingSoon"
 }
 
-const AuthRoutes = {
+export const AuthRoutes = {
     login: "auth/login",
     register: "auth/register",
     logout: "auth/logout",
@@ -18,7 +18,7 @@ const AuthRoutes = {
     emailPasswordReset: "auth/email/password-reset"
 }
 
-const VendorRoutes = {
+export const VendorRoutes = {
     vendorIndex: "vendor",
     vendorOnboarding: "vendor/onboarding",
     vendorDashboard: "vendor/dashboard",
@@ -35,7 +35,7 @@ const VendorRoutes = {
     vendorOrderDetails: "vendor/order-details",
 }
 
-const vendorStoreSettingsRoute = {
+export const vendorStoreSettingsRoute = {
     createStore: "vendor/settings/create-store",
     selectStore: "vendor/settings/select-store",
     joinStore: "vendor/settings/join-store",
@@ -45,9 +45,9 @@ const vendorStoreSettingsRoute = {
     updateStore: "vendor/settings/update-store"
 }
 
-const vendorShippingSettingsRoutes = {
-    shippingGroups : "vendor/settings/shipping-groups",
-    updateShippingGroup : "vendor/settings/update-shipping-group",
+export const vendorShippingSettingsRoutes = {
+    shippingGroups: "vendor/settings/shipping-groups",
+    updateShippingGroup: "vendor/settings/update-shipping-group",
     createShippingGroup: "vendor/settings/create-shipping-group",
     shippingDimensionRange: "vendor/settings/dimension-range",
     shippingLocations: "vendor/settings/shipping-locations",
@@ -55,7 +55,7 @@ const vendorShippingSettingsRoutes = {
     updateShippingLocations: "vendor/settings/update-shipping-locations"
 }
 
-const VendorDashboardRoutes = {
+export const VendorDashboardRoutes = {
     vendorDashboardHome: "vendor/dashboard/home",
     vendorDashboardOrders: "vendor/dashboard/orders",
     vendorDashboardProducts: "vendor/dashboard/products",
@@ -63,17 +63,28 @@ const VendorDashboardRoutes = {
     vendorDashboardSettings: "vendor/dashboard/settings"
 }
 
-const AccountRoutes = {
+export const AccountRoutes = {
     accountList: "accounts/list",
     accountProfile: "account/profile"
 }
 
-const routes = {
-    ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...VendorDashboardRoutes, ...AccountRoutes, 
-    ...vendorStoreSettingsRoute, ...vendorShippingSettingsRoutes
+export const CustomerRoutes = {
+    customerIndex: "customer/index",
+    customerHome: "customer/home",
+    customerCategories: "customer/categories",
+    customerAccount: "customer/account",
+    customerWishlist: "customer/wishlist",
+    customerHelp: "customer/help",
+    customerSearch: "customer/search",
+    customerCatalog: "customer/catalog"
 }
 
-export const AppParamList = Object.assign({},...Object.keys(routes).map((key) => { return {[key]:{}}})) as ParamListBase
+const routes = {
+    ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...VendorDashboardRoutes, ...AccountRoutes,
+    ...vendorStoreSettingsRoute, ...vendorShippingSettingsRoutes, ...CustomerRoutes
+}
+
+export const AppParamList = Object.assign({}, ...Object.keys(routes).map((key) => { return { [key]: {} } })) as ParamListBase
 export type AppNavProps = NativeStackNavigationProp<typeof AppParamList>;
 
 export default routes;

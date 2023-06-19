@@ -39,7 +39,8 @@ export interface GenericDataResponse<DataType> extends HttpDataResponse {
 
 export interface PaginationParams {
     page?: number,
-    limit?: number
+    limit?: number,
+    skip?: number
 }
 
 export interface IPAddressPayload {

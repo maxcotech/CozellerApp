@@ -104,3 +104,9 @@ export enum StoreStaffTypes {
     StoreManager = 11,
     StoreOwner = 12
 }
+
+export enum WidgetTypes {
+    fourItems = 4,
+    singleItem = 1,
+    multipleItems = 10
+}

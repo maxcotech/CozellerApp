@@ -7,3 +7,4 @@ export const XPADDING = "20px";
 export const SECONDARY_COLOR = "#02586B";
 export const API_BASE_URL = "https://api.cozeller.com/api/v1/";
 export const IP_FETCH_API = "https://api.db-ip.com/v2/free/self";
+export const NEW_XPADDING = 10;

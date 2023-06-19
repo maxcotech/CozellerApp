@@ -1,0 +1,75 @@
+import { StatusBar } from "expo-status-bar";
+import { HStack, Icon, View, ScrollView } from "native-base";
+import { Dimensions, ImageBackground, TouchableOpacity } from "react-native";
+import { APP_COLOR, APP_COLOR_LIGHTER, NEW_XPADDING } from "../../../config/constants.config";
+import CText from "../../../../components/CText";
+import { Image } from "native-base";
+import CartIcon from "../components/CartIcon";
+import { AntDesign } from "@expo/vector-icons";
+import HomeBanners from "./components/HomeBanners";
+import { useWidgets } from "../../../api/queries/widgets.queries";
+import { ResourceStatuses, WidgetTypes } from "../../../config/enum.config";
+import MultipleItemWidget from "./components/MultipleItemWidget";
+import SingleItemWidget from "./components/SingleItemWidget";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../config/routes.config";
+import { useMemo } from 'react';
+import FourItemWidget from "./components/FourItemWidget";
+
+
+export default function Home() {
+     const dimensions = Dimensions.get("screen");
+     const widgets = useWidgets({ status: ResourceStatuses.Active });
+     const navigation = useNavigation<AppNavProps>();
+     const HomeContents = useMemo(() => {
+          return (
+               <>
+                    <View mt={2}>
+                         <HomeBanners pageWidth={dimensions.width} />
+                    </View>
+                    {
+                         widgets.data?.data?.data.map((item) => {
+                              if (item.widget_type === WidgetTypes.multipleItems) {
+                                   return <View key={item.id} mt={2}><MultipleItemWidget pageWidth={dimensions.width} widget={item} /></View>
+                              }
+                              if (item.widget_type === WidgetTypes.singleItem) {
+                                   return <View key={item.id} mt={2}>
+                                        <SingleItemWidget pageWidth={dimensions.width} widget={item} />
+                                   </View>
+                              }
+                              if (item.widget_type === WidgetTypes.fourItems) {
+                                   return <View key={item.id} mt={2}>
+                                        <FourItemWidget widget={item} pageWidth={dimensions.width} />
+                                   </View>
+                              }
+                              return <></>
+                         })
+                    }
+               </>
+          )
+     }, [JSON.stringify(widgets.data?.data?.data)])
+     return <>
+
+          <ScrollView backgroundColor={APP_COLOR_LIGHTER} flex={1}>
+               <StatusBar backgroundColor="black" translucent />
+               <ImageBackground blurRadius={6} style={{ width: dimensions.width, paddingHorizontal: NEW_XPADDING, paddingTop: 10, paddingBottom: 10 }} source={require("../../../../assets/home-page-banner2.png")}>
+                    <HStack alignItems="center" justifyContent={"space-between"}>
+                         <HStack alignItems="center">
+                              <Image style={{ height: 35, width: 35, marginHorizontal: -6 }} source={require("../../../../assets/icon.png")} />
+                              <CText color="white" variant="heading" fontWeight="bold">OZELLER</CText>
+                         </HStack>
+                         <CartIcon />
+                    </HStack>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.customerSearch, { query: "Bags" })}>
+                         <HStack borderStyle={"solid"} borderWidth="1px" borderColor={"rgba(255, 255, 255, 0.3)"} alignItems="center" mt={7} mb={5} px={5} py={3} style={{ borderRadius: 30, backgroundColor: "rgba(255, 255, 255, 0.4)" }}>
+                              <Icon size="lg" color="white" as={<AntDesign name="search1" />} />
+                              <CText pl="3" color="white">Search our catalog</CText>
+                         </HStack>
+                    </TouchableOpacity>
+               </ImageBackground>
+               {HomeContents}
+
+
+          </ScrollView>
+     </>
+}

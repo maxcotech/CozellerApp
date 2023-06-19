@@ -1,6 +1,6 @@
 import { Box, HStack, Image, StatusBar, VStack, View } from "native-base";
 import React from "react";
-import {Dimensions, Platform} from "react-native"
+import { Dimensions, Platform } from "react-native"
 import CText from "../../../components/CText";
 import { LinearGradient } from "expo-linear-gradient";
 import { APP_COLOR, APP_COLOR_LIGHTER } from "../../config/constants.config";
@@ -13,11 +13,11 @@ import SelectAccountGroup from "../Register/fragments/SelectAccountGroup";
 
 export const Introduction = () => {
     const dimensions = Dimensions.get('screen');
-    const [showAccountOptions,setShowAccountOptions] = React.useState(false);
+    const [showAccountOptions, setShowAccountOptions] = React.useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>()
     const deviceWidth = dimensions.width;
     const deviceHeight = dimensions.height;
-    
+
     const data = [
         {
             image: 1,
@@ -32,30 +32,30 @@ export const Introduction = () => {
     ]
     return (
         <>
-        <StatusBar backgroundColor={"transparent"} translucent />
-        <View flex={1}>
-            <Carousel autoPlay={true} autoPlayInterval={7000}  loop scrollAnimationDuration={1000} height={deviceHeight} width={deviceWidth} data={data} renderItem={({index,item}) => (
-                <React.Fragment key={index}>
-                    <Image alt={item.title} width="full" height="5/6" source={(item.image === 1)? require("../../../assets/happy-vendor.jpg"): require("../../../assets/happy-buyer.jpg")} />
-                    <LinearGradient locations={[0,0.1,0.6]}  style={{zIndex:1, paddingTop: 20, flex:1,position:"absolute",top:0,bottom:0,left:0,right:0}} colors={["rgba(0,0,0,0)",APP_COLOR_LIGHTER,APP_COLOR]}>
-                        <VStack alignItems="center" flex={1}  pt="full" px="15px">
-                            <HStack space={1} mb="5px">
-                                <Box borderRadius={"md"} width={15} height={"2px"} bgColor={(index === 0)? "white":"rgba(0,0,0,0.5)"}></Box>
-                                <Box borderRadius={"md"} width={15} height={"2px"} bgColor={(index === 1)? "white":"rgba(0,0,0,0.5)"}></Box>
-                            </HStack>
-                            <CText variant="subheading" mb="5px" color="white" textAlign={"center"}>{item.title}</CText>
-                            <CText variant="body2" textAlign={"center"} color="white">{item.description}</CText>
-                        </VStack>
-                    </LinearGradient>
-                </React.Fragment>
-            )} />
-            <VStack  space={3} width="full" style={{position:"absolute",zIndex:4,bottom: (Platform.OS === "android")? 40: 100 }} px="15px">
-                <AppBtn textVariant="body2" toUppercase={false} onPress={() => setShowAccountOptions(true)} backgroundColor="white" textColor="black">Sign Up</AppBtn>
-                <AppBtn textVariant="body2" toUppercase={false} onPress={() => navigation.navigate(routes.login)} backgroundColor="black" textColor="white">I already have an account</AppBtn>
-                <AppBtn textVariant="body2" toUppercase={false} backgroundColor="transparent" textColor="white">Continue as a guest</AppBtn>
-            </VStack>
-        </View>
-        <SelectAccountGroup isOpen={showAccountOptions} onClose={() => setShowAccountOptions(false)} />
+            <StatusBar backgroundColor={"transparent"} translucent />
+            <View flex={1}>
+                <Carousel autoPlay={true} autoPlayInterval={7000} loop scrollAnimationDuration={1000} height={deviceHeight} width={deviceWidth} data={data} renderItem={({ index, item }) => (
+                    <React.Fragment key={index}>
+                        <Image alt={item.title} width="full" height="5/6" source={(item.image === 1) ? require("../../../assets/happy-vendor.jpg") : require("../../../assets/happy-buyer.jpg")} />
+                        <LinearGradient locations={[0, 0.1, 0.6]} style={{ zIndex: 1, paddingTop: 20, flex: 1, position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }} colors={["rgba(0,0,0,0)", APP_COLOR_LIGHTER, APP_COLOR]}>
+                            <VStack alignItems="center" flex={1} pt="full" px="15px">
+                                <HStack space={1} mb="5px">
+                                    <Box borderRadius={"md"} width={15} height={"2px"} bgColor={(index === 0) ? "white" : "rgba(0,0,0,0.5)"}></Box>
+                                    <Box borderRadius={"md"} width={15} height={"2px"} bgColor={(index === 1) ? "white" : "rgba(0,0,0,0.5)"}></Box>
+                                </HStack>
+                                <CText variant="subheading" mb="5px" color="white" textAlign={"center"}>{item.title}</CText>
+                                <CText variant="body2" textAlign={"center"} color="white">{item.description}</CText>
+                            </VStack>
+                        </LinearGradient>
+                    </React.Fragment>
+                )} />
+                <VStack space={3} width="full" style={{ position: "absolute", zIndex: 4, bottom: (Platform.OS === "android") ? 40 : 100 }} px="15px">
+                    <AppBtn textVariant="body2" toUppercase={false} onPress={() => setShowAccountOptions(true)} backgroundColor="white" textColor="black">Sign Up</AppBtn>
+                    <AppBtn textVariant="body2" toUppercase={false} onPress={() => navigation.navigate(routes.login)} backgroundColor="black" textColor="white">I already have an account</AppBtn>
+                    <AppBtn onPress={() => navigation.navigate(routes.customerIndex)} textVariant="body2" toUppercase={false} backgroundColor="transparent" textColor="white">Continue as a guest</AppBtn>
+                </VStack>
+            </View>
+            <SelectAccountGroup isOpen={showAccountOptions} onClose={() => setShowAccountOptions(false)} />
         </>
     )
 }
