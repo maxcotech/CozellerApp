@@ -1,3 +1,4 @@
+import { ParamListBase, RouteProp } from "@react-navigation/native"
 
 export interface HttpDataResponse {
     message: string,
@@ -52,3 +53,5 @@ export interface IPAddressPayload {
     stateProv: string,
     city: string
 }
+
+export type AppRouteProp = RouteProp<ParamListBase>;

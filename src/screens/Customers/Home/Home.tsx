@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../config/routes.config";
 import { useMemo } from 'react';
 import FourItemWidget from "./components/FourItemWidget";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 export default function Home() {
@@ -52,20 +53,22 @@ export default function Home() {
 
           <ScrollView backgroundColor={APP_COLOR_LIGHTER} flex={1}>
                <StatusBar backgroundColor="black" translucent />
-               <ImageBackground blurRadius={6} style={{ width: dimensions.width, paddingHorizontal: NEW_XPADDING, paddingTop: 10, paddingBottom: 10 }} source={require("../../../../assets/home-page-banner2.png")}>
-                    <HStack alignItems="center" justifyContent={"space-between"}>
-                         <HStack alignItems="center">
-                              <Image style={{ height: 35, width: 35, marginHorizontal: -6 }} source={require("../../../../assets/icon.png")} />
-                              <CText color="white" variant="heading" fontWeight="bold">OZELLER</CText>
+               <ImageBackground blurRadius={6} style={{ width: dimensions.width }} source={require("../../../../assets/home-page-banner2.png")}>
+                    <LinearGradient colors={["black", "transparent", "transparent"]} style={{ flex: 1, paddingHorizontal: NEW_XPADDING, paddingTop: 10, paddingBottom: 10 }}>
+                         <HStack alignItems="center" justifyContent={"space-between"}>
+                              <HStack alignItems="center">
+                                   <Image style={{ height: 35, width: 35, marginHorizontal: -6 }} source={require("../../../../assets/icon.png")} />
+                                   <CText color="white" variant="heading" fontWeight="bold">OZELLER</CText>
+                              </HStack>
+                              <CartIcon />
                          </HStack>
-                         <CartIcon />
-                    </HStack>
-                    <TouchableOpacity onPress={() => navigation.navigate(routes.customerSearch, { query: "Bags" })}>
-                         <HStack borderStyle={"solid"} borderWidth="1px" borderColor={"rgba(255, 255, 255, 0.3)"} alignItems="center" mt={7} mb={5} px={5} py={3} style={{ borderRadius: 30, backgroundColor: "rgba(255, 255, 255, 0.4)" }}>
-                              <Icon size="lg" color="white" as={<AntDesign name="search1" />} />
-                              <CText pl="3" color="white">Search our catalog</CText>
-                         </HStack>
-                    </TouchableOpacity>
+                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerSearch)}>
+                              <HStack borderStyle={"solid"} borderWidth="1px" borderColor={"rgba(255, 255, 255, 0.3)"} alignItems="center" mt={20} mb={5} px={5} py={3} style={{ borderRadius: 30, backgroundColor: "rgba(255, 255, 255, 0.4)" }}>
+                                   <Icon size="lg" color="white" as={<AntDesign name="search1" />} />
+                                   <CText pl="3" color="white">Search our catalog</CText>
+                              </HStack>
+                         </TouchableOpacity>
+                    </LinearGradient>
                </ImageBackground>
                {HomeContents}
 

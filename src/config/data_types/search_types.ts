@@ -7,7 +7,7 @@ export interface SearchParams {
      query: string
 }
 
-export type ProductSearchResult = Pick<Product, 'id' | 'product_name' | 'product_slug'>;
+export type ProductSearchResult = Pick<Product, 'id' | 'product_name' | 'product_slug' | 'product_image'>;
 export type CategorySearchResult = Pick<Category, 'id' | 'category_icon' | 'category_slug' | 'category_title'>;
 
 export interface SearchResult {

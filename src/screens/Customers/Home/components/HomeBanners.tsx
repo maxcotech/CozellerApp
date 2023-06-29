@@ -20,7 +20,7 @@ export default function HomeBanners({ pageWidth }) {
      if (isLoading) return <HomeBannersSkeleton height={PAGE_WIDTH * 0.6} />;
      return (
 
-          <View py={1} backgroundColor={"white"} style={{ alignItems: "center" }}>
+          <View py={1} style={{ alignItems: "center" }}>
                <Carousel
                     {...baseOptions}
                     style={{

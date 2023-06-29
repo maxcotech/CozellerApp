@@ -20,6 +20,7 @@ import EmailPasswordReset from "../screens/EmailPasswordReset/EmailPasswordReset
 import CustomerNavigation from "./CustomerNavigation";
 import SearchScreen from "../screens/Customers/SearchScreen/SearchScreen";
 import Catalog from "../screens/Customers/Catalog/Catalog";
+import ProductDetails from "../screens/Customers/ProductDetails/ProductDetails";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -109,7 +110,11 @@ export default function IndexNavigation() {
                 name={routes.customerSearch}
                 component={SearchScreen}
             />
-
+            <Stack.Screen
+                options={defaultOptions}
+                name={routes.customerProductDetails}
+                component={ProductDetails}
+            />
             <Stack.Screen
                 options={defaultOptions}
                 name={routes.customerCatalog}

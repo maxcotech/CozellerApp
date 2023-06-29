@@ -81,7 +81,7 @@ export const CustomSearchInput2 = ({ prefix, isLoading, ...props }: CustomSearch
         {...props}
         borderRadius={props.borderRadius ?? 30}
         prefix={prefix ?? <AntDesign color="gray" size={20} name="search1" />}
-        onChangeText={(val) => debounced(val, props.onChangeText)}
+        onChangeText={(val) => props.onChangeText(val)}
         suffix={(isLoading) ? <Spinner color={APP_COLOR} /> : ((props.suffix) ? props.suffix : (props.value?.length > 0) ? <AntDesign onPress={onCancel} size={20} name="close" /> : <></>)}
 
     />

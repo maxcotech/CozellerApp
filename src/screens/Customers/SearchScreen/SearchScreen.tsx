@@ -7,11 +7,13 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { debounced } from "../../../helpers/value.helpers";
-import { useGeneralSearch } from "../../../api/queries/search.queries";
+import { useGeneralSearch, useSaveSearchQuery } from "../../../api/queries/search.queries";
 import { ParamListBase } from "@react-navigation/native"
 import { TextInput, TouchableOpacity } from "react-native";
 import SearchHistory from "./components/SearchHistory";
 import CText from "../../../../components/CText";
+import { CategorySearchResult, ProductSearchResult } from "../../../config/data_types/search_types";
+import routes, { AppNavProps } from "../../../config/routes.config";
 
 export interface SearchScreenProps extends RouteProp<ParamListBase> {
      params: { query: string }
@@ -22,8 +24,10 @@ export default function SearchScreen() {
      const [preQuery, setPreQuery] = useState("");
      const searchRef = useRef<TextInput>();
      const route = useRoute<SearchScreenProps>();
-     const navigation = useNavigation();
-     const searchHandle = useGeneralSearch({ query })
+     const navigation = useNavigation<AppNavProps>();
+     const searchHandle = useGeneralSearch({ query });
+     const searchMutation = useSaveSearchQuery({});
+
      useEffect(() => {
           if (searchRef.current) {
                searchRef.current.focus();
@@ -43,6 +47,16 @@ export default function SearchScreen() {
           return searchHandle.data?.data?.categories ?? [];
      }, [searchHandle.data?.data?.categories]);
 
+     const onSelectItem = (item: ProductSearchResult | CategorySearchResult) => {
+          if ('product_name' in item) {
+               navigation.navigate(routes.customerProductDetails, { product: item.id })
+          } else {
+               navigation.navigate(routes.customerCatalog, { category_parameter: item.id })
+          }
+          searchMutation.mutate(query);
+
+     }
+
      return (
           <SafeScaffold>
                <HStack space={2} alignItems={"center"} backgroundColor={APP_COLOR} paddingX={NEW_XPADDING + "px"} paddingY={2}>
@@ -59,7 +73,7 @@ export default function SearchScreen() {
                          <ScrollView flex={1}>
                               {
                                    categories.map((item) => (
-                                        <TouchableOpacity key={item.id} onPress={() => true}>
+                                        <TouchableOpacity key={item.id} onPress={() => onSelectItem(item)}>
                                              <HStack py={2} px={NEW_XPADDING + "px"} borderBottomWidth={0.5} borderBottomColor={"gray.300"} space={1} alignItems={"center"}>
                                                   <Image size="xs" source={{ uri: item.category_icon }} />
                                                   <CText>{item.category_title}</CText>
@@ -69,9 +83,9 @@ export default function SearchScreen() {
                               }
                               {
                                    products.map((item) => (
-                                        <TouchableOpacity key={item.id} onPress={() => true}>
+                                        <TouchableOpacity key={item.id} onPress={() => onSelectItem(item)}>
                                              <HStack py={2} px={NEW_XPADDING + "px"} borderBottomWidth={0.5} borderBottomColor={"gray.300"} space={1} alignItems={"center"}>
-                                                  <Icon size="md" as={<Feather name={"shopping-cart"} />} />
+                                                  <Image size="xs" source={{ uri: item.product_image }} />
                                                   <CText>{item.product_name}</CText>
                                              </HStack>
                                         </TouchableOpacity>
