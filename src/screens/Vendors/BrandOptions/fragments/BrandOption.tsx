@@ -12,12 +12,12 @@ export interface BrandOptionsProps {
 }
 
 
-export default function BrandOption({data,onSelect}:BrandOptionsProps){
+export default function BrandOption({ data, onSelect }: BrandOptionsProps) {
     return (
         <TouchableOpacity onPress={() => onSelect(data)}>
             <HStack space={2} py="7px" alignItems="center">
                 <Box backgroundColor={APP_COLOR_LIGHTER} borderRadius="lg" alignItems={"center"} justifyContent={"center"} p="10px">
-                    <Image height="50px" width="50px" source={(data.brand_logo)? {uri: data.brand_logo}: require('../../../../../assets/placeholder-image.jpg')} />
+                    <Image alt={data.brand_name} height="50px" width="50px" source={(data.brand_logo) ? { uri: data.brand_logo } : require('../../../../../assets/placeholder-image.jpg')} />
                 </Box>
                 <VStack flex={1}>
                     <CText numberOfLines={1}>{data.brand_name}</CText>

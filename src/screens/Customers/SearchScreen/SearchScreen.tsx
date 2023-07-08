@@ -75,7 +75,7 @@ export default function SearchScreen() {
                                    categories.map((item) => (
                                         <TouchableOpacity key={item.id} onPress={() => onSelectItem(item)}>
                                              <HStack py={2} px={NEW_XPADDING + "px"} borderBottomWidth={0.5} borderBottomColor={"gray.300"} space={1} alignItems={"center"}>
-                                                  <Image size="xs" source={{ uri: item.category_icon }} />
+                                                  <Image alt={item.category_title} size="xs" source={{ uri: item.category_icon }} />
                                                   <CText>{item.category_title}</CText>
                                              </HStack>
                                         </TouchableOpacity>
@@ -85,7 +85,7 @@ export default function SearchScreen() {
                                    products.map((item) => (
                                         <TouchableOpacity key={item.id} onPress={() => onSelectItem(item)}>
                                              <HStack py={2} px={NEW_XPADDING + "px"} borderBottomWidth={0.5} borderBottomColor={"gray.300"} space={1} alignItems={"center"}>
-                                                  <Image size="xs" source={{ uri: item.product_image }} />
+                                                  <Image alt={item.product_name} size="xs" source={{ uri: item.product_image }} />
                                                   <CText>{item.product_name}</CText>
                                              </HStack>
                                         </TouchableOpacity>

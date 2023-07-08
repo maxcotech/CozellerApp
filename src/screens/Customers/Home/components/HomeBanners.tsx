@@ -40,7 +40,7 @@ export default function HomeBanners({ pageWidth }) {
                          parallaxScrollingOffset: 50,
                     }}
                     data={data.data}
-                    renderItem={({ index, item }) => <Image loadingIndicatorSource={require('../../../../../assets/loading.gif')} borderRadius={8} marginX={1} key={index + item.banner} height={PAGE_WIDTH * 0.6} source={{ uri: item.banner }} />}
+                    renderItem={({ index, item }) => <Image alt={"Banner Slide View"} loadingIndicatorSource={require('../../../../../assets/loading.gif')} borderRadius={8} marginX={1} key={index + item.banner} height={PAGE_WIDTH * 0.6} source={{ uri: item.banner }} />}
                />
           </View>
      )

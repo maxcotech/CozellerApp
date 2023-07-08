@@ -110,3 +110,11 @@ export enum WidgetTypes {
     singleItem = 1,
     multipleItems = 10
 }
+
+export enum ProductSortTypes {
+    LowestPrice = 1,
+    HighestPrice = 2,
+    BestRating = 3,
+    NewestFirst = 4,
+    OldestFirst = 5
+}

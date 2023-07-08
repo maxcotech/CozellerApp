@@ -18,69 +18,69 @@ export interface ProductListItemProps {
     data: ProductSummary
 }
 
-export default function ProductListItem({data}:ProductListItemProps){
+export default function ProductListItem({ data }: ProductListItemProps) {
     const navigation = useNavigation<AppNavProps>();
-    const [optionsVisible,setOptionsVisible] = useState(false);
+    const [optionsVisible, setOptionsVisible] = useState(false);
     const queryClient = useQueryClient();
-    const [showDelete,setShowDelete] = useState(false);
-    const {isLoading,mutate} = useDeleteProduct({
+    const [showDelete, setShowDelete] = useState(false);
+    const { isLoading, mutate } = useDeleteProduct({
         onSuccess(data) {
-            toast.show(data.message,{type:"success"});
-            queryClient.invalidateQueries({queryKey:[ProductQueryKeys.fetchStoreProducts]})
+            toast.show(data.message, { type: "success" });
+            queryClient.invalidateQueries({ queryKey: [ProductQueryKeys.fetchStoreProducts] })
         },
     });
     const onSelectAction = (action: ManageResourceActions) => {
         setOptionsVisible(false);
-        if(action === ManageResourceActions.Update){
-            if(data.id){
-                navigation.navigate(routes.vendorUpdateProduct,{id: data.id})
+        if (action === ManageResourceActions.Update) {
+            if (data.id) {
+                navigation.navigate(routes.vendorUpdateProduct, { id: data.id })
             } else {
                 navigation.navigate(routes.vendorCreateProduct)
             }
         }
-        if(action === ManageResourceActions.Delete){
+        if (action === ManageResourceActions.Delete) {
             setShowDelete(true);
         }
     }
     return (
         <>
-        <TouchableOpacity  onPress={() => setOptionsVisible(true)}>
-            <HStack rounded="md"  bgColor={APP_COLOR_LIGHTER} overflow={"hidden"} >
-                <Box height="full" width="2/5">
-                    <Image width="120px" height="120px"  source={{uri: data.product_image}} />
-                    <Box bgColor={(data.amount_in_stock <= 3)? "danger.600":APP_COLOR} borderTopRightRadius={"lg"} borderBottomRightRadius={"lg"} px={"10px"} py="2px" position={"absolute"} top="5px">
-                        <CText color="white" variant={"body4"}>{data.amount_in_stock} in stock</CText>
+            <TouchableOpacity onPress={() => setOptionsVisible(true)}>
+                <HStack rounded="md" bgColor={APP_COLOR_LIGHTER} overflow={"hidden"} >
+                    <Box height="full" width="2/5">
+                        <Image alt={data.product_name} width="120px" height="120px" source={{ uri: data.product_image }} />
+                        <Box bgColor={(data.amount_in_stock <= 3) ? "danger.600" : APP_COLOR} borderTopRightRadius={"lg"} borderBottomRightRadius={"lg"} px={"10px"} py="2px" position={"absolute"} top="5px">
+                            <CText color="white" variant={"body4"}>{data.amount_in_stock} in stock</CText>
+                        </Box>
                     </Box>
-                </Box>
-                <VStack p="5px" flex={1} >
-                    <CText numberOfLines={1} fontWeight={"bold"}>{data.product_name}</CText>
-                    {
-                        (data.product_sku)?
-                        <CText variant="body4" numberOfLines={3} color={"gray.400"}>SKU: <CText color="black">{data.product_sku}</CText></CText>:<></>
-                    } 
-                    {
-                        (data.regular_price)?
-                        <CText variant="body4" color={"gray.400"}>REGULAR PRICE: <Money variant="body3" color="black">{data.regular_price}</Money></CText>:<></>
-                    }
-                     {
-                        (data.sales_price)?
-                        <CText variant="body4" color={"gray.400"}>SALES PRICE: <Money variant="body3" color="black">{data.sales_price}</Money></CText>:<></>
-                    } 
-                    {
-                        (data.amount_in_stock)?
-                        <CText variant="body4" color={"gray.400"}>STOCK QUANTITY: <CText variant="body3" color="black">{data.amount_in_stock}</CText></CText>:<></>
-                    } 
-                    
-                    <CText mt="5px">
+                    <VStack p="5px" flex={1} >
+                        <CText numberOfLines={1} fontWeight={"bold"}>{data.product_name}</CText>
                         {
-                            (isLoading)? <Spinner color={APP_COLOR} />:<ResourceStatusTag status={data.product_status} />
+                            (data.product_sku) ?
+                                <CText variant="body4" numberOfLines={3} color={"gray.400"}>SKU: <CText color="black">{data.product_sku}</CText></CText> : <></>
                         }
-                        
-                    </CText>
-                   
-                </VStack>
-                
-            </HStack>
+                        {
+                            (data.regular_price) ?
+                                <CText variant="body4" color={"gray.400"}>REGULAR PRICE: <Money variant="body3" color="black">{data.regular_price}</Money></CText> : <></>
+                        }
+                        {
+                            (data.sales_price) ?
+                                <CText variant="body4" color={"gray.400"}>SALES PRICE: <Money variant="body3" color="black">{data.sales_price}</Money></CText> : <></>
+                        }
+                        {
+                            (data.amount_in_stock) ?
+                                <CText variant="body4" color={"gray.400"}>STOCK QUANTITY: <CText variant="body3" color="black">{data.amount_in_stock}</CText></CText> : <></>
+                        }
+
+                        <CText mt="5px">
+                            {
+                                (isLoading) ? <Spinner color={APP_COLOR} /> : <ResourceStatusTag status={data.product_status} />
+                            }
+
+                        </CText>
+
+                    </VStack>
+
+                </HStack>
             </TouchableOpacity>
             <Actionsheet onClose={() => setOptionsVisible(false)} isOpen={optionsVisible}>
                 <Actionsheet.Content>

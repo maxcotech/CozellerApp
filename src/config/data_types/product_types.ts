@@ -1,4 +1,4 @@
-import { ResourceStatuses } from "../enum.config"
+import { ProductTypes, ResourceStatuses } from "../enum.config"
 import { Brand } from "./brand_types"
 import { Category } from "./category_types"
 import { PaginationParams } from "./general.types"
@@ -15,6 +15,19 @@ export interface ProductSummary {
     amount_in_stock: number,
     current_price: number,
     product_status: ResourceStatuses
+}
+
+export interface Product extends ProductSummary {
+    store: Partial<Store>,
+    brand: Brand | null,
+    category: Category | null,
+    variations: ProductVariationForm[],
+    in_wishlist?: boolean,
+    cart_quantity?: number,
+    review_average?: number,
+    product_type?: ProductTypes,
+    images: Partial<Image>[]
+
 }
 
 export interface StoreProductParams extends PaginationParams {
@@ -79,14 +92,7 @@ export interface Image {
     updated_at: string
 }
 
-export interface Product extends ProductSummary {
-    store: Partial<Store>,
-    brand: Brand | null,
-    category: Category | null,
-    variations: ProductVariationForm[],
-    images: Partial<Image>[]
 
-}
 export type ProductGalleryResult = {image_full_path: string}
 export type ProductFormKeys = keyof ProductFormData;
 export type SetFormValueType = (val: any, key: ProductFormKeys) => void;

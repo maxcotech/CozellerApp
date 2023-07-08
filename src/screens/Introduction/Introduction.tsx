@@ -1,15 +1,18 @@
 import { Box, HStack, Image, StatusBar, VStack, View } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, Platform } from "react-native"
 import CText from "../../../components/CText";
 import { LinearGradient } from "expo-linear-gradient";
 import { APP_COLOR, APP_COLOR_LIGHTER } from "../../config/constants.config";
 import Carousel from "react-native-reanimated-carousel";
 import AppBtn from "../../../components/AppBtn";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import routes, { AppParamList } from "../../config/routes.config";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import SelectAccountGroup from "../Register/fragments/SelectAccountGroup";
+import { useProfile } from "../../api/queries/account.queries";
+import IconLoadingPage from "../../../components/IconLoadingPage";
+import { AccountTypes, UserTypes } from "../../config/enum.config";
 
 export const Introduction = () => {
     const dimensions = Dimensions.get('screen');
@@ -17,6 +20,26 @@ export const Introduction = () => {
     const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>()
     const deviceWidth = dimensions.width;
     const deviceHeight = dimensions.height;
+    const { isLoading } = useProfile({
+        onSuccess(data) {
+            if (data.data?.logged_in) {
+                const user = data.data?.user;
+                switch (user.user_type) {
+                    case AccountTypes.StoreOwner:
+                    case AccountTypes.StoreStaff: { navigation.replace(routes.vendorIndex) }; break;
+                    case AccountTypes.Customer: { navigation.replace(routes.customerIndex) }; break;
+                    default: { navigation.replace(routes.comingSoon) };
+                }
+            }
+        }
+    })
+
+    const route = useRoute();
+    useEffect(() => {
+        if (route.name) {
+            console.log(route.name);
+        }
+    }, [route.name])
 
     const data = [
         {
@@ -30,6 +53,9 @@ export const Introduction = () => {
             description: "Ready to start shopping? Set a budget, make a list, prioritize needs over wants, and look for deals to help you save money. With these simple tips, you can shop smarter and get the items you need without overspending. So, let's get started and happy shopping!"
         }
     ]
+    if (isLoading) return <>
+        <IconLoadingPage />
+    </>
     return (
         <>
             <StatusBar backgroundColor={"transparent"} translucent />

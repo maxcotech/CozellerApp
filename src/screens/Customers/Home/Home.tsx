@@ -52,12 +52,12 @@ export default function Home() {
      return <>
 
           <ScrollView backgroundColor={APP_COLOR_LIGHTER} flex={1}>
-               <StatusBar backgroundColor="black" translucent />
-               <ImageBackground blurRadius={6} style={{ width: dimensions.width }} source={require("../../../../assets/home-page-banner2.png")}>
-                    <LinearGradient colors={["black", "transparent", "transparent"]} style={{ flex: 1, paddingHorizontal: NEW_XPADDING, paddingTop: 10, paddingBottom: 10 }}>
+               {/* <StatusBar backgroundColor="black" translucent /> */}
+               <ImageBackground alt="App Background View" blurRadius={1} style={{ width: dimensions.width }} source={require("../../../../assets/home-page-banner2.jpg")}>
+                    <LinearGradient colors={[APP_COLOR, "rgba(0,0,0,0.5)", "transparent"]} style={{ flex: 1, paddingHorizontal: NEW_XPADDING, paddingTop: 10, paddingBottom: 10 }}>
                          <HStack alignItems="center" justifyContent={"space-between"}>
                               <HStack alignItems="center">
-                                   <Image style={{ height: 35, width: 35, marginHorizontal: -6 }} source={require("../../../../assets/icon.png")} />
+                                   <Image alt="App Logo Icon" style={{ height: 35, width: 35, marginHorizontal: -6 }} source={require("../../../../assets/adaptive-icon_old2.png")} />
                                    <CText color="white" variant="heading" fontWeight="bold">OZELLER</CText>
                               </HStack>
                               <CartIcon />
