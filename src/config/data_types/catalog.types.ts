@@ -1,6 +1,7 @@
 import { ResourceStatuses } from "../enum.config";
 import { Brand } from "./brand_types";
 import { Category } from "./category_types";
+import { Currency } from "./currency_types";
 import { PaginatedData, PaginationParams } from "./general.types";
 import { Product } from "./product_types";
 
@@ -12,6 +13,7 @@ export type PriceRange = {
 export interface CatalogFilterLimits {
      main_category?: Category,
      categories: Category[],
+     currency: Currency | null,
      price_range: PriceRange,
      brands: Brand[]
 }

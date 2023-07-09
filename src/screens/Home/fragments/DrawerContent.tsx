@@ -8,13 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 import routes from "../../../config/routes.config";
 
 
-export default function DrawerContent(props){
+export default function DrawerContent(props) {
     const navigation = useNavigation();
 
     return (
         <DrawerContentScrollView {...props} safeArea>
             <Center mt={150} mb={50}>
-                <Image width={100} height={100} source={require('../../../../assets/avatar.png')} />
+                <Image alt="Drawer icons" width={100} height={100} source={require('../../../../assets/avatar.png')} />
             </Center>
             <Box mx={15}>
                 <CustomAccordion
@@ -23,21 +23,21 @@ export default function DrawerContent(props){
                         <Text color="primary.600">Profile</Text>
                     </HStack>}
                 >
-                <TouchableOpacity  onPress={() => navigation.navigate(routes.accountProfile as never)}>
-                    <HStack space={3}>
-                        <MaterialCommunityIcons size={18} name="grid" />
-                        <Text>My Profile</Text>
-                    </HStack>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate(routes.accountProfile as never)}>
+                        <HStack space={3}>
+                            <MaterialCommunityIcons size={18} name="grid" />
+                            <Text>My Profile</Text>
+                        </HStack>
+                    </TouchableOpacity>
                 </CustomAccordion>
-                <TouchableOpacity  onPress={() => navigation.navigate(routes.logout as never)}>
+                <TouchableOpacity onPress={() => navigation.navigate(routes.logout as never)}>
                     <HStack py={3} space={3}>
                         <MaterialCommunityIcons size={20} color="gray" name="power" />
                         <Text color="primary.600">Logout</Text>
                     </HStack>
                 </TouchableOpacity>
             </Box>
-            
+
         </DrawerContentScrollView>
     )
 }

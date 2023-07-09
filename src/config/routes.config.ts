@@ -77,7 +77,8 @@ export const CustomerRoutes = {
     customerHelp: "customer/help",
     customerSearch: "customer/search",
     customerCatalog: "customer/catalog",
-    customerProductDetails: "customer/product-details"
+    customerProductDetails: "customer/product-details",
+    customerProducts: "customer/products"
 }
 
 const routes = {

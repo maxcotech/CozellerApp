@@ -45,7 +45,6 @@ export default function Catalog() {
      })
      //const query = {} as GenericDataResponse<CatalogData>;
      const catalog = useMemo(() => {
-
           return query?.data?.data ?? {} as CatalogData
      }, [query.data])
      useEffect(() => {
@@ -55,42 +54,39 @@ export default function Catalog() {
      }, [route.params])
 
      const products = useMemo(() => {
-          const products = (catalog?.data) ? [...catalog.data] : [];
-          if (!!selectedSort === false) {
-               return catalog?.data;
-          } else {
-               if (selectedSort === ProductSortTypes.BestRating) {
-                    return products.sort((a, b) => b.review_average - a.review_average)
-               }
-               else if (selectedSort === ProductSortTypes.HighestPrice) {
-                    return products.sort((a, b) => b.current_price - a.current_price)
-               }
-               else if (selectedSort === ProductSortTypes.LowestPrice) {
-                    return products.sort((a, b) => a.current_price - b.current_price)
-               }
-               else if (selectedSort === ProductSortTypes.NewestFirst) {
-                    return products.sort((a, b) => a.id - b.id)
-               }
-               else if (selectedSort === ProductSortTypes.OldestFirst) {
-                    return products.sort((a, b) => b.id - a.id)
-               } else {
-                    return products;
-               }
+          const products = catalog?.data;
+          console.log(products, query?.data?.data?.data);
+          if (selectedSort === ProductSortTypes.BestRating) {
+               products.sort((a, b) => b.review_average - a.review_average)
           }
-     }, [selectedSort, catalog.data])
+          else if (selectedSort === ProductSortTypes.HighestPrice) {
+               products.sort((a, b) => b.current_price - a.current_price)
+          }
+          else if (selectedSort === ProductSortTypes.LowestPrice) {
+               products.sort((a, b) => a.current_price - b.current_price)
+          }
+          else if (selectedSort === ProductSortTypes.NewestFirst) {
+               products.sort((a, b) => a.id - b.id)
+          }
+          else if (selectedSort === ProductSortTypes.OldestFirst) {
+               products.sort((a, b) => b.id - a.id)
+          }
+          return products;
+
+     }, [selectedSort, catalog.data, query?.data])
 
      if (query.isLoading || query.isRefetching) return <IconLoadingPage />
 
      return (
 
-          <SafeScaffold>
+          <View flex={1}>
                <AppBar shadow={9} right={
                     <HStack space={5}>
                          <Icon onPress={() => navigation.navigate(routes.customerSearch)} color="white" size="lg" as={<AntDesign name="search1" />} />
                          <CartIcon size="lg" />
                     </HStack>
                } textColor="white" backgroundColor={APP_COLOR} title={catalog?.filters?.main_category?.category_title ?? "All Products"} />
-               <PaginatedScrollView backgroundColor={APP_COLOR_LIGHTER_2} stickyHeaderIndices={[1]} onLoadNewPage={(newParams) => setParams(newParams)} pageParams={params} paginationData={query.data?.data} >
+               <PaginatedScrollView flex={1} backgroundColor={APP_COLOR_LIGHTER_2} stickyHeaderIndices={[0, 1]} onLoadNewPage={(newParams) => setParams(newParams)} pageParams={params} paginationData={query.data?.data} >
 
                     {
                          (!!catalog?.filters?.main_category) ?
@@ -106,18 +102,15 @@ export default function Catalog() {
                                              <SimpleGrid flexWrap={"wrap"} flexDir="row" columns={4} space={4} >
                                                   {
                                                        catalog?.filters?.categories?.map((item) => (
-                                                            <>
-                                                                 <Box flex={1} my="5px">
-                                                                      <TouchableOpacity key={item.id} onPress={() => {
-                                                                           navigation.replace(routes.customerCatalog, { category_parameter: item.category_slug })
-                                                                      }}>
-                                                                           <Image alt={item.category_title} style={{ borderRadius: 10 }} backgroundColor={APP_COLOR_LIGHTER} width={fourItemWidth} height="70px" source={{ uri: item.category_icon }} />
-                                                                           <CText numberOfLines={1} textAlign={"center"} variant="body4">{item.category_title}</CText>
-                                                                      </TouchableOpacity>
-                                                                 </Box>
 
-                                                            </>
-
+                                                            <Box key={item.id} flex={1} my="5px">
+                                                                 <TouchableOpacity key={item.id} onPress={() => {
+                                                                      navigation.replace(routes.customerCatalog, { category_parameter: item.category_slug })
+                                                                 }}>
+                                                                      <Image alt={item.category_title} style={{ borderRadius: 10 }} backgroundColor={APP_COLOR_LIGHTER} width={fourItemWidth} height="70px" source={{ uri: item.category_icon }} />
+                                                                      <CText numberOfLines={1} textAlign={"center"} variant="body4">{item.category_title}</CText>
+                                                                 </TouchableOpacity>
+                                                            </Box>
 
                                                        ))
                                                   }
@@ -150,12 +143,13 @@ export default function Catalog() {
                          {
                               (products.length > 0) ?
                                    <FlatList
+                                        columnWrapperStyle={(listView) ? undefined : { gap: 8 }}
                                         key={(listView) ? 1 : 2}
                                         data={products}
                                         keyExtractor={(item) => item.id?.toString()}
                                         numColumns={(listView) ? 1 : 2}
-                                        renderItem={({ item }) => (<View style={{ flex: 1, flexDirection: 'column' }}>
-                                             <ProductCard item={item} />
+                                        renderItem={({ item }) => (<View style={{ flex: 1, gap: 2, marginBottom: 8, flexDirection: 'column' }}>
+                                             <ProductCard currency={query?.data?.data?.filters?.currency} item={item} />
                                         </View>)
                                         }
                                    /> :
@@ -165,6 +159,6 @@ export default function Catalog() {
                          }
                     </View>
                </PaginatedScrollView>
-          </SafeScaffold>
+          </View>
      )
 }

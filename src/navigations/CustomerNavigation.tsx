@@ -8,14 +8,15 @@ import Account from "../screens/Customers/Account/Account";
 import Wishlist from "../screens/Customers/Wishlist/Wishlist";
 import Help from "../screens/Customers/Help/Help";
 import CustomerTabBar from "./components/CustomerTabBar";
+import Catalog from "../screens/Customers/Catalog/Catalog";
 
 const Tab = createBottomTabNavigator();
 export enum CustomerTabLabels {
      Home = "Home",
-     Categories = "Categories",
      Account = "Account",
      Wishlist = "Wishlist",
-     Help = "Help"
+     Help = "Help",
+     Products = "Products"
 }
 
 export default function CustomerNavigation() {
@@ -29,9 +30,9 @@ export default function CustomerNavigation() {
                          name={CustomerRoutes.customerHome}
                     />
                     <Tab.Screen
-                         options={{ ...defaultOptions, tabBarLabel: CustomerTabLabels.Categories }}
-                         component={Categories}
-                         name={CustomerRoutes.customerCategories}
+                         options={{ ...defaultOptions, tabBarLabel: CustomerTabLabels.Products }}
+                         component={Catalog}
+                         name={CustomerRoutes.customerProducts}
                     />
                     <Tab.Screen
                          options={{ ...defaultOptions, tabBarLabel: CustomerTabLabels.Account }}

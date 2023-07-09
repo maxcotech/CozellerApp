@@ -1,9 +1,9 @@
-import { Box, HStack, VStack } from "native-base";
+import { HStack, VStack } from "native-base";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
 import CText from "../../../components/CText";
-import { APP_COLOR, APP_COLOR_LIGHTER, XPADDING } from "../../config/constants.config";
+import { APP_COLOR } from "../../config/constants.config";
 import { CustomerTabLabels } from "../CustomerNavigation";
 
 export default function CustomerTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
@@ -11,10 +11,10 @@ export default function CustomerTabBar({ state, descriptors, navigation }: Botto
           const iconSize = (index == 2) ? 35 : 23;
           switch (label) {
                case CustomerTabLabels.Home: return <Ionicons color={color} size={iconSize} name="home" />;
-               case CustomerTabLabels.Categories: return <Ionicons color={color} size={iconSize} name="cart" />;
-               case CustomerTabLabels.Account: return <FontAwesome aria-label="Products" color={color} size={iconSize} name="shopping-bag" />;
-               case CustomerTabLabels.Wishlist: return <Ionicons color={color} size={iconSize} name="wallet" />;
-               case CustomerTabLabels.Help: return <Ionicons color={color} size={iconSize} name="settings" />;
+               case CustomerTabLabels.Products: return <FontAwesome aria-label="Products" color={color} size={iconSize} name="shopping-bag" />;
+               case CustomerTabLabels.Account: return <FontAwesome aria-label="Products" color={color} size={iconSize} name="user" />;
+               case CustomerTabLabels.Wishlist: return <AntDesign color={color} size={iconSize} name="heart" />;
+               case CustomerTabLabels.Help: return <Ionicons color={color} size={iconSize} name="help" />;
                default: return <Ionicons color={color} size={iconSize} name="settings" />;
           }
      }

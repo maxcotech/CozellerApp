@@ -22,7 +22,7 @@ export default function SearchHistory({ setQuery }: { setQuery: (val: string) =>
                          <>
                               {
                                    historyHandle.data?.data?.map((item) => (
-                                        <TouchableOpacity onPress={() => navigation.replace(routes.customerSearch, { query: item.query })}>
+                                        <TouchableOpacity key={item.id} onPress={() => navigation.replace(routes.customerSearch, { query: item.query })}>
                                              <HStack space={2} py={2} alignItems="center" borderBottomWidth={0.5} borderBottomColor={"gray.300"} px={NEW_XPADDING + "px"}>
                                                   <Icon size="md" as={<MaterialCommunityIcons name="history" />} />
                                                   <CText>{item.query}</CText>

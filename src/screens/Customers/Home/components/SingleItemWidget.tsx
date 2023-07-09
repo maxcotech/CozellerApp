@@ -13,7 +13,7 @@ export default function SingleItemWidget({ widget, pageWidth }: { widget: Widget
                {
                     widget.items.map((item) => (
 
-                         <Image alt={item.item_title} resizeMode="cover" loadingIndicatorSource={require('../../../../../assets/loading.gif')} source={{ uri: item.item_image_url }} width="full" style={{ aspectRatio: 1 }} />
+                         <Image key={item.id} alt={"Single item widget"} resizeMode="cover" loadingIndicatorSource={require('../../../../../assets/loading.gif')} source={{ uri: item.item_image_url }} width="full" style={{ aspectRatio: 1 }} />
 
                     ))
                }

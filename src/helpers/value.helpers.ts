@@ -1,12 +1,12 @@
 let timeoutHandler = null;
-export const debounced = <T>(val: T,actionFunc: (val: T) => void, timeoutDuration = 1000)  => {
-    if(timeoutHandler !== null){
+export const debounced = <T>(val: T, actionFunc: (val: T) => void, timeoutDuration = 1000) => {
+    if (timeoutHandler !== null) {
         clearTimeout(timeoutHandler);
         timeoutHandler = null;
-    } 
+    }
     timeoutHandler = setTimeout(() => {
         actionFunc(val);
-    },timeoutDuration)
+    }, timeoutDuration)
 }
 
 export const enumToArray = (enumme) => {
@@ -14,4 +14,9 @@ export const enumToArray = (enumme) => {
     return Object.keys(enumme)
         .filter(StringIsNumber)
         .map(key => enumme[key]);
+}
+
+export const percentageDiff = (sales: number, regular: number) => {
+    const percentage = (sales / regular) * 100;
+    return percentage - 100;
 }
