@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, View } from "native-base";
+import { Box, HStack, Icon, Spinner, View } from "native-base";
 import { Product } from "../../../../config/data_types/product_types";
 import CText from "../../../../../components/CText";
 import { Image } from "native-base";
@@ -12,9 +12,34 @@ import AddToCartBtn from "./AddToCartBtn";
 import { percentageDiff } from "../../../../helpers/value.helpers";
 import { useMemo } from 'react';
 import { APP_COLOR } from './../../../../config/constants.config';
+import { WishListKeys, useAddWishlistItem, useDeleteWishlistItem } from "../../../../api/queries/wishlist.queries";
+import { useQueryClient } from "react-query";
+import { ProductQueryKeys } from "../../../../api/queries/product.queries";
 
 
 export default function ProductCard({ item, currency }: { item: Product, currency: Currency }) {
+     const queryClient = useQueryClient();
+     const onRefreshActions = () => {
+
+          queryClient.invalidateQueries({ queryKey: [ProductQueryKeys.fetchProduct] })
+          queryClient.invalidateQueries({ queryKey: [ProductQueryKeys.fetchProducts] })
+          queryClient.invalidateQueries({ queryKey: [ProductQueryKeys.fetchCategoryProducts] })
+          queryClient.invalidateQueries({ queryKey: [WishListKeys.fetchWishlist] })
+     }
+
+     const wishListAdd = useAddWishlistItem({
+          onSuccess: (data) => {
+               toast.show(data.message, { type: "success" });
+               onRefreshActions();
+          }
+     })
+     const wishListDelete = useDeleteWishlistItem({
+          onSuccess: (data) => {
+               toast.show(data.message, { type: "success" });
+               onRefreshActions();
+          }
+     })
+
      const inSales = useMemo(() => {
           return item.regular_price > item.current_price;
      }, [item.current_price, item.regular_price])
@@ -34,16 +59,26 @@ export default function ProductCard({ item, currency }: { item: Product, currenc
                                    <CText fontWeight={"bold"} variant="body4" color="white">{(item.amount_in_stock === 0) ? "Out of stock" : `${item.amount_in_stock} left`}</CText>
                               </Box> : <></>
                     }
-
-                    <Icon color={(item.in_wishlist) ? APP_COLOR : "white"} position={"absolute"} bottom={3} size="md" right={2} as={<AntDesign name={"heart"} />} />
-
+                    <Box style={{ padding: 2 }}>
+                         <Icon color={(item.in_wishlist) ? APP_COLOR : "white"} position={"absolute"} bottom={3} size="md" right={2} as={<AntDesign name={"heart"} />} />
+                    </Box>
                     <TouchableOpacity onPress={(e) => {
-                         toast.show("idiot.....")
+                         if (item.in_wishlist) {
+                              wishListDelete.mutate({ product_id: item.id })
+                         } else {
+                              wishListAdd.mutate({ product_id: item.id })
+                         }
                          e.stopPropagation();
                     }}>
                          <Icon color={APP_COLOR} position={"absolute"} bottom={3} size="md" right={2} as={<AntDesign name={"hearto"} />} />
                     </TouchableOpacity>
-
+                    {
+                         (wishListAdd.isLoading || wishListDelete.isLoading) ?
+                              <Box position={"absolute"} bottom={3} right={2}>
+                                   <Spinner size="sm" />
+                              </Box> :
+                              <></>
+                    }
 
                </TouchableOpacity>
                <View padding={2}>
