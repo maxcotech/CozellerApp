@@ -68,7 +68,7 @@ export default function ProductCard({ item, currency }: { item: Product, currenc
                          <RatingStars rating={item.review_average} />
                     </View>
                     <View marginTop={2}>
-                         <AddToCartBtn product={item} />
+                         <AddToCartBtn currency={currency} product={item} />
                     </View>
 
                </View>

@@ -1,7 +1,7 @@
 import { HStack, VStack } from "native-base";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
-import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import CText from "../../../components/CText";
 import { APP_COLOR } from "../../config/constants.config";
 import { CustomerTabLabels } from "../CustomerNavigation";
@@ -12,9 +12,9 @@ export default function CustomerTabBar({ state, descriptors, navigation }: Botto
           switch (label) {
                case CustomerTabLabels.Home: return <Ionicons color={color} size={iconSize} name="home" />;
                case CustomerTabLabels.Products: return <FontAwesome aria-label="Products" color={color} size={iconSize} name="shopping-bag" />;
-               case CustomerTabLabels.Account: return <FontAwesome aria-label="Products" color={color} size={iconSize} name="user" />;
+               case CustomerTabLabels.Account: return <Ionicons aria-label="Products" color={color} size={iconSize} name="person" />;
                case CustomerTabLabels.Wishlist: return <AntDesign color={color} size={iconSize} name="heart" />;
-               case CustomerTabLabels.Help: return <Ionicons color={color} size={iconSize} name="help" />;
+               case CustomerTabLabels.Help: return <MaterialIcons color={color} size={iconSize} name="contact-support" />;
                default: return <Ionicons color={color} size={iconSize} name="settings" />;
           }
      }

@@ -43,12 +43,27 @@ export interface StoreProductParams extends PaginationParams {
 export interface ProductVariationForm {
     variation_name: string,
     variation_sku: string,
-    regular_price:  number,
+    regular_price: number,
     sales_price: number,
     amount_in_stock: number,
     variation_image_url: string,
     variation_image: string,
-    id: number
+    id: number,
+    product_id?: number,
+    cart_quantity?: number,
+    current_price?: number
+}
+
+export interface ProductVariation {
+    id: number,
+    regular_price: number,
+    sales_price: number | null,
+    variation_name: string,
+    product_id: number,
+    variation_image: string | null,
+    cart_quantity: number,
+    current_price: number,
+    amount_in_stock: number | null
 }
 
 export interface ProductFormData {
@@ -93,7 +108,7 @@ export interface Image {
 }
 
 
-export type ProductGalleryResult = {image_full_path: string}
+export type ProductGalleryResult = { image_full_path: string }
 export type ProductFormKeys = keyof ProductFormData;
 export type SetFormValueType = (val: any, key: ProductFormKeys) => void;
 

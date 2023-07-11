@@ -1,11 +1,11 @@
-import { Image } from "native-base";
+import { Image, View } from "native-base";
 import SafeScaffold from "./SafeScaffold";
 
 
-export default function IconLoadingPage(){
+export default function IconLoadingPage() {
     return (
-        <SafeScaffold>
+        <View flex={1}>
             <Image alt="Splash Loading" width="full" height="full" source={require('../assets/splash.gif')} />
-        </SafeScaffold>
+        </View>
     )
 }

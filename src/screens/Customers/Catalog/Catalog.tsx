@@ -22,6 +22,7 @@ import { TouchableOpacity } from 'react-native';
 import { ProductSortTypes } from "../../../config/enum.config";
 import EmptyPage from "../../../../components/EmptyPage";
 import ProductCard from "./fragments/ProductCard";
+import { RefreshControl } from "react-native-gesture-handler";
 
 export interface CatalogParams extends AppRouteProp {
      params?: CatalogFilters
@@ -75,7 +76,7 @@ export default function Catalog() {
 
      }, [selectedSort, catalog.data, query?.data])
 
-     if (query.isLoading || query.isRefetching) return <IconLoadingPage />
+     if (query.isLoading) return <IconLoadingPage />
 
      return (
 
