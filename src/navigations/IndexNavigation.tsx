@@ -23,6 +23,7 @@ import Catalog from "../screens/Customers/Catalog/Catalog";
 import ProductDetails from "../screens/Customers/ProductDetails/ProductDetails";
 import CText from "../../components/CText";
 import { CatalogProvider } from "../contexts/CatalogContext";
+import ShoppingCart from "../screens/Customers/ShoppingCart/ShoppingCart";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -127,6 +128,11 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.customerCatalog}
                     component={Catalog}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.customerShoppingCart}
+                    component={ShoppingCart}
                 />
             </Stack.Navigator>
         </CatalogProvider>

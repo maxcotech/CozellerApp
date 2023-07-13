@@ -78,7 +78,8 @@ export const CustomerRoutes = {
     customerSearch: "customer/search",
     customerCatalog: "customer/catalog",
     customerProductDetails: "customer/product-details",
-    customerProducts: "customer/products"
+    customerProducts: "customer/products",
+    customerShoppingCart: "customer/shopping-cart"
 }
 
 const routes = {

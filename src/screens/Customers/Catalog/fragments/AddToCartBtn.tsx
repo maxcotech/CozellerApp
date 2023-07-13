@@ -1,6 +1,6 @@
 import { Product, ProductVariation } from "../../../../config/data_types/product_types";
 import AppBtn from "../../../../../components/AppBtn";
-import { HStack, Spinner } from "native-base";
+import { HStack, Icon, Spinner } from "native-base";
 import CText from "../../../../../components/CText";
 import { APP_COLOR, APP_COLOR_LIGHT } from "../../../../config/constants.config";
 import { useMemo } from 'react';
@@ -11,7 +11,7 @@ import VariationCartList from "./VariationCartList";
 import { useState } from 'react';
 import { Currency } from "../../../../config/data_types/currency_types";
 
-export default function AddToCartBtn({ currency, variation, product, expanded = false }: { product?: Product, variation?: ProductVariation, currency: Currency, expanded?: boolean }) {
+export default function AddToCartBtn({ singleBtnY = 8, expandedBtnY = 2, currency, variation, product, expanded = false }: { singleBtnY?: number, expandedBtnY?: number, product?: Partial<Product>, variation?: Partial<ProductVariation>, currency: Currency, expanded?: boolean }) {
      const queryClient = useQueryClient();
      const [showVariations, setShowVariations] = useState(false);
      const entity = useMemo(() => {
@@ -61,10 +61,17 @@ export default function AddToCartBtn({ currency, variation, product, expanded = 
      })
 
 
+
+
      const onAddToCart = () => {
+
+          if ("variations" in entity && entity.variations?.length > 0) {
+               setShowVariations(true)
+               return false;
+          }
           const data = {
-               item_id: ("product_id" in entity) ? entity.product_id : entity.id,
-               variant_id: ("product_id" in entity) ? entity.id : null
+               item_id: ("product_id" in entity && entity.product_id !== undefined) ? entity.product_id : entity.id,
+               variant_id: ("product_id" in entity && entity.product_id !== undefined) ? entity.id : null
           }
 
           if (entity?.cart_quantity === 0) {
@@ -78,51 +85,54 @@ export default function AddToCartBtn({ currency, variation, product, expanded = 
 
      }
 
-     const onInitAddToCart = () => {
-          if (product.variations?.length > 0) {
-               setShowVariations(true);
-          } else {
-               onAddToCart()
-          }
-
-     }
 
      const onSubtractFromCart = () => {
+          if ("variations" in entity && entity.variations?.length > 0) {
+               setShowVariations(true)
+               return false;
+          }
           const cartQuantity = entity.cart_quantity ?? 0;
           if (cartQuantity > 0) {
                updateHandle.mutate({
                     quantity: cartQuantity - 1,
-                    item_id: ("product_id" in entity) ? entity.product_id : entity.id,
-                    variant_id: ("product_id" in entity) ? entity.id : null
+                    item_id: ("product_id" in entity && entity.product_id !== undefined) ? entity.product_id : entity.id,
+                    variant_id: ("product_id" in entity && entity.product_id !== undefined) ? entity.id : null
                })
           }
      }
      if (entity?.cart_quantity > 0 || expanded) {
           return (
-               <HStack justifyContent={"space-between"} alignItems={"center"} space={2}>
-                    <AppBtn onPress={onAddToCart} disabled={outOfStock || availabilityExhaused} textVariant="body1" elevation={4} paddingY={5} borderRadius={5}>
-                         +
-                    </AppBtn>
+               <>
+                    <HStack justifyContent={"space-between"} alignItems={"center"} space={4}>
+                         <AppBtn onPress={onAddToCart} disabled={outOfStock || availabilityExhaused} textVariant="subheading" elevation={4} paddingY={expandedBtnY} borderRadius={5}>
+                              +
+                         </AppBtn>
+                         {
+                              (updateHandle.isLoading || createHandle.isLoading) ?
+                                   <Spinner size="sm" /> :
+                                   <CText variant="body1" fontWeight={"bold"}>{entity?.cart_quantity ?? 0}</CText>
+                         }
+
+                         <AppBtn onPress={onSubtractFromCart} disabled={(entity?.cart_quantity ?? 0) === 0} textVariant="subheading" elevation={4} paddingY={expandedBtnY} borderRadius={5}>
+                              -
+                         </AppBtn>
+
+                    </HStack>
                     {
-                         (updateHandle.isLoading || createHandle.isLoading) ?
-                              <Spinner size="sm" /> :
-                              <CText>{entity?.cart_quantity ?? 0}</CText>
+                         ("variations" in entity) ?
+                              <VariationCartList currency={currency} variations={(entity as Product)?.variations as ProductVariation[]} show={showVariations} onClose={() => setShowVariations(false)} /> : <></>
+
                     }
-
-                    <AppBtn onPress={onSubtractFromCart} disabled={(entity?.cart_quantity ?? 0) === 0} textVariant="body1" elevation={4} paddingY={5} borderRadius={5}>
-                         -
-                    </AppBtn>
-
-               </HStack>
+               </>
           )
      }
      return (
           <>
-               <AppBtn isLoading={updateHandle.isLoading || createHandle.isLoading} onPress={onInitAddToCart} backgroundColor={bgColor} disabled={outOfStock} elevation={elevation} paddingY={8} borderRadius={8}>
+               <AppBtn isLoading={updateHandle.isLoading || createHandle.isLoading} onPress={onAddToCart} backgroundColor={bgColor} disabled={outOfStock} elevation={elevation} paddingY={singleBtnY} borderRadius={8}>
                     Add to cart
                </AppBtn>
                {
-                    (entity.hasOwnProperty("variations")) ?
+                    ("variations" in entity) ?
                          <VariationCartList currency={currency} variations={(entity as Product)?.variations as ProductVariation[]} show={showVariations} onClose={() => setShowVariations(false)} /> : <></>
 
                }

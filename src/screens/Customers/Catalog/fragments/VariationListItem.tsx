@@ -14,11 +14,11 @@ export default function VariationListItem({ item, currency }: { currency: Curren
      }, [item.current_price, item.regular_price])
      return (
           <HStack backgroundColor={APP_COLOR_LIGHTER_2} overflow="hidden" borderRadius={8} >
-               <Image width={100} style={{ aspectRatio: 1 }} source={{ uri: item.variation_image }} backgroundColor={"gray.300"} />
+               <Image width={120} style={{ aspectRatio: 1 }} source={{ uri: item.variation_image }} backgroundColor={"gray.300"} />
                <VStack flex={1} paddingX={2} paddingY={2}>
                     <View flex={1}>
                          <CText numberOfLines={2} variant="body3">{item.variation_name ?? "----"}</CText>
-                         <HStack space={1} >
+                         <HStack space={1} alignItems="center" >
                               <Money currencySym={currency?.currency_sym} variant="body1">{item.current_price}</Money>
                               {
                                    (hasSales) ?

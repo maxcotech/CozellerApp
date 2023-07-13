@@ -23,6 +23,7 @@ import { ProductSortTypes } from "../../../config/enum.config";
 import EmptyPage from "../../../../components/EmptyPage";
 import ProductCard from "./fragments/ProductCard";
 import { RefreshControl } from "react-native-gesture-handler";
+import SearchIcon from "../components/SearchIcon";
 
 export interface CatalogParams extends AppRouteProp {
      params?: CatalogFilters
@@ -83,7 +84,7 @@ export default function Catalog() {
           <View flex={1}>
                <AppBar shadow={9} right={
                     <HStack space={5}>
-                         <Icon onPress={() => navigation.navigate(routes.customerSearch)} color="white" size="lg" as={<AntDesign name="search1" />} />
+                         <SearchIcon />
                          <CartIcon size="lg" />
                     </HStack>
                } textColor="white" backgroundColor={APP_COLOR} title={catalog?.filters?.main_category?.category_title ?? "All Products"} />

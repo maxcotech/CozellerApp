@@ -15,10 +15,13 @@ import { APP_COLOR } from './../../../../config/constants.config';
 import { WishListKeys, useAddWishlistItem, useDeleteWishlistItem } from "../../../../api/queries/wishlist.queries";
 import { useQueryClient } from "react-query";
 import { ProductQueryKeys } from "../../../../api/queries/product.queries";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../config/routes.config";
 
 
 export default function ProductCard({ item, currency }: { item: Product, currency: Currency }) {
      const queryClient = useQueryClient();
+     const navigation = useNavigation<AppNavProps>();
      const onRefreshActions = () => {
 
           queryClient.invalidateQueries({ queryKey: [ProductQueryKeys.fetchProduct] })
@@ -45,7 +48,9 @@ export default function ProductCard({ item, currency }: { item: Product, currenc
      }, [item.current_price, item.regular_price])
      return (
           <View backgroundColor={"white"} borderRadius={8} overflow={"hidden"}>
-               <TouchableOpacity style={{ height: 200, width: "100%" }} >
+               <TouchableOpacity onPress={() => {
+                    navigation.navigate(routes.customerProductDetails, { id: item.id })
+               }} style={{ height: 200, width: "100%" }} >
                     <Image source={{ uri: item.product_image }} width="100%" height={"100%"} />
                     {
                          (inSales) ?

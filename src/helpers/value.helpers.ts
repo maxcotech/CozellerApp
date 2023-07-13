@@ -1,3 +1,5 @@
+import { ReviewSummary } from "../config/data_types/product_types";
+
 let timeoutHandler = null;
 export const debounced = <T>(val: T, actionFunc: (val: T) => void, timeoutDuration = 1000) => {
     if (timeoutHandler !== null) {
@@ -19,4 +21,12 @@ export const enumToArray = (enumme) => {
 export const percentageDiff = (sales: number, regular: number) => {
     const percentage = (sales / regular) * 100;
     return percentage - 100;
+}
+
+export const sumReviewCounts = (val: ReviewSummary) => {
+    let sum = 0;
+    Object.keys(val).forEach((key) => {
+        sum += val[key];
+    })
+    return sum;
 }

@@ -1,6 +1,7 @@
 import { ProductTypes, ResourceStatuses } from "../enum.config"
 import { Brand } from "./brand_types"
 import { Category } from "./category_types"
+import { Currency } from "./currency_types"
 import { PaginationParams } from "./general.types"
 import { Store } from "./store_types"
 
@@ -17,16 +18,30 @@ export interface ProductSummary {
     product_status: ResourceStatuses
 }
 
+export interface ReviewSummary {
+    count_0: number,
+    count_1: number,
+    count_2: number,
+    count_3: number,
+    count_4: number,
+    count_5: number
+}
+
 export interface Product extends ProductSummary {
     store: Partial<Store>,
     brand: Brand | null,
     category: Category | null,
+    currency?: Currency | null,
     variations: ProductVariationForm[],
     in_wishlist?: boolean,
     cart_quantity?: number,
     review_average?: number,
     product_type?: ProductTypes,
-    images: Partial<Image>[]
+    images?: Partial<Image>[],
+    review_summary?: ReviewSummary,
+    simple_description?: string,
+    description?: string,
+    key_features?: string
 
 }
 

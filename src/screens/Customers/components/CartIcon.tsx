@@ -2,11 +2,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { Box, Icon } from "native-base";
 import CText from "../../../../components/CText";
 import { useCartCount } from "../../../api/queries/shopping_cart.queries";
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../config/routes.config";
 
 export default function CartIcon({ color = "white", size = "lg" }) {
      const { data } = useCartCount();
+     const navigation = useNavigation<AppNavProps>();
+
      return (
-          <Box >
+          <TouchableOpacity onPress={() => navigation.navigate(routes.customerShoppingCart)}>
                <Icon color={color} size={size} as={<Ionicons name="cart-outline" />} />
                {
                     (data?.data > 0) ?
@@ -15,6 +20,6 @@ export default function CartIcon({ color = "white", size = "lg" }) {
                          </Box> : <></>
                }
 
-          </Box>
+          </TouchableOpacity>
      )
 }

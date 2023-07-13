@@ -1,7 +1,7 @@
 import { QueryFunction, UseMutationOptions, UseQueryOptions, useMutation, useQuery } from "react-query";
-import { GenericDataResponse, HttpDataResponse } from "../../config/data_types/general.types";
-import { ShoppingCartData, ShoppingCartUpdateData } from "../../config/data_types/shopping_cart.types";
-import { addToShoppingCart, fetchCartCount, updateShoppingCart } from "../services/shopping_cart.services";
+import { GenericDataResponse, HttpDataResponse, PaginationParams } from "../../config/data_types/general.types";
+import { ShoppingCartData, ShoppingCartResult, ShoppingCartUpdateData } from "../../config/data_types/shopping_cart.types";
+import { addToShoppingCart, deleteCartItem, fetchCartCount, fetchShoppingCart, updateShoppingCart } from "../services/shopping_cart.services";
 
 export const ShoppingCartKeys = {
      fetchItems: "fetch/shopping_cart_items",
@@ -26,4 +26,16 @@ export const useCartCount = (options?: UseQueryOptions<unknown, HttpDataResponse
           (() => fetchCartCount()) as QueryFunction<unknown>,
           options
      )
+}
+
+export const useShoppingCart = (params: PaginationParams, options?: UseQueryOptions<PaginationParams, HttpDataResponse, GenericDataResponse<ShoppingCartResult>>) => {
+     return useQuery<PaginationParams, HttpDataResponse, GenericDataResponse<ShoppingCartResult>>(
+          [ShoppingCartKeys.fetchItems, params],
+          (() => fetchShoppingCart(params)) as QueryFunction<PaginationParams>,
+          options
+     )
+}
+
+export const useDeleteCartItem = (options?: UseMutationOptions<HttpDataResponse, HttpDataResponse, number>) => {
+     return useMutation<HttpDataResponse, HttpDataResponse, number>(deleteCartItem, options)
 }
