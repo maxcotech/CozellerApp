@@ -88,7 +88,7 @@ export default function Catalog() {
                          <CartIcon size="lg" />
                     </HStack>
                } textColor="white" backgroundColor={APP_COLOR} title={catalog?.filters?.main_category?.category_title ?? "All Products"} />
-               <PaginatedScrollView flex={1} backgroundColor={APP_COLOR_LIGHTER_2} stickyHeaderIndices={[0, 1]} onLoadNewPage={(newParams) => setParams(newParams)} pageParams={params} paginationData={query.data?.data} >
+               <PaginatedScrollView flex={1} backgroundColor={APP_COLOR_LIGHTER_2} stickyHeaderIndices={[2]} onLoadNewPage={(newParams) => setParams(newParams)} pageParams={params} paginationData={query.data?.data} >
 
                     {
                          (!!catalog?.filters?.main_category) ?

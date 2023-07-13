@@ -51,7 +51,7 @@ export default function SearchScreen() {
           if ('product_name' in item) {
                navigation.navigate(routes.customerProductDetails, { product: item.id })
           } else {
-               navigation.navigate(routes.customerCatalog, { category_parameter: item.id })
+               navigation.navigate(routes.customerCatalog, { category_parameter: item.category_slug })
           }
           searchMutation.mutate(query);
 

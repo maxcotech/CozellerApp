@@ -19,7 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
 
 
-export default function ProductCard({ item, currency }: { item: Product, currency: Currency }) {
+export default function ProductCard({ item, currency, hideCartBtn = false }: { hideCartBtn: boolean, item: Product, currency: Currency }) {
      const queryClient = useQueryClient();
      const navigation = useNavigation<AppNavProps>();
      const onRefreshActions = () => {
@@ -107,9 +107,13 @@ export default function ProductCard({ item, currency }: { item: Product, currenc
                     <View marginTop={1}>
                          <RatingStars rating={item.review_average} />
                     </View>
-                    <View marginTop={2}>
-                         <AddToCartBtn currency={currency} product={item} />
-                    </View>
+                    {
+                         (hideCartBtn) ?
+                              <></> : <View marginTop={2}>
+                                   <AddToCartBtn currency={currency} product={item} />
+                              </View>
+                    }
+
 
                </View>
 
