@@ -7,6 +7,7 @@ import CustomInput from "../../../../../../../components/CustomInput";
 import AppBtn from "../../../../../../../components/AppBtn";
 import { ProductFormIndexes } from "../../../../../../config/enum.config";
 import { AntDesign } from "@expo/vector-icons";
+import { getProperKeyboardAvoidingArea } from "../../../../../../helpers/platform.helpers";
 
 
 export default function ProductDimensions() {
@@ -14,7 +15,7 @@ export default function ProductDimensions() {
     const { productForm, setFormValue, productFormErrors, setProductFormIndex } = formContext;
     return (
         <View flex={1}>
-            <KeyboardAvoidingView flex={1} behavior="padding">
+            <KeyboardAvoidingView flex={1} behavior={getProperKeyboardAvoidingArea()}>
                 <ScrollView showsVerticalScrollIndicator={false} pt="20px" contentContainerStyle={{ paddingBottom: 20 }} flex={1}>
                     <CText fontWeight="bold">Size By Weight</CText>
                     <CText variant="body3" color="gray.400">

@@ -79,7 +79,10 @@ export const CustomerRoutes = {
     customerCatalog: "customer/catalog",
     customerProductDetails: "customer/product-details",
     customerProducts: "customer/products",
-    customerShoppingCart: "customer/shopping-cart"
+    customerShoppingCart: "customer/shopping-cart",
+    customerBillingAddresses: "customer/billing-addresses",
+    customerCreateAddress: "customer/create-billing-address",
+    customerUpdateAddress: "customer/update-billing-address"
 }
 
 const routes = {

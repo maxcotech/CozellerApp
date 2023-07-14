@@ -11,6 +11,7 @@ import CText from "../../../../components/CText";
 import { Ionicons } from "@expo/vector-icons";
 import { useJoinStore, useSearchStores } from "../../../api/queries/store.queries";
 import { errorMessage, successMessage } from "../../../helpers/message.helpers";
+import { getProperKeyboardAvoidingArea } from "../../../helpers/platform.helpers";
 
 export default function JoinStore() {
     const [selectedStore, setSelectedStore] = useState<Store>(null);
@@ -55,7 +56,7 @@ export default function JoinStore() {
         <SafeScaffold>
             <AppBar title="Join A Store" subtitle="Fill in the details to file a join request" />
             <View flex={1} pt="15px" px={XPADDING} >
-                <KeyboardAvoidingView flex={1} behavior="padding">
+                <KeyboardAvoidingView flex={1} behavior={getProperKeyboardAvoidingArea()}>
                     <Box flex={1}>
                         <Box my="8px">
                             {

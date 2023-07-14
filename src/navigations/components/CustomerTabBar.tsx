@@ -5,8 +5,11 @@ import { AntDesign, FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-ic
 import CText from "../../../components/CText";
 import { APP_COLOR } from "../../config/constants.config";
 import { CustomerTabLabels } from "../CustomerNavigation";
+import routes from "../../config/routes.config";
+import { useProfile } from "../../api/queries/account.queries";
 
 export default function CustomerTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+     const { data } = useProfile({});
      const tabIcon = (label: string, color: string, index: number) => {
           const iconSize = (index == 2) ? 35 : 23;
           switch (label) {
@@ -18,6 +21,9 @@ export default function CustomerTabBar({ state, descriptors, navigation }: Botto
                default: return <Ionicons color={color} size={iconSize} name="settings" />;
           }
      }
+     const authRoutes = [
+          routes.customerAccount
+     ]
 
      return (
 
@@ -34,6 +40,17 @@ export default function CustomerTabBar({ state, descriptors, navigation }: Botto
                               target: route.key,
                               canPreventDefault: true,
                          });
+                         if (authRoutes.includes(route.name)) {
+                              if (data?.data?.logged_in === false) {
+                                   navigation.navigate({
+                                        name: routes.login, merge: true, params: {
+                                             nextRouteParams: { screen: route.name },
+                                             nextRoute: routes.customerIndex
+                                        }
+                                   });
+                                   return false;
+                              }
+                         }
 
                          if (!isFocused && !event.defaultPrevented) {
                               // The `merge: true` option makes sure that the params inside the tab screen are preserved

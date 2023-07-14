@@ -1,4 +1,5 @@
 import { ReviewSummary } from "../config/data_types/product_types";
+import { Platform } from 'react-native';
 
 let timeoutHandler = null;
 export const debounced = <T>(val: T, actionFunc: (val: T) => void, timeoutDuration = 1000) => {
@@ -30,3 +31,4 @@ export const sumReviewCounts = (val: ReviewSummary) => {
     })
     return sum;
 }
+

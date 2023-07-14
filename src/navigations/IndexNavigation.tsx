@@ -24,6 +24,9 @@ import ProductDetails from "../screens/Customers/ProductDetails/ProductDetails";
 import CText from "../../components/CText";
 import { CatalogProvider } from "../contexts/CatalogContext";
 import ShoppingCart from "../screens/Customers/ShoppingCart/ShoppingCart";
+import BillingAddresses from "../screens/BillingAddresses/BillingAddresses";
+import CreateBillingAddress from "../screens/BillingAddresses/CreateBillingAddress";
+import UpdateBillingAddress from "../screens/BillingAddresses/UpdateBillingAddress";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -133,6 +136,21 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.customerShoppingCart}
                     component={ShoppingCart}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.customerBillingAddresses}
+                    component={BillingAddresses}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.customerCreateAddress}
+                    component={CreateBillingAddress}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.customerUpdateAddress}
+                    component={UpdateBillingAddress}
                 />
             </Stack.Navigator>
         </CatalogProvider>

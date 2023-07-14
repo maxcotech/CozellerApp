@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Actionsheet, Box, Center, Checkbox, CloseIcon, HStack, KeyboardAvoidingView, ScrollView } from "native-base";
 import React, { useState } from "react";
@@ -17,11 +17,21 @@ import AppBtn from "../../../components/AppBtn";
 import { Pressable } from "react-native";
 import { LoginData } from "../../config/data_types/account_types";
 import { Storage } from "expo-storage";
+import { AppRouteProp } from "../../config/data_types/general.types";
+import { getProperKeyboardAvoidingArea } from "../../helpers/platform.helpers";
+
+export interface LoginRouteParams extends AppRouteProp {
+    params: {
+        nextRoute: string,
+        nextRouteParams: object
+    }
+}
 
 export default function Login() {
     const [rememberMe, setRememberMe] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<typeof AppParamList>>();
+    const route = useRoute<LoginRouteParams>();
     const appContext = React.useContext(AppContext);
     const [signUpDialog, setSignupDialog] = useState(false)
     const [formState, setFormState] = useState<LoginData>({
@@ -42,7 +52,7 @@ export default function Login() {
     const { isLoading, mutate } = useLogin({
         onSuccess: async (data) => {
             const authData = data.data;
-            if (authData.user_type != AccountTypes.StoreStaff && authData.user_type != AccountTypes.StoreOwner) {
+            if (authData.user_type != AccountTypes.StoreStaff && authData.user_type != AccountTypes.Customer && authData.user_type != AccountTypes.StoreOwner) {
                 toast.show("Sorry, we are terminating this process as your account is currently not supported in this version. Support for customers' account will be available in subsequent releases", { type: "danger" });
             } else {
                 //toast.show(data.message, {type:"success"});
@@ -53,7 +63,16 @@ export default function Login() {
                         value: JSON.stringify(data.data)
                     })
                 }
-                navigation.replace(routes.vendorIndex);
+                if (route.params.nextRoute) {
+                    navigation.replace(route.params.nextRoute);
+                } else {
+                    if (authData.user_type === AccountTypes.StoreStaff || authData.user_type === AccountTypes.StoreOwner) {
+                        navigation.replace(routes.vendorIndex)
+                    } else {
+                        navigation.replace(routes.customerIndex)
+                    }
+                }
+
             }
         },
         onError: (data) => {
@@ -75,7 +94,7 @@ export default function Login() {
                 </Pressable>
                 : <></>
         }
-        <KeyboardAvoidingView flex={1} behavior="padding">
+        <KeyboardAvoidingView flex={1} behavior={getProperKeyboardAvoidingArea()}>
             <ScrollView flex={1}>
                 <Center flex={1} mt="100px" px={"20px"} >
 
@@ -105,18 +124,18 @@ export default function Login() {
         <SelectAccountGroup isOpen={signUpDialog} onClose={() => setSignupDialog(false)} />
     </SafeScaffold>
         <Actionsheet isOpen={showForgotPassword} onClose={() => setShowForgotPassword(false)}>
-            
-                <KeyboardAvoidingView alignSelf={"stretch"} behavior="padding">
-                    <Actionsheet.Content>
-                        <Box px={"15px"} py="20px">
-                            <CustomInput onChangeText={(email) => setFormState({ ...formState, email })} value={formState.email} autoFocus={true} backgroundColor={"gray.200"} my="8px" labelText="Enter Recovery Email Address" placeholder="Enter email address" />
-                            <Box pt="50px">
-                                <AppBtn isLoading={forgotPasswordHandle.isLoading} onPress={onInitForgotPassword} gradient={true}>Continue</AppBtn>
-                            </Box>
+
+            <KeyboardAvoidingView alignSelf={"stretch"} behavior={getProperKeyboardAvoidingArea()}>
+                <Actionsheet.Content>
+                    <Box px={"15px"} py="20px">
+                        <CustomInput onChangeText={(email) => setFormState({ ...formState, email })} value={formState.email} autoFocus={true} backgroundColor={"gray.200"} my="8px" labelText="Enter Recovery Email Address" placeholder="Enter email address" />
+                        <Box pt="50px">
+                            <AppBtn isLoading={forgotPasswordHandle.isLoading} onPress={onInitForgotPassword} gradient={true}>Continue</AppBtn>
                         </Box>
-                    </Actionsheet.Content>
-                </KeyboardAvoidingView>
-            
+                    </Box>
+                </Actionsheet.Content>
+            </KeyboardAvoidingView>
+
         </Actionsheet>
     </>
 }

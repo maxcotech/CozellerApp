@@ -1,4 +1,4 @@
-import { FlatList, HStack, View } from "native-base";
+import { HStack, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import SearchIcon from "../components/SearchIcon";
 import CartIcon from "../components/CartIcon";

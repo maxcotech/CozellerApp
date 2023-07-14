@@ -13,6 +13,7 @@ import { createFormErrorObject } from "../../helpers/message.helpers";
 import Counter from "../../../components/Counter";
 import { APP_COLOR } from './../../config/constants.config';
 import { useCompleteEmailPasswordReset, useInitEmailPasswordReset } from "../../api/queries/account.queries";
+import { getProperKeyboardAvoidingArea } from "../../helpers/platform.helpers";
 
 export interface EmailPasswordResetParams extends RouteProp<ParamListBase> {
     params: {
@@ -59,7 +60,7 @@ export default function EmailPasswordReset() {
                 </Pressable>
                 : <></>
         }
-        <KeyboardAvoidingView flex={1} behavior="padding">
+        <KeyboardAvoidingView flex={1} behavior={getProperKeyboardAvoidingArea()}>
             <ScrollView flex={1}>
                 <Center flex={1} mt="70px" px={"20px"} >
 

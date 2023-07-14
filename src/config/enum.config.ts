@@ -1,4 +1,5 @@
 
+import { Platform } from 'react-native';
 
 export enum UserTypes {
     customer = 1,
@@ -117,4 +118,13 @@ export enum ProductSortTypes {
     BestRating = 3,
     NewestFirst = 4,
     OldestFirst = 5
+}
+
+export enum PlatformTypes {
+    ios = "ios",
+    android = "android",
+    window = "windows",
+    macos = "macos",
+    web = "web"
+
 }

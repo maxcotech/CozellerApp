@@ -9,6 +9,7 @@ import { decode } from "html-entities";
 import AppBtn from "../../../../../components/AppBtn";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
+import { getProperKeyboardAvoidingArea } from "../../../../helpers/platform.helpers";
 
 export default function ShippingGroupForm({ defaultData, handleSubmit, isLoading }: { isLoading: boolean, defaultData?: ShippingGroup<string>, handleSubmit: (data: ShippingGroupFormData, setErrors: (errors: any) => void) => void }) {
     const appContext = useContext(AppContext);
@@ -33,7 +34,7 @@ export default function ShippingGroupForm({ defaultData, handleSubmit, isLoading
 
     return (
         <View flex={1}>
-            <KeyboardAvoidingView flex={1} behavior="padding">
+            <KeyboardAvoidingView flex={1} behavior={getProperKeyboardAvoidingArea()}>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }} flex={1}>
                     <Box>
                         <CText fontWeight={"bold"}>Basic Information</CText>
