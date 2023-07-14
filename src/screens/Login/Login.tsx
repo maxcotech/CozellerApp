@@ -51,11 +51,14 @@ export default function Login() {
     })
     const { isLoading, mutate } = useLogin({
         onSuccess: async (data) => {
+            console.log('login successful')
             const authData = data.data;
             if (authData.user_type != AccountTypes.StoreStaff && authData.user_type != AccountTypes.Customer && authData.user_type != AccountTypes.StoreOwner) {
+                console.log('account not supported')
                 toast.show("Sorry, we are terminating this process as your account is currently not supported in this version. Support for customers' account will be available in subsequent releases", { type: "danger" });
             } else {
                 //toast.show(data.message, {type:"success"});
+                console.log('deciding on route to navigate based on user type')
                 appContext.setAuthData(data.data);
                 if (rememberMe) {
                     await Storage.setItem({
@@ -63,12 +66,15 @@ export default function Login() {
                         value: JSON.stringify(data.data)
                     })
                 }
-                if (route.params.nextRoute) {
-                    navigation.replace(route.params.nextRoute);
+                if (route.params?.nextRoute) {
+                    console.log(`navigating to nextRoute`, route.params.nextRoute, route.params?.nextRouteParams)
+                    navigation.replace(route.params?.nextRoute, route.params?.nextRouteParams ?? {});
                 } else {
                     if (authData.user_type === AccountTypes.StoreStaff || authData.user_type === AccountTypes.StoreOwner) {
+                        console.log('navigating to vendor index')
                         navigation.replace(routes.vendorIndex)
                     } else {
+                        console.log('navigating to customer index')
                         navigation.replace(routes.customerIndex)
                     }
                 }

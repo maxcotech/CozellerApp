@@ -16,14 +16,14 @@ export default function ShippingSection() {
                         <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                             <HStack space={2} alignItems="center">
-                            <MaterialCommunityIcons size={18} name="bus-marker" />
+                                <MaterialCommunityIcons size={18} name="bus-marker" />
                                 <CText>Manage Shipping / Billing</CText>
                             </HStack>
 
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
                         </HStack>
                     </TouchableOpacity>
-                    
+
                 </Box>
             </View>
 
