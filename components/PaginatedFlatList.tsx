@@ -28,10 +28,11 @@ export interface PaginatedScrollParams<T extends any[], C> extends InterfaceFlat
      children?: React.ReactNode,
      paginationData?: PaginatedData<T>,
      data: T,
+     renderItem: (info: { item: T[number], index: number, separators: any }) => React.ReactElement<any, string | React.JSXElementConstructor<any>>
      onLoadNewPage: (params: C, iloader: (loading: boolean) => void) => void
 }
 
-export default function PaginatedFlatList<T extends any[], C>({ pageParams = {} as C, prevTitle = "Load Previous", nextTitle = "Load More", children, paginationData, onLoadNewPage, ...others }: PaginatedScrollParams<T, C>) {
+export default function PaginatedFlatList<T extends any[], C>({ pageParams = {} as C, data, prevTitle = "Load Previous", nextTitle = "Load More", children, paginationData, onLoadNewPage, ...others }: PaginatedScrollParams<T, C>) {
      const hasNext = useCallback(() => {
           const currentPage = paginationData?.current_page ?? 0;
           const totalPages = paginationData?.last_page ?? 1;
@@ -54,13 +55,14 @@ export default function PaginatedFlatList<T extends any[], C>({ pageParams = {} 
           <>
                <FlatList
                     {...others}
-                    renderItem={(info) => <>
+                    data={data}
+                    renderItem={(info: { item: T[number], index: number, separators: any }) => <>
                          {
                               (info.index === 0 && hasPrevious()) ? <LoadingRow params={{ ...pageParams, page: (paginationData?.current_page ?? 1) - 1 }} onLoadNewPage={onLoadNewPage} title={prevTitle} /> : <></>
                          }
                          {others.renderItem(info)}
                          {
-                              (info.index === (others.data?.length - 1) && hasNext()) ?
+                              (info.index === (data?.length - 1) && hasNext()) ?
                                    <LoadingRow params={{ ...pageParams, page: (paginationData?.current_page ?? 0) + 1 }} onLoadNewPage={onLoadNewPage} title={nextTitle} /> : <></>
                          }
                     </>}

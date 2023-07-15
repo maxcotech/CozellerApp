@@ -28,7 +28,7 @@ export const Introduction = () => {
                     case AccountTypes.StoreOwner:
                     case AccountTypes.StoreStaff: { navigation.replace(routes.vendorIndex) }; break;
                     case AccountTypes.Customer: { navigation.replace(routes.customerIndex) }; break;
-                    default: { navigation.replace(routes.comingSoon) };
+                    default: { navigation.replace(routes.login) };
                 }
             }
         }

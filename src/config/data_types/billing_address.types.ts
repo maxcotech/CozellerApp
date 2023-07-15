@@ -1,3 +1,4 @@
+import { PaginationParams } from "./general.types"
 import { City, Country, State } from "./location_types"
 
 export interface BillingAddress {
@@ -16,4 +17,8 @@ export interface BillingAddress {
     state: Partial<State>,
     city: Partial<City>,
     country: Partial<Country>
+}
+
+export interface BillingAddressesParams extends PaginationParams {
+    user_id?: number
 }

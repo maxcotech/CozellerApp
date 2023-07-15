@@ -5,10 +5,10 @@ import { Icon } from "native-base";
 
 
 
-export default function SearchIcon() {
+export default function SearchIcon({ color = "white", size = "lg" }) {
      const navigation = useNavigation<AppNavProps>();
 
      return (
-          <Icon onPress={() => navigation.navigate(routes.customerSearch)} color="white" size="lg" as={<AntDesign name="search1" />} />
+          <Icon onPress={() => navigation.navigate(routes.customerSearch)} color={color} size={size} as={<AntDesign name="search1" />} />
      )
 }
