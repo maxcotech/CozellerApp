@@ -1,4 +1,4 @@
-import { Box, HStack, View } from "native-base";
+import { Actionsheet, Box, HStack, Spinner, View } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -12,11 +12,15 @@ import { Storage } from "expo-storage"
 import { AUTH_STORAGE_KEY } from "../../../../config/constants.config";
 import ConfirmDialog from "../../../../../components/ConfirmDialog";
 import AppBtn from "../../../../../components/AppBtn";
+import { useChangeCurrency, useCurrencies } from "../../../../api/queries/currency.queries";
+import { Currency } from "../../../../config/data_types/currency_types";
 
 
 export default function AccountSection() {
      const navigation = useNavigation<AppNavProps>();
      const [showLogout, setShowLogout] = useState(false);
+     const [showCurrencies, setShowCurrencies] = useState(false);
+     const currencyQuery = useCurrencies({});
      const appContext = useContext(AppContext);
      const queryClient = useQueryClient();
      const { mutate, isLoading } = useLogoutAccount({
@@ -29,6 +33,17 @@ export default function AccountSection() {
                navigation.replace(routes.login)
           }
      });
+     const changeCurrencyHandle = useChangeCurrency({
+          onSuccess(data) {
+               toast.show(data?.message, { type: "success" });
+               queryClient.invalidateQueries();
+          },
+     })
+
+     const onSelectNewCurrency = (item: Currency) => {
+          setShowCurrencies(false);
+          changeCurrencyHandle.mutate({ currency_id: item.id })
+     }
 
      const onLogout = () => {
           setShowLogout(false);
@@ -41,17 +56,21 @@ export default function AccountSection() {
                <View mb="5px">
                     <CText mb="8px" fontWeight="bold">Account / Preference</CText>
                     <Box borderRadius="lg" backgroundColor={"rgba(0,148,69,0.1)"} >
-                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerBillingAddresses)}>
+                         <TouchableOpacity onPress={() => setShowCurrencies(true)}>
                               <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                                    <HStack space={2} alignItems="center">
                                         <MaterialCommunityIcons size={18} name="cash" />
                                         <CText>Update Currency</CText>
                                    </HStack>
-                                   <MaterialIcons size={20} name="keyboard-arrow-right" />
+                                   {
+                                        (changeCurrencyHandle.isLoading) ?
+                                             <Spinner size="sm" /> :
+                                             <MaterialIcons size={20} name="keyboard-arrow-right" />
+                                   }
                               </HStack>
                          </TouchableOpacity>
-                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerBillingAddresses)}>
+                         <TouchableOpacity onPress={() => navigation.navigate(routes.changePassword)}>
                               <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                                    <HStack space={2} alignItems="center">
@@ -71,16 +90,7 @@ export default function AccountSection() {
                                    <MaterialIcons color="red" size={20} name="keyboard-arrow-right" />
                               </HStack>
                          </TouchableOpacity>
-                         {/* <TouchableOpacity onPress={() => navigation.navigate(routes.customerBillingAddresses)}>
-                              <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
-                                   <HStack space={2} alignItems="center">
-                                        <MaterialCommunityIcons color="red" size={18} name="delete-forever" />
-                                        <CText color="danger.500">Delete Account</CText>
-                                   </HStack>
-                                   <MaterialIcons color="red" size={20} name="keyboard-arrow-right" />
-                              </HStack>
-                         </TouchableOpacity> */}
 
                     </Box>
                     <Box mt="20px">
@@ -88,7 +98,16 @@ export default function AccountSection() {
                     </Box>
                </View>
                <ConfirmDialog message="You will be logged out of your current session" onConfirm={onLogout} isOpen={showLogout} onClose={() => setShowLogout(false)} />
-
+               <Actionsheet isOpen={showCurrencies} onClose={() => setShowCurrencies(false)}>
+                    <Actionsheet.Content>
+                         <CText>Select Currency</CText>
+                         {
+                              currencyQuery?.data?.data?.map((item) => (
+                                   <Actionsheet.Item onPress={() => onSelectNewCurrency(item)}>{item.currency_name}</Actionsheet.Item>
+                              ))
+                         }
+                    </Actionsheet.Content>
+               </Actionsheet>
           </>
      )
 }
