@@ -4,6 +4,7 @@ import { City, Country, State } from "./location_types"
 export interface BillingAddress {
     id: number,
     street_address: string,
+    is_current: 1 | 0,
     city_id: number,
     state_id: number,
     country_id: number,
@@ -21,4 +22,8 @@ export interface BillingAddress {
 
 export interface BillingAddressesParams extends PaginationParams {
     user_id?: number
+}
+
+export interface ToggleBillingAddrStatusData {
+    billing_address_id: number
 }

@@ -5,7 +5,7 @@ import { Icon } from "native-base";
 
 
 
-export default function HomeIcon({ color = "white", size = "lg" }) {
+export default function HomeIcon({ color = "white", size = "md" }) {
      const navigation = useNavigation<AppNavProps>();
 
      return (

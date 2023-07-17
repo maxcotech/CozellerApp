@@ -12,6 +12,7 @@ export interface Country {
 }
 
 export interface City {
+    id?: number,
     city_name: string,
     state_id: number,
     city_code: string,
@@ -19,6 +20,7 @@ export interface City {
 }
 
 export interface State {
+    id?: number,
     state_name: string,
     country_id: number,
     status: ResourceStatuses,

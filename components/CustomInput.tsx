@@ -109,7 +109,7 @@ export const CustomSearchInput = ({ prefix, isLoading, ...props }: CustomSearchP
 
 export default function CustomInput({
     labelText, label, error, ref,
-    onFocus, onBlur, backgroundColor = "#F5F5F5", width = "full", height, prefix, suffix, borderRadius = "8px", px = "15px", py = "10px", mx = "0px", my = "0px", ...props }: CustomInputProps) {
+    onFocus, onBlur, backgroundColor = "#F5F5F5", width = "full", height, prefix, suffix, borderRadius = "8px", px = "15px", py = "10px", mx = "0px", my = 0, ...props }: CustomInputProps) {
     const [focused, setFocused] = useState(false);
     const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         setFocused(true);

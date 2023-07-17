@@ -1,9 +1,8 @@
 import { AlertDialog, HStack } from "native-base"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import AppBtn, { AppBtnProps } from "./AppBtn"
-import { ColorType } from "native-base/lib/typescript/components/types"
-import { APP_COLOR } from "../src/config/constants.config"
 import { ColorValue } from "react-native"
+import { isIos, renderIosConfirmDialog } from "../src/helpers/platform.helpers"
 
 export interface ConfirmDialogProps {
     title?: string,
@@ -20,11 +19,18 @@ export interface ConfirmDialogProps {
 
 export default function ConfirmDialog({
     isLoading = false,
-    confirmLabel = "Continue", cancelLabel = "Cancel",isOpen,onClose, onConfirm,confirmColor = "red", cancelColor = "silver",
-    title = "Are you sure?",message = "This action, once executed may be irreversible"}:ConfirmDialogProps
-){
+    confirmLabel = "Continue", cancelLabel = "Cancel", isOpen, onClose, onConfirm, confirmColor = "red", cancelColor = "silver",
+    title = "Are you sure?", message = "This action, once executed may be irreversible" }: ConfirmDialogProps
+) {
     const alertRef = useRef();
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        renderIosConfirmDialog({ show: isOpen, onClose, message, title, confirmLabel, cancelLabel, onConfirm })
+    }, [isOpen])
+
+    if (isIos()) return <></>
+
     return (
         <AlertDialog leastDestructiveRef={alertRef} isOpen={isOpen} onClose={onClose}>
             <AlertDialog.Content>

@@ -60,6 +60,11 @@ export default function IndexNavigation() {
             }>
                 <Stack.Screen
                     options={defaultOptions}
+                    name={routes.login}
+                    component={Login}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
                     name={routes.register}
                     component={Register}
                 />
@@ -78,11 +83,7 @@ export default function IndexNavigation() {
                     name={routes.comingSoon}
                     component={ComingSoon}
                 />
-                <Stack.Screen
-                    options={defaultOptions}
-                    name={routes.login}
-                    component={Login}
-                />
+
                 <Stack.Screen
                     options={defaultOptions}
                     name={routes.vendorIndex}
