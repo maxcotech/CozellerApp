@@ -12,6 +12,7 @@ import { ManageResourceActions } from "../../../config/enum.config";
 import { isIos } from "../../../helpers/platform.helpers";
 import { BillingAddressKeys, useDeleteBillingAddress, useMarkAsCurrentAddr } from "../../../api/queries/billing.queries";
 import { useQueryClient } from "react-query";
+import { PaymentQueryKeys } from "../../../api/queries/payment.queries";
 
 export default function BillingAddressWidget({ item }: { item: BillingAddress }) {
      const [showDetails, setShowDetails] = useState(false);
@@ -20,6 +21,7 @@ export default function BillingAddressWidget({ item }: { item: BillingAddress })
      const onRefresh = (message: string) => {
           toast.show(message, { type: "success" });
           queryClient.invalidateQueries({ queryKey: [BillingAddressKeys.fetchBillingAddresses] })
+          queryClient.invalidateQueries({ queryKey: [PaymentQueryKeys.fetchCheckout] })
      }
      const markAsCurrentHandle = useMarkAsCurrentAddr({
           onSuccess(data) {

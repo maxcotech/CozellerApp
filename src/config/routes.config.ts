@@ -82,7 +82,8 @@ export const CustomerRoutes = {
     customerShoppingCart: "customer/shopping-cart",
     customerBillingAddresses: "customer/billing-addresses",
     customerCreateAddress: "customer/create-billing-address",
-    customerUpdateAddress: "customer/update-billing-address"
+    customerUpdateAddress: "customer/update-billing-address",
+    customerCheckout: "customer/checkout"
 }
 
 const routes = {

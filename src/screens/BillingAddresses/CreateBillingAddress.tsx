@@ -6,6 +6,7 @@ import { BillingAddressKeys, useCreateBillingAddress } from "../../api/queries/b
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../config/routes.config";
 import { useQueryClient } from "react-query";
+import { PaymentQueryKeys } from "../../api/queries/payment.queries";
 
 
 export default function CreateBillingAddress() {
@@ -15,6 +16,8 @@ export default function CreateBillingAddress() {
           onSuccess(data) {
                toast.show(data?.message, { type: "success" });
                queryClient.invalidateQueries({ queryKey: [BillingAddressKeys.fetchBillingAddresses] });
+               queryClient.invalidateQueries({ queryKey: [PaymentQueryKeys.fetchCheckout] });
+
                navigation.replace(routes.customerBillingAddresses)
           }
 

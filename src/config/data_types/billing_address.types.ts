@@ -27,3 +27,5 @@ export interface BillingAddressesParams extends PaginationParams {
 export interface ToggleBillingAddrStatusData {
     billing_address_id: number
 }
+
+

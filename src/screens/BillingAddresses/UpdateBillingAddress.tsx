@@ -8,6 +8,7 @@ import { BillingAddress } from "../../config/data_types/billing_address.types";
 import { BillingAddressKeys, useUpdateBillingAddress } from "../../api/queries/billing.queries";
 import { useQueryClient } from "react-query";
 import routes, { AppNavProps } from "../../config/routes.config";
+import { PaymentQueryKeys } from "../../api/queries/payment.queries";
 
 export interface UpdateBillingAddressProps extends AppRouteProp {
      params: {
@@ -23,6 +24,7 @@ export default function UpdateBillingAddress() {
           onSuccess(data) {
                toast.show(data?.message, { type: "success" })
                queryClient.invalidateQueries({ queryKey: [BillingAddressKeys.fetchBillingAddresses] })
+               queryClient.invalidateQueries({ queryKey: [PaymentQueryKeys.fetchCheckout] });
                navigation.replace(routes.customerBillingAddresses);
           },
      });

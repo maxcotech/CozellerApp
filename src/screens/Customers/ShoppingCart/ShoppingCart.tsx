@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, ScrollView, View } from "native-base";
+import { Box, HStack, Icon, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import { APP_COLOR, NEW_XPADDING } from "../../../config/constants.config";
 import PaginatedFlatList from "../../../../components/PaginatedFlatList";
@@ -19,6 +19,8 @@ export default function ShoppingCart() {
      const [params, setParams] = useState<PaginationParams>({})
      const { data, isLoading } = useShoppingCart(params)
      const navigation = useNavigation<AppNavProps>();
+
+
      if (isLoading) return <IconLoadingPage />
      return (
           <View flex={1}>
@@ -45,7 +47,7 @@ export default function ShoppingCart() {
                          </AppBtn>
                     </Box>
                     <Box flex={1}>
-                         <AppBtn borderRadius={4}>
+                         <AppBtn onPress={() => navigation.navigate(routes.customerCheckout)} borderRadius={4}>
                               CHECKOUT
                          </AppBtn>
                     </Box>
