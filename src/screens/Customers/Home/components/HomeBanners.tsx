@@ -4,12 +4,17 @@ import { useSharedValue } from "react-native-reanimated";
 import { useHomeBanners } from "../../../../api/queries/widgets.queries";
 import HomeBannersSkeleton from "./HomeBannersSkeleton";
 import { Image } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+import routes, { AppNavProps } from "../../../../config/routes.config";
+import { TouchableOpacity } from "react-native";
+import { getLastUrlSegment } from "../../../../helpers/string.helpers";
 
 
 
 export default function HomeBanners({ pageWidth }) {
      const PAGE_WIDTH = pageWidth;
      const progressValue = useSharedValue<number>(0);
+     const navigation = useNavigation<AppNavProps>();
      const { data, isLoading } = useHomeBanners()
 
      const baseOptions = {
@@ -40,7 +45,15 @@ export default function HomeBanners({ pageWidth }) {
                          parallaxScrollingOffset: 50,
                     }}
                     data={data.data}
-                    renderItem={({ index, item }) => <Image alt={"Banner Slide View"} loadingIndicatorSource={require('../../../../../assets/loading.gif')} borderRadius={8} marginX={1} key={index + item.banner} height={PAGE_WIDTH * 0.6} source={{ uri: item.banner }} />}
+                    renderItem={({ index, item }) => <TouchableOpacity onPress={() => {
+                         const slug = getLastUrlSegment(item.banner_link);
+                         if (slug) {
+                              navigation.navigate(routes.customerCatalog, { category_parameter: slug });
+                         }
+                    }}>
+                         <Image progressiveRenderingEnabled={true} alt={"Banner Slide View"} loadingIndicatorSource={require('../../../../../assets/loading.gif')} borderRadius={8} marginX={1} key={index + item.banner} height={PAGE_WIDTH * 0.6} source={{ uri: item.banner }} />
+                    </TouchableOpacity>
+                    }
                />
           </View>
      )

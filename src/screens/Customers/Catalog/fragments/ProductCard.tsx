@@ -51,7 +51,7 @@ export default function ProductCard({ item, currency, hideCartBtn = false }: { h
                <TouchableOpacity onPress={() => {
                     navigation.navigate(routes.customerProductDetails, { id: item.id })
                }} style={{ height: 200, width: "100%" }} >
-                    <Image source={{ uri: item.product_image }} width="100%" height={"100%"} />
+                    <Image progressiveRenderingEnabled={true} source={{ uri: item.product_image }} width="100%" height={"100%"} />
                     {
                          (inSales) ?
                               <Box right={1} top={3} paddingX={2} paddingY={1} position={"absolute"} backgroundColor={"success.100"} borderRadius={3}>

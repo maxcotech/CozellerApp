@@ -95,7 +95,7 @@ export default function Catalog() {
                               <View paddingX={NEW_XPADDING + "px"} mb={3}>
                                    {
                                         (catalog?.filters?.main_category?.category_image) ?
-                                             <Image alt="Category Main View" width="100%" mt={3} height={"200px"} style={{ borderRadius: 10 }} source={{ uri: catalog?.filters?.main_category?.category_image }} /> : <></>
+                                             <Image progressiveRenderingEnabled={true} alt="Category Main View" width="100%" mt={3} height={"200px"} style={{ borderRadius: 10 }} source={{ uri: catalog?.filters?.main_category?.category_image }} /> : <></>
 
 
                                    }
@@ -110,7 +110,10 @@ export default function Catalog() {
                                                                       navigation.replace(routes.customerCatalog, { category_parameter: item.category_slug })
                                                                  }}>
                                                                       <Image alt={item.category_title} style={{ borderRadius: 10 }} backgroundColor={APP_COLOR_LIGHTER} width={fourItemWidth} height="70px" source={{ uri: item.category_icon }} />
-                                                                      <CText numberOfLines={1} textAlign={"center"} variant="body4">{item.category_title}</CText>
+                                                                      <Box width={fourItemWidth}>
+                                                                           <CText numberOfLines={1} textAlign={"center"} variant="body4">{item.category_title}</CText>
+
+                                                                      </Box>
                                                                  </TouchableOpacity>
                                                             </Box>
 
