@@ -1,6 +1,6 @@
 import client from "../../config/client.config"
 import { CatalogFilters } from "../../config/data_types/catalog.types";
-import { ProductFormData, ProductGalleryResult, StoreProductParams } from "../../config/data_types/product_types";
+import { ProductFormData, ProductGalleryResult, RecentlyViewedParams, StoreProductParams } from "../../config/data_types/product_types";
 import { uploadData } from "./general.services";
 
 
@@ -42,4 +42,8 @@ export const fetchProducts = (params: CatalogFilters): Promise<any> => {
 
 export const fetchCategoryProducts = (params: CatalogFilters): Promise<any> => {
     return client.get(`category/products/${params.category_parameter}`, { params })
+}
+
+export const fetchRecentlyViewed = (params: RecentlyViewedParams): Promise<any> => {
+    return client.get(`products/recently_viewed`, { params })
 }

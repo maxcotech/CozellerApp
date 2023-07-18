@@ -4,7 +4,7 @@ import { AppRouteProp } from "../../../config/data_types/general.types"
 import IconLoadingPage from "../../../../components/IconLoadingPage"
 import { Box, Divider, FlatList, HStack, ScrollView, Spinner, View } from "native-base"
 import AppBar from "../../../../components/AppBar"
-import { APP_COLOR, NEW_XPADDING } from "../../../config/constants.config"
+import { APP_COLOR, APP_COLOR_LIGHTER, APP_COLOR_LIGHTER_2, NEW_XPADDING } from "../../../config/constants.config"
 import CartIcon from "../components/CartIcon"
 import SearchIcon from "../components/SearchIcon"
 import ProductSliders from "./fragments/ProductSilders"
@@ -209,8 +209,8 @@ export default function ProductDetails() {
                                    <Box marginY={1} paddingX={NEW_XPADDING + "px"}>
                                         <CText fontWeight={"bold"} color="gray.400">You may also like</CText>
                                    </Box>
-                                   <View width="full"   >
-                                        <HStack backgroundColor="white" space={2} alignItems="center" justifyContent={"space-between"} paddingX={NEW_XPADDING + "px"} paddingY={2}>
+                                   <View backgroundColor="white" width="full"   >
+                                        <HStack space={2} alignItems="center" justifyContent={"space-between"} paddingX={NEW_XPADDING + "px"} paddingY={2}>
                                              <CText fontWeight={"bold"}>From {item.category?.category_title}</CText>
                                              <TouchableOpacity onPress={() => navigation.navigate(routes.customerCatalog, { category_parameter: item.category?.category_slug })}>
                                                   <HStack space={2} alignItems="center">
@@ -228,7 +228,7 @@ export default function ProductDetails() {
                                                   data={catalogHandle?.data?.data?.data}
                                                   keyExtractor={(item) => item.id?.toString()}
                                                   renderItem={(context) => <View width={width / 2}>
-                                                       <ProductCard hideCartBtn={true} currency={item.currency} item={context.item} />
+                                                       <ProductCard backgroundColor={APP_COLOR_LIGHTER_2} hideCartBtn={true} currency={item.currency} item={context.item} />
                                                   </View>}
                                              />
                                         </View>

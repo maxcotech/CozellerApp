@@ -16,6 +16,7 @@ import routes, { AppNavProps } from "../../../config/routes.config";
 import { useMemo } from 'react';
 import FourItemWidget from "./components/FourItemWidget";
 import { LinearGradient } from "expo-linear-gradient";
+import RecentlyViewedSection from "../Catalog/fragments/RecentlyViewedSection";
 
 
 export default function Home() {
@@ -45,7 +46,11 @@ export default function Home() {
                               }
                               return <></>
                          })
+
                     }
+                    <View mt={5}>
+                         <RecentlyViewedSection width={dimensions.width} />
+                    </View>
                </>
           )
      }, [JSON.stringify(widgets.data?.data?.data)])

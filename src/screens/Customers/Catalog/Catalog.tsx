@@ -159,7 +159,7 @@ export default function Catalog() {
                                         }
                                    /> :
                                    <View mt={"20px"}>
-                                        <EmptyPage title="No products found" />
+                                        <EmptyPage subtitle="Products are yet to be added to this selected context" title="No products found" />
                                    </View>
                          }
                     </View>

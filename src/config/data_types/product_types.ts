@@ -81,6 +81,17 @@ export interface ProductVariation {
     amount_in_stock: number | null
 }
 
+export interface RecentlyViewedParams extends PaginationParams {
+    excluded_product_id?: number
+}
+
+export interface RecentlyViewedItem {
+    id: number,
+    product_id: number,
+    last_viewed: string,
+    product: Product
+}
+
 export interface ProductFormData {
     product_image: string,
     product_id?: number,

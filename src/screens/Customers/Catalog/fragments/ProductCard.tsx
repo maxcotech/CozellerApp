@@ -19,7 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
 
 
-export default function ProductCard({ item, currency, hideCartBtn = false }: { hideCartBtn?: boolean, item: Product, currency: Currency }) {
+export default function ProductCard({ item, currency, hideCartBtn = false, backgroundColor = "white" }: { hideCartBtn?: boolean, item: Product, currency: Currency, backgroundColor?: string }) {
      const queryClient = useQueryClient();
      const navigation = useNavigation<AppNavProps>();
      const onRefreshActions = () => {
@@ -47,7 +47,7 @@ export default function ProductCard({ item, currency, hideCartBtn = false }: { h
           return item.regular_price > item.current_price;
      }, [item.current_price, item.regular_price])
      return (
-          <View backgroundColor={"white"} borderRadius={8} overflow={"hidden"}>
+          <View backgroundColor={backgroundColor} borderRadius={8} overflow={"hidden"}>
                <TouchableOpacity onPress={() => {
                     navigation.navigate(routes.customerProductDetails, { id: item.id })
                }} style={{ height: 200, width: "100%" }} >
@@ -87,13 +87,17 @@ export default function ProductCard({ item, currency, hideCartBtn = false }: { h
 
                </TouchableOpacity>
                <View padding={2}>
-                    <HStack alignItems="center">
-                         <Icon size="sm" color="gray.400" as={<EvilIcons name="location" />} />
-                         <View flex={1}>
-                              <CText variant="body3" color="gray.400" numberOfLines={1}>{(item.store?.city as City)?.city_name}, {(item.store?.state as State)?.state_name}, {(item.store?.country)?.country_name}</CText>
+                    {
+                         (item.store) ?
+                              <HStack alignItems="center">
+                                   <Icon size="sm" color="gray.400" as={<EvilIcons name="location" />} />
+                                   <View flex={1}>
+                                        <CText variant="body3" color="gray.400" numberOfLines={1}>{(item.store?.city as City)?.city_name}, {(item.store?.state as State)?.state_name}, {(item.store?.country)?.country_name}</CText>
 
-                         </View>
-                    </HStack>
+                                   </View>
+                              </HStack> : <></>
+                    }
+
                     <CText numberOfLines={2} variant="body3">{item.product_name}</CText>
                     <HStack space={1} marginTop={1} alignItems='center'>
                          <Money currencySym={currency?.currency_sym} fontWeight={"bold"} variant="body1">{item.current_price}</Money>

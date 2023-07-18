@@ -1,6 +1,6 @@
 import { QueryFunction, UseMutationOptions, UseQueryOptions, useMutation, useQuery } from "react-query";
-import { Product, ProductFormData, ProductSummary, StoreProductParams } from "../../config/data_types/product_types";
-import { createProduct, deleteProduct, fetchCategoryProducts, fetchProduct, fetchProducts, fetchStoreProducts, updateProduct } from "../services/product.services";
+import { Product, ProductFormData, ProductSummary, RecentlyViewedItem, RecentlyViewedParams, StoreProductParams } from "../../config/data_types/product_types";
+import { createProduct, deleteProduct, fetchCategoryProducts, fetchProduct, fetchProducts, fetchRecentlyViewed, fetchStoreProducts, updateProduct } from "../services/product.services";
 import { GenericDataResponse, HttpDataResponse, PaginatedDataResponse } from "../../config/data_types/general.types";
 import { CatalogData, CatalogFilters } from "../../config/data_types/catalog.types";
 
@@ -8,7 +8,8 @@ export const ProductQueryKeys = {
     fetchStoreProducts: "fetch/store-products",
     fetchProduct: "fetch/product",
     fetchProducts: "fetch/products",
-    fetchCategoryProducts: "fetch/category-products"
+    fetchCategoryProducts: "fetch/category-products",
+    fetchRecentlyViewed: "fetch/products/recently-viewed"
 }
 
 export const useStoreProducts = (params: StoreProductParams, options?: UseQueryOptions<StoreProductParams, HttpDataResponse, PaginatedDataResponse<ProductSummary[]>>) => {
@@ -66,4 +67,11 @@ export const useCatalog = (params: CatalogFilters, options?: UseQueryOptions<Cat
         return useCategoryProducts(params, options);
     }
     return useProducts(params, options);
+}
+
+export const useRecentlyViewed = (params: RecentlyViewedParams) => {
+    return useQuery<RecentlyViewedParams, HttpDataResponse, PaginatedDataResponse<RecentlyViewedItem[]>>(
+        [ProductQueryKeys.fetchRecentlyViewed, params],
+        (() => fetchRecentlyViewed(params)) as QueryFunction<RecentlyViewedParams>
+    )
 }
