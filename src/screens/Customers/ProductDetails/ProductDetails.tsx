@@ -24,6 +24,7 @@ import { useQueryClient } from "react-query"
 import RatingStars from "../Catalog/fragments/RatingStars"
 import RenderHTML from "react-native-render-html"
 import ProductCard from "../Catalog/fragments/ProductCard"
+import SafeScaffold from "../../../../components/SafeScaffold"
 
 export interface ProductParams extends AppRouteProp {
      params: {
@@ -73,6 +74,7 @@ export default function ProductDetails() {
 
      if (isLoading) return <IconLoadingPage />;
      return (
+          <SafeScaffold>
           <View flex={1}>
                <AppBar right={
                     <HStack alignItems="center" space={5}>
@@ -249,5 +251,6 @@ export default function ProductDetails() {
 
                </HStack>
           </View>
+          </SafeScaffold>
      )
 }

@@ -28,6 +28,7 @@ import BillingAddresses from "../screens/BillingAddresses/BillingAddresses";
 import CreateBillingAddress from "../screens/BillingAddresses/CreateBillingAddress";
 import UpdateBillingAddress from "../screens/BillingAddresses/UpdateBillingAddress";
 import Checkout from "../screens/Customers/Checkout/Checkout";
+import SafeScaffold from "../../components/SafeScaffold";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -132,8 +133,8 @@ export default function IndexNavigation() {
                 <Stack.Screen
                     options={defaultOptions}
                     name={routes.customerCatalog}
-                    component={Catalog}
-                />
+                    component={() => <SafeScaffold><Catalog /></SafeScaffold>}
+                /> 
                 <Stack.Screen
                     options={defaultOptions}
                     name={routes.customerShoppingCart}

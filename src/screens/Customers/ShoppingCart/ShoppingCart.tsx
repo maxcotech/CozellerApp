@@ -14,6 +14,7 @@ import AppBtn from "../../../../components/AppBtn";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../config/routes.config";
+import SafeScaffold from "../../../../components/SafeScaffold";
 
 export default function ShoppingCart() {
      const [params, setParams] = useState<PaginationParams>({})
@@ -23,6 +24,7 @@ export default function ShoppingCart() {
 
      if (isLoading) return <IconLoadingPage />
      return (
+          <SafeScaffold>
           <View flex={1}>
                <AppBar textColor={"white"} backgroundColor={APP_COLOR} title="Shopping Cart" />
                <HStack paddingY="5px" paddingX={NEW_XPADDING + "px"} backgroundColor={APP_COLOR_LIGHTER}>
@@ -58,5 +60,6 @@ export default function ShoppingCart() {
 
 
           </View>
+          </SafeScaffold>
      )
 }
