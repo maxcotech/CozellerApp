@@ -13,6 +13,7 @@ import HomeIcon from "../Customers/components/HomeIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../config/routes.config";
+import SafeScaffold from "../../../components/SafeScaffold";
 
 export default function BillingAddresses() {
      const [params, setParams] = useState<BillingAddressesParams>({})
@@ -20,6 +21,7 @@ export default function BillingAddresses() {
      const navigation = useNavigation<AppNavProps>();
      if (isLoading) return <IconLoadingPage />;
      return (
+          <SafeScaffold>
           <View backgroundColor={APP_COLOR_LIGHTER_2} flex={1}>
                <AppBar right={
                     <HStack space={5}>
@@ -49,5 +51,6 @@ export default function BillingAddresses() {
 
                }
           </View>
+          </SafeScaffold>
      )
 }

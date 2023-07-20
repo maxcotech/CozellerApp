@@ -9,6 +9,7 @@ import { BillingAddressKeys, useUpdateBillingAddress } from "../../api/queries/b
 import { useQueryClient } from "react-query";
 import routes, { AppNavProps } from "../../config/routes.config";
 import { PaymentQueryKeys } from "../../api/queries/payment.queries";
+import SafeScaffold from "../../../components/SafeScaffold";
 
 export interface UpdateBillingAddressProps extends AppRouteProp {
      params: {
@@ -36,11 +37,13 @@ export default function UpdateBillingAddress() {
           })
      }
      return (
+          <SafeScaffold>
           <View backgroundColor={"white"} flex={1}>
                <AppBar title="Update Billing Address" backgroundColor={APP_COLOR} textColor="white" />
                <View flex={1} paddingX={XPADDING} paddingTop={"15px"}>
                     <BillingAddressForm isLoading={isLoading} handleSubmit={onUpdateAddress} defaultData={route?.params?.defaultData} />
                </View>
           </View>
+          </SafeScaffold>
      )
 }
