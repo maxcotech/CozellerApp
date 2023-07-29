@@ -29,6 +29,9 @@ import CreateBillingAddress from "../screens/BillingAddresses/CreateBillingAddre
 import UpdateBillingAddress from "../screens/BillingAddresses/UpdateBillingAddress";
 import Checkout from "../screens/Customers/Checkout/Checkout";
 import SafeScaffold from "../../components/SafeScaffold";
+import PayWithFlutterwaveView from "../screens/Customers/Checkout/PayWithFlutterwaveView";
+import StatusAlertView from "../screens/StateIndicators/StatusAlertView";
+import MyOrders from "../screens/Customers/Orders/MyOrders";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -134,7 +137,7 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.customerCatalog}
                     component={() => <SafeScaffold><Catalog /></SafeScaffold>}
-                /> 
+                />
                 <Stack.Screen
                     options={defaultOptions}
                     name={routes.customerShoppingCart}
@@ -159,6 +162,21 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.customerCheckout}
                     component={Checkout}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.FlutterWaveRoute}
+                    component={PayWithFlutterwaveView}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.statusMessage}
+                    component={StatusAlertView}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.customerOrders}
+                    component={MyOrders}
                 />
             </Stack.Navigator>
         </CatalogProvider>

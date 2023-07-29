@@ -4860,6 +4860,14 @@ flow-parser@^0.185.0:
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.185.2.tgz#cb7ee57f77377d6c5d69a469e980f6332a15e492"
   integrity sha512-2hJ5ACYeJCzNtiVULov6pljKOLygy0zddoqSI1fFetM+XRPpRshFdGEijtqlamA1XwyZ+7rhryI6FQFzvtLWUQ==
 
+flutterwave-react-native@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/flutterwave-react-native/-/flutterwave-react-native-1.0.4.tgz#2a95cd78aa4150698c9ac8207a4ace1d8af58bf3"
+  integrity sha512-UdTbzliCigqSreUiyFfcxaq8+3TK09rEpxM5PxcFrY2zJ1KYcUFsX01JxhEhYX0iLlqKJYiWMAtv2PNDvTGFMQ==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-webview ">=6.0.2"
+
 follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
@@ -7254,6 +7262,14 @@ react-native-keyboard-aware-scroll-view@^0.9.5:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-paystack-webview@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-paystack-webview/-/react-native-paystack-webview-4.0.3.tgz#f2d7599a544c07e3ec206196bd2fce5ec989a8cd"
+  integrity sha512-qlu6O7bzI+InvOPSTIfLP+NLltiBnMoqUvQG3rBXl38/g7NwJ2fvtrxunPQK/DkzgwNKetZozskjhjWg0ipbpw==
+  dependencies:
+    react-native-webview "*"
+    validator "^13.6.0"
+
 react-native-pell-rich-editor@^1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/react-native-pell-rich-editor/-/react-native-pell-rich-editor-1.9.0.tgz#e222b4cd8ead9b5e1de7b6cf2f31a3315c82e570"
@@ -7330,6 +7346,14 @@ react-native-web@~0.18.10:
     normalize-css-color "^1.0.2"
     postcss-value-parser "^4.2.0"
     styleq "^0.1.2"
+
+react-native-webview@*, react-native-webview@>=6.0.2:
+  version "13.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-13.3.0.tgz#37e23179e40fb21ceaa7bdc53868f160f6de60d7"
+  integrity sha512-9ZtEqY2zkhrWwposHsno0eod0CXT/9xxCS+lzmmeiSZA1v8n13OSTWgZC5UGlmW7GCiUc+9sI6DkVRky0AbiyA==
+  dependencies:
+    escape-string-regexp "2.0.0"
+    invariant "2.2.4"
 
 react-native-webview@11.26.0:
   version "11.26.0"
@@ -8589,6 +8613,11 @@ validate-npm-package-name@^3.0.0:
   integrity sha512-M6w37eVCMMouJ9V/sdPGnC5H4uDr73/+xdq0FBLO3TFFX1+7wiUY6Es328NN+y43tmY+doUdN9g9J21vqB7iLw==
   dependencies:
     builtins "^1.0.3"
+
+validator@^13.6.0:
+  version "13.9.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.9.0.tgz#33e7b85b604f3bbce9bb1a05d5c3e22e1c2ff855"
+  integrity sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==
 
 vary@~1.1.2:
   version "1.1.2"

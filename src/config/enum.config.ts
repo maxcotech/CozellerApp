@@ -128,3 +128,8 @@ export enum PlatformTypes {
     web = "web"
 
 }
+
+export enum PaymentOptionTypes {
+    Flutterwave = 1,
+    Paystack = 2
+}

@@ -12,7 +12,7 @@ export default function OrdersSection() {
                <View mb="20px">
                     <CText mb="8px" fontWeight="bold">Orders / Feedback</CText>
                     <Box borderRadius="lg" backgroundColor={"rgba(0,148,69,0.1)"} >
-                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerBillingAddresses)}>
+                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerOrders)}>
                               <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                                    <HStack space={2} alignItems="center">

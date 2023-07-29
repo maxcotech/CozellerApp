@@ -54,4 +54,13 @@ export interface IPAddressPayload {
     city: string
 }
 
+export interface ActionResultParams {
+    message: string,
+    title: string,
+    status: "success" | "failed" | "warning",
+    nextRoute?: string,
+    nextRouteParams?: Record<string, any>,
+    actionBtnLabel?: string
+}
+
 export type AppRouteProp = RouteProp<ParamListBase>;

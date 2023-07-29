@@ -6,7 +6,8 @@ export const GeneralRoutes = {
     home: "home",
     drawer: "drawer",
     createContacts: "createContact",
-    comingSoon: "comingSoon"
+    comingSoon: "comingSoon",
+    statusMessage: "status/message"
 }
 
 export const AuthRoutes = {
@@ -83,12 +84,17 @@ export const CustomerRoutes = {
     customerBillingAddresses: "customer/billing-addresses",
     customerCreateAddress: "customer/create-billing-address",
     customerUpdateAddress: "customer/update-billing-address",
-    customerCheckout: "customer/checkout"
+    customerCheckout: "customer/checkout",
+    customerOrders: "customer/orders"
+}
+
+export const PaymentRoutes = {
+    FlutterWaveRoute: "Flutterwave/PaymentPage"
 }
 
 const routes = {
     ...GeneralRoutes, ...AuthRoutes, ...VendorRoutes, ...VendorDashboardRoutes, ...AccountRoutes,
-    ...vendorStoreSettingsRoute, ...vendorShippingSettingsRoutes, ...CustomerRoutes
+    ...vendorStoreSettingsRoute, ...vendorShippingSettingsRoutes, ...CustomerRoutes, ...PaymentRoutes
 }
 
 export const AppParamList = Object.assign({}, ...Object.keys(routes).map((key) => { return { [key]: {} } })) as ParamListBase

@@ -1,4 +1,4 @@
-import { Box, Center, Circle, Icon, ScrollView, View } from "native-base";
+import { Center, Circle, HStack, Icon, ScrollView, View } from "native-base";
 import AppBar from "../../../../components/AppBar";
 import { APP_COLOR, APP_COLOR_LIGHT, XPADDING } from "../../../config/constants.config";
 import BillingSection from "./fragments/ShippingSection";
@@ -8,14 +8,16 @@ import AppContext from "../../../contexts/AppContext";
 import CText from "../../../../components/CText";
 import OrdersSection from "./fragments/OrdersSection";
 import AccountSection from "./fragments/AccountSection";
-import AppBtn from "../../../../components/AppBtn";
+import CartIcon from "../components/CartIcon";
 
 
 export default function Account() {
      const appContext = useContext(AppContext)
      return (
           <View flex={1}>
-               <AppBar title="My Account" textColor="white" backgroundColor={APP_COLOR} />
+               <AppBar right={<HStack>
+                    <CartIcon />
+               </HStack>} title="My Account" textColor="white" backgroundColor={APP_COLOR} />
                <ScrollView contentContainerStyle={{ paddingVertical: 20 }} px={XPADDING} flex={1}>
                     <Center mb={5}>
                          <Circle backgroundColor={APP_COLOR_LIGHT}>

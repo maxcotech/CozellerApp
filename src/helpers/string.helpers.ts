@@ -22,3 +22,15 @@ export const getLastUrlSegment = (val: string) => {
     const urlSegments = val.split('/');
     return urlSegments[urlSegments.length - 1];
 }
+
+export const getQueryParamsFromUrl = (url: string) => {
+    const queryParams = {};
+    if (url) {
+        const params = url?.split('?')[1]?.split('&');
+        for (const param of params) {
+            const [key, value] = param.split('=');
+            queryParams[key] = decodeURIComponent(value);
+        }
+    }
+    return queryParams;
+};
