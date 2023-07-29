@@ -89,7 +89,8 @@ export const CustomerRoutes = {
 }
 
 export const PaymentRoutes = {
-    FlutterWaveRoute: "Flutterwave/PaymentPage"
+    FlutterWaveRoute: "PaymentPage/Flutterwave",
+    PaystackRoute: "PaymentPage/PaystackRoute"
 }
 
 const routes = {

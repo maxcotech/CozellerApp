@@ -15,9 +15,16 @@ import { useState } from 'react';
 
 export default function PaymentOptions({ show, onClose, currency, data }: { show: boolean, onClose: () => void, currency: Currency, data: InitPaymentPayload }) {
      const [fwInitializing, setFwInitializing] = useState(false);
+     const navigation = useNavigation<AppNavProps>();
      const { isLoading, mutate } = useVerifyPayment({
           onError(data) {
-               toast.show(data?.message, { type: "danger" })
+               navigation.replace(routes.statusMessage, {
+                    title: "Verification Failed",
+                    message: data?.message,
+                    actionBtnLabel: "Retry Payment",
+                    status: "failed",
+                    nextRoute: routes.customerCheckout
+               } as ActionResultParams)
           },
           onSuccess: (data) => {
                navigation.navigate(routes.statusMessage, {
@@ -29,13 +36,13 @@ export default function PaymentOptions({ show, onClose, currency, data }: { show
                } as ActionResultParams)
           }
      })
-     const navigation = useNavigation<AppNavProps>();
      const flutterwaveConfig = {
           tx_ref: data?.reference,
           amount: data?.total_payment,
           redirect_url: FW_REDIRECT_URL,
           currency: currency?.currency_code as "NGN" | "GHS" | "USD",
           authorization: data?.flutterwave_public_key,
+          payment_options: "card",
           customer: {
                email: data?.customer_details?.email,
                name: data?.customer_details?.first_name + " " + data?.customer_details?.last_name
@@ -108,7 +115,7 @@ export default function PaymentOptions({ show, onClose, currency, data }: { show
                          </Actionsheet.Item>
                          {
                               (currency?.currency_code !== "NGN") ? <></> :
-                                   <Actionsheet.Item justifyContent={"center"} leftIcon={
+                                   <Actionsheet.Item onPress={() => navigation.navigate(routes.PaystackRoute, data)} justifyContent={"center"} leftIcon={
                                         <Circle overflow={"hidden"}>
                                              <Image width="50px" height="50px" source={require("../../../../../assets/paystack-logo.webp")} />
                                         </Circle>

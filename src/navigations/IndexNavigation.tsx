@@ -32,6 +32,7 @@ import SafeScaffold from "../../components/SafeScaffold";
 import PayWithFlutterwaveView from "../screens/Customers/Checkout/PayWithFlutterwaveView";
 import StatusAlertView from "../screens/StateIndicators/StatusAlertView";
 import MyOrders from "../screens/Customers/Orders/MyOrders";
+import PayWithPaystackView from "../screens/Customers/Checkout/PayWithPaystackView";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -177,6 +178,11 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.customerOrders}
                     component={MyOrders}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.PaystackRoute}
+                    component={PayWithPaystackView}
                 />
             </Stack.Navigator>
         </CatalogProvider>
