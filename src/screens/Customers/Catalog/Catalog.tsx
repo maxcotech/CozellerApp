@@ -25,6 +25,7 @@ import ProductCard from "./fragments/ProductCard";
 import { RefreshControl } from "react-native-gesture-handler";
 import SearchIcon from "../components/SearchIcon";
 import ProductSortSheet from "./fragments/ProductSortSheet";
+import ProductFilters from "./fragments/ProductFilters";
 
 export interface CatalogParams extends AppRouteProp {
      params?: CatalogFilters
@@ -34,6 +35,7 @@ export default function Catalog() {
      const navigation = useNavigation<AppNavProps>();
      const catalogContext = useContext(CatalogContext);
      const [selectedSort, setSelectedSort] = useState<ProductSortTypes>()
+     const [showFilters, setShowFilters] = useState(false);
      const [showSort, setShowSort] = useState(false);
      const [listView, setListView] = useState(false);
      const dimensions = Dimensions.get("window");
@@ -49,12 +51,12 @@ export default function Catalog() {
      //const query = {} as GenericDataResponse<CatalogData>;
      const catalog = useMemo(() => {
           return query?.data?.data ?? {} as CatalogData
-     }, [query.data])
+     }, [JSON.stringify(query.data?.data)])
      useEffect(() => {
           if (route.params) {
                setParams(route.params);
           }
-     }, [route.params])
+     }, [JSON.stringify(route.params)])
 
      const products = useMemo(() => {
           const products = catalog?.data;
@@ -76,7 +78,7 @@ export default function Catalog() {
           }
           return products;
 
-     }, [selectedSort, catalog.data, query?.data])
+     }, [selectedSort, catalog, query?.data])
 
      if (query.isLoading) return <IconLoadingPage />
 
@@ -137,7 +139,7 @@ export default function Catalog() {
                                              <Icon pl="5px" size="md" color="white" as={<Feather name="chevron-down" />} />
                                         </Box>
                                    </TouchableOpacity>
-                                   <TouchableOpacity onPress={() => setListView(!listView)}>
+                                   <TouchableOpacity onPress={() => setShowFilters(!showFilters)}>
                                         <Box height="100%" display={"flex"} flexDir={"row"} justifyContent={"center"} alignItems={"center"} px={"20px"} >
                                              <Icon mr="5px" size="sm" color="white" as={<Feather name="filter" />} />
                                              <CText variant="body1" color="white">Filters</CText>
@@ -171,6 +173,7 @@ export default function Catalog() {
                     setSelectedSort(val);
                     setShowSort(false);
                }} show={showSort} onClose={() => setShowSort(false)} />
+               <ProductFilters params={params} setParams={setParams} filters={catalog?.filters} show={showFilters} onClose={() => setShowFilters(false)} />
           </>
      )
 }

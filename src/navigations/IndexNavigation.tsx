@@ -33,6 +33,8 @@ import PayWithFlutterwaveView from "../screens/Customers/Checkout/PayWithFlutter
 import StatusAlertView from "../screens/StateIndicators/StatusAlertView";
 import MyOrders from "../screens/Customers/Orders/MyOrders";
 import PayWithPaystackView from "../screens/Customers/Checkout/PayWithPaystackView";
+import CategoryOptions from "../screens/Vendors/CategoryOptions/CategoryOptions";
+import BrandOptions from "../screens/Vendors/BrandOptions/BrandOptions";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -183,6 +185,18 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.PaystackRoute}
                     component={PayWithPaystackView}
+                />
+                <Stack.Screen
+                    initialParams={{ onSelect: () => console.log("hello") }}
+                    options={defaultOptions}
+                    name={routes.categoryOptions}
+                    component={CategoryOptions}
+                />
+                <Stack.Screen
+                    initialParams={{ onSelect: () => console.log("hello") }}
+                    options={defaultOptions}
+                    name={routes.brandOptions}
+                    component={BrandOptions}
                 />
             </Stack.Navigator>
         </CatalogProvider>

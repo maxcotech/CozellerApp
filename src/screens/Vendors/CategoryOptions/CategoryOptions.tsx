@@ -13,70 +13,79 @@ import CategoryOption from "./fragments/CategoryOption";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppNavProps } from "../../../config/routes.config";
 import AppBtn from "../../../../components/AppBtn";
+import { AppRouteProp } from "../../../config/data_types/general.types";
 
 export enum SelectOptions {
     selectCategory = 1,
     browseSubCategories = 2,
 }
-export interface RouteParams {
+export interface CategoryOptionsRouteParams extends AppRouteProp {
+
     onSelect: (selected: Category) => void,
-    returnRoute: string
+    returnRoute?: string,
+    parent?: string
+    returnRouteParams?: Record<string, any>
+
+
 }
-export default function CategoryOptions(){
-    const [selectedCategory,setSelectedCategory] = useState<Category>(null);
+export default function CategoryOptions() {
+    const [selectedCategory, setSelectedCategory] = useState<Category>(null);
     const navigation = useNavigation<AppNavProps>();
     const route = useRoute();
-    const [routeParams,setRouteParams] = useState<RouteParams>({} as RouteParams)
-    const [params,setParams] = useState<CategoryParams>({
+    const [routeParams, setRouteParams] = useState<CategoryOptionsRouteParams>({} as CategoryOptionsRouteParams)
+    const [params, setParams] = useState<CategoryParams>({
         levels: 1,
-        verbose: 3
+        verbose: 3,
+        parent_slug: routeParams?.parent ?? undefined
     })
-    const {data,isLoading} = useCategories(params);
+    const { data, isLoading } = useCategories(params);
     useEffect(() => {
-        if(route?.params){
-            setRouteParams(route?.params as RouteParams)
+        if (route?.params) {
+            setRouteParams(route?.params as CategoryOptionsRouteParams)
         }
-    },[route?.params])
- 
+    }, [route?.params])
+
     return (
         <SafeScaffold>
-            <AppBar 
-                right={(params.parent)? <AppBtn onPress={() => {
-                    setParams({...params,parent:undefined});
+            <AppBar
+                right={(params.parent) ? <AppBtn onPress={() => {
+                    setParams({ ...params, parent: undefined });
                     setSelectedCategory(null);
-                }}  borderRadius={8} textVariant="body4" gradient={true}>Back to main</AppBtn>:<></>}
+                }} borderRadius={8} textVariant="body4" gradient={true}>Back to main</AppBtn> : <></>}
                 subtitle={selectedCategory?.category_title ?? "Main Categories"} title="Select Category" />
             <View py="5px" paddingX={XPADDING} flex={1}>
-                <CustomSearchInput onChangeText={(val) => setParams({...params,search:val})} my="10px" placeholder="Search Categories" />
-                { 
-                    (isLoading)?
-                    <ProductListSkeleton />:
-                    <>
-                        {
-                            (data?.data?.data && data?.data?.data?.length > 0)?
-                            <PaginatedScrollView showsVerticalScrollIndicator={false} paginationData={data?.data} pageParams={params} onLoadNewPage={(newParams: CategoryParams) => setParams({...params,...newParams})} style={{flex:1}}>
-                                {
-                                    data?.data?.data?.map((item) => (
-                                        <Box py="8px">
-                                            <CategoryOption onPress={(option) => {
-                                                setSelectedCategory(item);
-                                                if(option === SelectOptions.browseSubCategories){
-                                                    setParams({...params,parent: item.id})
-                                                }
-                                                if(option === SelectOptions.selectCategory){
-                                                    routeParams?.onSelect(item);
-                                                    navigation.replace(routeParams?.returnRoute);
-                                                }
-                                            }} data={item} />
-                                        </Box>
-                                    ))
-                                }
-                            </PaginatedScrollView>:
-                            <EmptyPage />
-                        }
-                    </>
+                <CustomSearchInput onChangeText={(val) => setParams({ ...params, search: val })} my="10px" placeholder="Search Categories" />
+                {
+                    (isLoading) ?
+                        <ProductListSkeleton /> :
+                        <>
+                            {
+                                (data?.data?.data && data?.data?.data?.length > 0) ?
+                                    <PaginatedScrollView showsVerticalScrollIndicator={false} paginationData={data?.data} pageParams={params} onLoadNewPage={(newParams: CategoryParams) => setParams({ ...params, ...newParams })} style={{ flex: 1 }}>
+                                        {
+                                            data?.data?.data?.map((item) => (
+                                                <Box py="8px">
+                                                    <CategoryOption onPress={(option) => {
+                                                        setSelectedCategory(item);
+                                                        if (option === SelectOptions.browseSubCategories) {
+                                                            setParams({ ...params, parent: item.id })
+                                                        }
+                                                        if (option === SelectOptions.selectCategory) {
+                                                            routeParams?.onSelect(item);
+                                                            if (routeParams?.returnRoute) {
+                                                                navigation.replace(routeParams?.returnRoute);
+                                                            }
+                                                        }
+                                                    }} data={item} />
+                                                </Box>
+                                            ))
+                                        }
+                                    </PaginatedScrollView> :
+                                    <EmptyPage />
+                            }
+                        </>
                 }
-                
+
             </View>
         </SafeScaffold>
     )
