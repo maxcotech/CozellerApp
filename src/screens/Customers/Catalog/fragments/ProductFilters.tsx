@@ -1,9 +1,7 @@
-import { Actionsheet, Box, Divider, HStack, Icon, Progress, ScrollView, Slider } from "native-base";
+import { Actionsheet, Box, Checkbox, Divider, HStack, Icon, ScrollView } from "native-base";
 import CText from "../../../../../components/CText";
-import { useContext } from 'react';
-import CatalogContext from "../../../../contexts/CatalogContext";
 import { AntDesign } from "@expo/vector-icons";
-import { APP_COLOR_LIGHTER, APP_COLOR_LIGHTER_2, XPADDING } from "../../../../config/constants.config";
+import { APP_COLOR, APP_COLOR_LIGHTER, APP_COLOR_LIGHTER_2, XPADDING } from "../../../../config/constants.config";
 import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../config/routes.config";
 import { TouchableOpacity } from 'react-native';
@@ -16,12 +14,15 @@ import AppBtn from "../../../../../components/AppBtn";
 import CustomInput from "../../../../../components/CustomInput";
 import { useState } from 'react';
 import { decode } from 'html-entities';
+import RatingStars from "./RatingStars";
+import CustomSelect from "../../../../../components/CustomSelect";
+import { useCities, useCountries, useStates } from "../../../../api/queries/location.queries";
 
 export default function ProductFilters({ filters, show, onClose, setParams, params }: { setParams: (val: Partial<CatalogFilters>) => void, params: Partial<CatalogFilters>, filters: CatalogFilterLimits, show: boolean, onClose: () => void }) {
-     const context = useContext(CatalogContext);
-     const [priceRange, setPriceRange] = useState<Partial<CatalogFilters>>({
+     const [newParams, setNewParams] = useState<Partial<CatalogFilters>>({
           max_price: filters?.price_range?.max_price,
-          min_price: filters?.price_range?.min_price
+          min_price: filters?.price_range?.min_price,
+          rating: params?.rating
      })
      const navigation = useNavigation<AppNavProps>();
      const onCategorySelect = (selected: Category) => {
@@ -29,25 +30,33 @@ export default function ProductFilters({ filters, show, onClose, setParams, para
                screen: routes.customerCatalog,
                merge: true,
                params: {
-                    ...context.filters,
+                    ...params,
                     category_parameter: selected.category_slug
                }
           })
+          setParams({ ...params, category_parameter: selected.category_slug })
      }
 
      const onBrandSelect = (selected: Brand) => {
           navigation.navigate(routes.customerIndex, {
                screen: routes.customerCatalog,
                merge: true,
-               params: { ...context.filters, brand: selected.id }
+               params: { ...params, brand: selected.id }
           });
+          setParams({ ...params, brand: selected.id })
      }
+
+     const countryQuery = useCountries();
+     const statesQuery = useStates({ country_id: newParams?.country }, { enabled: !!newParams?.country })
+     const cityQuery = useCities({ state_id: newParams?.state }, { enabled: !!newParams?.state })
+
+
      return (
           <Actionsheet isOpen={show} onClose={onClose}>
 
                <Actionsheet.Content >
                     <CText>Filter Products</CText>
-                    <ScrollView width="100%">
+                    <ScrollView width="100%" showsVerticalScrollIndicator={false}>
                          <Box marginY={"10px"} borderRadius={8} bgColor={APP_COLOR_LIGHTER_2}>
                               <TouchableOpacity onPress={() => {
 
@@ -80,30 +89,87 @@ export default function ProductFilters({ filters, show, onClose, setParams, para
                          <Box bgColor={APP_COLOR_LIGHTER_2} borderRadius={8}>
                               <HStack alignItems="center" justifyContent="space-between" paddingX={"10px"} paddingY={"10px"}>
                                    <CText>Price Range</CText>
-                                   <Box>
-                                        <AppBtn onPress={() => {
-                                             onClose();
-                                             setParams({ ...params, ...priceRange })
-                                        }}>Apply</AppBtn>
-                                   </Box>
+
                               </HStack>
                               <Divider thickness={0.5} />
                               <Box paddingX={"10px"} paddingY={"10px"}>
-                                   <HStack space={3} marginTop={"10px"} alignItems="center" justifyContent="space-between">
+
+                                   <HStack space={3} marginTop={"5px"} alignItems="center" justifyContent="space-between">
                                         <Box flex={1}>
-                                             <CustomInput value={priceRange.min_price?.toString()} onChangeText={(val) => setPriceRange({ ...priceRange, min_price: (val) ? parseFloat(val) : 0 })} suffix={<CText>{decode(filters?.currency?.currency_sym)}</CText>} placeholder="Min" keyboardType="number-pad" backgroundColor={APP_COLOR_LIGHTER} />
+                                             <CustomInput labelText="Min. Price" value={newParams.min_price?.toString()} onChangeText={(val) => setNewParams({ ...newParams, min_price: (val) ? parseFloat(val) : 0 })} prefix={<CText>{decode(filters?.currency?.currency_sym)}</CText>} placeholder="Min" keyboardType="number-pad" backgroundColor={APP_COLOR_LIGHTER} />
 
                                         </Box>
                                         <Icon size="md" as={<AntDesign name="arrowright" />} />
 
                                         <Box flex={1}>
-                                             <CustomInput value={priceRange.max_price?.toString()} onChangeText={(val) => setPriceRange({ ...priceRange, max_price: (val) ? parseFloat(val) : 0 })} suffix={<CText>{decode(filters?.currency?.currency_sym)}</CText>} placeholder="Max" keyboardType="number-pad" backgroundColor={APP_COLOR_LIGHTER} />
+                                             <CustomInput labelText="Max. Price" value={newParams.max_price?.toString()} onChangeText={(val) => setNewParams({ ...newParams, max_price: (val) ? parseFloat(val) : 0 })} prefix={<CText>{decode(filters?.currency?.currency_sym)}</CText>} placeholder="Max" keyboardType="number-pad" backgroundColor={APP_COLOR_LIGHTER} />
                                         </Box>
 
                                    </HStack>
                               </Box>
 
                          </Box>
+                         <Box marginTop="10px" bgColor={APP_COLOR_LIGHTER_2} borderRadius={8}>
+                              <Box paddingX="10px" paddingY={"10px"}>
+                                   <CText>Filter By Rating</CText>
+                              </Box>
+                              <Divider thickness={0.5} />
+                              <Box paddingX="10px" paddingY={"10px"}>
+                                   <HStack marginY="5px" space={2}>
+                                        <Checkbox value="rating" onChange={() => setNewParams({ ...newParams, rating: 4 })} isChecked={(newParams.rating === 4)} />
+                                        <RatingStars rating={4} />
+                                        <CText>& Above</CText>
+                                   </HStack>
+                                   <HStack marginY="5px" space={2}>
+                                        <Checkbox value="rating" onChange={() => setNewParams({ ...newParams, rating: 3 })} isChecked={(newParams.rating === 3)} />
+                                        <RatingStars rating={3} />
+                                        <CText>& Above</CText>
+                                   </HStack>
+                                   <HStack marginY="5px" space={2}>
+                                        <Checkbox value="rating" onChange={() => setNewParams({ ...newParams, rating: 2 })} isChecked={(newParams.rating === 2)} />
+                                        <RatingStars rating={2} />
+                                        <CText>& Above</CText>
+                                   </HStack>
+                                   <HStack marginY="5px" space={2}>
+                                        <Checkbox value="rating" onChange={() => setNewParams({ ...newParams, rating: 1 })} isChecked={(newParams.rating === 1)} />
+                                        <RatingStars rating={1} />
+                                        <CText>& Above</CText>
+                                   </HStack>
+                                   <HStack marginY="5px" space={2}>
+                                        <Checkbox value="rating" onChange={() => setNewParams({ ...newParams, rating: 0 })} isChecked={(newParams.rating === 0)} />
+                                        <RatingStars rating={0} />
+                                        <CText>& Above</CText>
+                                   </HStack>
+                              </Box>
+                         </Box>
+                         <Box marginTop="10px" bgColor={APP_COLOR_LIGHTER_2} borderRadius={8}>
+                              <Box paddingX="10px" paddingY={"10px"}>
+                                   <CText>Location</CText>
+                              </Box>
+                              <Divider thickness={0.5} />
+                              <Box paddingX="10px" paddingY={"5px"}>
+                                   <CustomSelect my="5px" placeholder="Select country" labelText="Country" isLoading={countryQuery.isLoading} backgroundColor={APP_COLOR_LIGHTER} onValueChange={(val) => setNewParams({ ...newParams, country: val })} value={newParams.country} valueKey="id" titleKey={"country_name"} options={countryQuery?.data?.data ?? []} />
+                                   <CustomSelect searchPlaceholder="Search states..." includeSearch={true} my="5px" placeholder="Select State" labelText="State" isLoading={statesQuery.isLoading} backgroundColor={APP_COLOR_LIGHTER} onValueChange={(val) => setNewParams({ ...newParams, state: val })} value={newParams.state} valueKey="id" titleKey={"state_name"} options={statesQuery?.data?.data ?? []} />
+                                   <CustomSelect searchPlaceholder="Search cities..." includeSearch={true} my="5px" placeholder="Select City/Region" labelText="City" isLoading={cityQuery.isLoading} backgroundColor={APP_COLOR_LIGHTER} onValueChange={(val) => setNewParams({ ...newParams, city: val })} value={newParams.city} valueKey="id" titleKey={"city_name"} options={cityQuery?.data?.data ?? []} />
+                              </Box>
+                         </Box>
+                         <Box mt="20px">
+                              <AppBtn onPress={() => {
+                                   setParams({ ...params, ...newParams });
+                                   onClose();
+                              }}>Apply Filters</AppBtn>
+                         </Box>
+                         <Box mt="10px">
+                              <AppBtn
+                                   backgroundColor={"transparent"}
+                                   textColor={APP_COLOR}
+                                   onPress={() => {
+                                        setParams({});
+                                        onClose();
+                                   }}
+                              >Reset Filters</AppBtn>
+                         </Box>
+
                     </ScrollView>
                </Actionsheet.Content>
           </Actionsheet>
