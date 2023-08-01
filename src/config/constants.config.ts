@@ -13,3 +13,11 @@ export const NEW_XPADDING = 10;
 export const FLUTTERWAVE_PUB_KEY = "FLWPUBK_TEST-d54461d2d0bc49aa269196b6ddfd7d28-X"
 export const PAYSTACK_PUB_KEY = "pk_test_c65998d735168dc9d8ab24cc29767d2580ece56b"
 export const FW_REDIRECT_URL = "https://cozeller.com"
+
+export const TELEGRAM_CHANNEL = "https://t.me/+YlSEeJbEfYFkMmE8";
+export const FACEBOOK_HANDLE = "https://www.facebook.com/cozeller";
+export const WHATSAPP_GROUP = "https://chat.whatsapp.com/GWTcI5jkCm8Kg6PbKl0e3B";
+export const WHATSAPP_HELP = "https://wa.me/+2348129611090";
+export const INSTAGRAM_VENDORS = "https://instagram.com/cozellervendors?igshid=MzRlODBiNWFlZA==";
+export const INSTAGRAM_BUYERS = "https://instagram.com/shopcozeller_?igshid=MzRlODBiNWFlZA==";
+export const TWITTER_HANDLE = "https://twitter.com/shopcozeller?s=11&t=2qWtohqKhJLrZRyQ0-1sIw";

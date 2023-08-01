@@ -54,9 +54,9 @@ export interface AccountFormData {
 }
 
 export interface PasswordFormData {
-    old_password:string,
-    new_password:string,
-    confirm_password:string
+    old_password: string,
+    new_password: string,
+    confirm_password: string
 }
 
 export interface EmailResetPasswordFormData {
@@ -64,4 +64,9 @@ export interface EmailResetPasswordFormData {
     new_password: string,
     confirm_password: string,
     email: string
+}
+
+export interface SupportMessageData {
+    email_address: string,
+    message: string
 }
