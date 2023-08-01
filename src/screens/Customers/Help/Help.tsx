@@ -21,7 +21,10 @@ export default function Help() {
      const [showInstagramOptions, setShowInstagramOptions] = useState(false);
      const supportMessage = useSendSupportMessage({
           onError(data) { toast.show(data?.message, { type: "danger" }); },
-          onSuccess(data) { toast.show(data?.message, { type: "success" }); }
+          onSuccess(data) {
+               setFormState({} as SupportMessageData);
+               toast.show(data?.message, { type: "success" });
+          }
      })
      return <><View flex={1}>
           <AppBar textColor="white" title="Help Desk" backgroundColor={APP_COLOR} />

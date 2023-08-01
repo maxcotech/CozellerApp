@@ -24,7 +24,25 @@ export interface SubOrderParams extends PaginationParams {
     sub_order_id: number
 }
 
+export interface SubOrderStatusUpdateData {
+    new_status: OrderStatuses,
+    store_id?: number,
+    user_id?: number,
+    sub_order_id: number,
+    fund_password?: string
+}
+
+export interface FundLockPassword {
+    id: number,
+    lock_password: string,
+    status: 0 | 1,
+    sub_order_id: number,
+    user_id: number,
+    status_text: string
+}
+
 export interface SubOrder {
+    fund_lock_password: FundLockPassword,
     id: number,
     order_id: number,
     user_id: number,
