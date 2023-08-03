@@ -2,7 +2,7 @@ import { OrderStatuses, PaymentStatuses, ProductTypes } from "../enum.config";
 import { Account } from "./account_types";
 import { BillingAddress } from "./billing_address.types";
 import { PaginationParams } from "./general.types";
-import { ProductSummary } from "./product_types";
+import { ProductSummary, ProductVariation } from "./product_types";
 import { Store } from "./store_types";
 
 export interface Order {
@@ -80,6 +80,6 @@ export interface OrderProductItem {
     product_id: number,
     variation_id: null | number,
     product: Partial<ProductSummary>,
-    variation: any
+    variation: Partial<ProductVariation>
 
 }
