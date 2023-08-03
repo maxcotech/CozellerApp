@@ -1,4 +1,4 @@
-import { Center, Divider, FlatList, HStack, Icon, VStack, View, useClipboard } from "native-base";
+import { Center, Divider, FlatList, HStack, Icon, Spinner, VStack, View, useClipboard } from "native-base";
 import { SubOrder } from "../../../../config/data_types/order.types";
 import { APP_COLOR, APP_COLOR_LIGHTER_2 } from './../../../../config/constants.config';
 import CText from "../../../../../components/CText";
@@ -58,8 +58,12 @@ export default function SubOrderItem({ item }: { item: SubOrder }) {
                     }
                }; break;
                case SubOrderOptionsType.MarkAsDelivered: {
-
+                    setConfirmStatusChange(true);
                }; break;
+               case SubOrderOptionsType.ToggleCodeVisibility: {
+                    setShowPassword(!showPassword)
+               };
+               default: console.log('No Matching action')
 
           }
           setShowOptions(false);
@@ -97,6 +101,9 @@ export default function SubOrderItem({ item }: { item: SubOrder }) {
 
                                    <CText color="gray.400" variant="body4">Delivery Code</CText>
                               </VStack>
+                              {
+                                   (updateHandle?.isLoading) ? <Center><Spinner size="sm" /></Center> : <></>
+                              }
                          </HStack>
                     </TouchableOpacity>
                     <Divider />
@@ -131,7 +138,7 @@ export default function SubOrderItem({ item }: { item: SubOrder }) {
                          fund_password: item.fund_lock_password?.lock_password,
                          new_status: OrderStatuses.STATUS_COMPLETED
                     })
-               }} title="Mark as delivered ??" message="This action will be irreversible, press 'Continue' to proceed." isOpen={confirmStatusChange} onClose={() => setConfirmStatusChange(false)} />
+               }} title="Mark as delivered ??" message="Once you mark this order as delivered, you won't be able to reverse it. Press 'Continue' to proceed." isOpen={confirmStatusChange} onClose={() => setConfirmStatusChange(false)} />
           </>
      )
 }
