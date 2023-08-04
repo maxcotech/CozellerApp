@@ -101,7 +101,7 @@ export default function PendingReviewItem({ item }: { item: Review }) {
 
 
 
-                                        <CustomInput value={reviewForm.review_comment} onChangeText={(review_comment) => setReviewForm({ ...reviewForm, review_comment })} my={"10px"} backgroundColor={APP_COLOR_LIGHTER_2} labelText="Add Comment" placeholder="Enter your comment" multiline={true} numberOfLines={5} />
+                                        <CustomInput textAlignVertical="top" value={reviewForm.review_comment} onChangeText={(review_comment) => setReviewForm({ ...reviewForm, review_comment })} my={"10px"} backgroundColor={APP_COLOR_LIGHTER_2} labelText="Add Comment" placeholder="Enter your comment" multiline={true} numberOfLines={5} />
                                         <Box mt="20px" mb="10px">
                                              <AppBtn isLoading={createReviewHandle.isLoading} onPress={() => createReviewHandle.mutate(reviewForm)} borderRadius={8}>Submit</AppBtn>
 

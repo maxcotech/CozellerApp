@@ -119,10 +119,13 @@ export default function Login() {
                         <Checkbox aria-label="remember me check" colorScheme={"success"} tintColor={APP_COLOR} onChange={(val) => setRememberMe(val)} value="Terms And Conditions" isChecked={rememberMe} />
                         <CText variant="body2">Remember me</CText>
                     </HStack>
-                    <Box width={"full"} my="30px">
+                    <Box width={"full"} mt="30px" mb="15px">
                         <AppBtn isLoading={isLoading} onPress={() => mutate(formState)} gradient={true}>
                             Login
                         </AppBtn>
+                    </Box>
+                    <Box mt="auto">
+                        <CText fontWeight={"bold"} onPress={() => navigation.navigate(routes.customerIndex)} color={APP_COLOR}>Continue as guest</CText>
                     </Box>
                 </Center>
             </ScrollView>

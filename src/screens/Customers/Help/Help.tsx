@@ -30,7 +30,7 @@ export default function Help() {
           <AppBar textColor="white" title="Help Desk" backgroundColor={APP_COLOR} />
           <ScrollView contentContainerStyle={{ paddingVertical: 10 }} paddingX={XPADDING} flex={1}>
                <CustomInput onChangeText={(email_address) => setFormState({ ...formState, email_address })} value={formState.email_address} placeholder="Enter your email address" labelText="Email" keyboardType="email-address" />
-               <CustomInput my={"10px"} numberOfLines={5} onChangeText={(message) => setFormState({ ...formState, message })} value={formState.message} placeholder="Enter your message" labelText="Message" />
+               <CustomInput textAlignVertical="top" multiline={true} my={"10px"} numberOfLines={5} onChangeText={(message) => setFormState({ ...formState, message })} value={formState.message} placeholder="Enter your message" labelText="Message" />
                <Box my="10px">
                     <AppBtn isLoading={supportMessage.isLoading} onPress={() => supportMessage.mutate(formState)} elevation={8}>Submit</AppBtn>
                </Box>

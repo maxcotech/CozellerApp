@@ -133,3 +133,9 @@ export enum PaymentOptionTypes {
     Flutterwave = 1,
     Paystack = 2
 }
+
+export enum DeviceTypesEnum {
+    mobile = 1,
+    desktop = 2,
+    all = 3
+}

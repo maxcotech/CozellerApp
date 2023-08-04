@@ -8,7 +8,7 @@ import CartIcon from "../components/CartIcon";
 import { AntDesign } from "@expo/vector-icons";
 import HomeBanners from "./components/HomeBanners";
 import { useWidgets } from "../../../api/queries/widgets.queries";
-import { ResourceStatuses, WidgetTypes } from "../../../config/enum.config";
+import { DeviceTypesEnum, ResourceStatuses, WidgetTypes } from "../../../config/enum.config";
 import MultipleItemWidget from "./components/MultipleItemWidget";
 import SingleItemWidget from "./components/SingleItemWidget";
 import { useNavigation } from "@react-navigation/native";
@@ -17,11 +17,12 @@ import { useMemo } from 'react';
 import FourItemWidget from "./components/FourItemWidget";
 import { LinearGradient } from "expo-linear-gradient";
 import RecentlyViewedSection from "../Catalog/fragments/RecentlyViewedSection";
+import WidgetsSkeleton from "./components/WidgetsSkeleton";
 
 
 export default function Home() {
      const dimensions = Dimensions.get("screen");
-     const widgets = useWidgets({ status: ResourceStatuses.Active });
+     const widgets = useWidgets({ status: ResourceStatuses.Active, device_type: DeviceTypesEnum.mobile });
      const navigation = useNavigation<AppNavProps>();
      const HomeContents = useMemo(() => {
           return (
@@ -30,30 +31,37 @@ export default function Home() {
                          <HomeBanners pageWidth={dimensions.width} />
                     </View>
                     {
-                         widgets.data?.data?.data.map((item) => {
-                              if (item.widget_type === WidgetTypes.multipleItems) {
-                                   return <View key={item.id} mt={2}><MultipleItemWidget pageWidth={dimensions.width} widget={item} /></View>
-                              }
-                              if (item.widget_type === WidgetTypes.singleItem) {
-                                   return <View key={item.id} mt={2}>
-                                        <SingleItemWidget pageWidth={dimensions.width} widget={item} />
-                                   </View>
-                              }
-                              if (item.widget_type === WidgetTypes.fourItems) {
-                                   return <View key={item.id} mt={2}>
-                                        <FourItemWidget widget={item} pageWidth={dimensions.width} />
-                                   </View>
-                              }
-                              return <></>
-                         })
+                         (widgets?.isLoading) ?
+                              <WidgetsSkeleton pageWidth={dimensions.width} /> :
+                              <>
+                                   {
+                                        widgets?.data?.data?.data.map((item) => {
+                                             if (item.widget_type === WidgetTypes.multipleItems) {
+                                                  return <View key={item.id} mt={2}><MultipleItemWidget pageWidth={dimensions.width} widget={item} /></View>
+                                             }
+                                             if (item.widget_type === WidgetTypes.singleItem) {
+                                                  return <View key={item.id} mt={2}>
+                                                       <SingleItemWidget pageWidth={dimensions.width} widget={item} />
+                                                  </View>
+                                             }
+                                             if (item.widget_type === WidgetTypes.fourItems) {
+                                                  return <View key={item.id} mt={2}>
+                                                       <FourItemWidget widget={item} pageWidth={dimensions.width} />
+                                                  </View>
+                                             }
+                                             return <></>
+                                        })
 
+                                   }
+                              </>
                     }
+
                     <View mt={5}>
                          <RecentlyViewedSection width={dimensions.width} />
                     </View>
                </>
           )
-     }, [JSON.stringify(widgets.data?.data?.data)])
+     }, [JSON.stringify(widgets.data?.data?.data), widgets?.isLoading])
      return <>
 
           <ScrollView backgroundColor={APP_COLOR_LIGHTER} flex={1}>

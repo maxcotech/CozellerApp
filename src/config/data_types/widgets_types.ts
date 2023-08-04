@@ -1,4 +1,4 @@
-import { WidgetTypes } from "../enum.config";
+import { DeviceTypesEnum, WidgetTypes } from "../enum.config";
 import { ResourceStatuses } from ../enum.config;
 import { PaginationParams } from "./general.types";
 
@@ -14,7 +14,8 @@ export interface WidgetParams extends PaginationParams {
      with_items?: 0 | 1,
      with_indexes?: 0 | 1,
      status?: ResourceStatuses,
-     paginate?: 0 | 1
+     paginate?: 0 | 1,
+     device_type?: DeviceTypesEnum
 }
 
 export interface Widget {
