@@ -1,7 +1,7 @@
 import { QueryFunction, useMutation, UseMutationOptions, useQuery, UseQueryOptions } from "react-query";
 import { AccountFormData, AuthData, EmailResetPasswordFormData, EmailVerificationData, LoginData, PasswordFormData, ProfileData, SupportMessageData } from "../../config/data_types/account_types";
 import { GenericDataResponse, HttpDataResponse } from "../../config/data_types/general.types";
-import { completeEmailPasswordReset, completeEmailVerification, fetchProfile, initEmailPasswordReset, login, logout, register, sendEmailVerification, sendSupportMessage, updateAccount, updatePassword } from "../services/account.services";
+import { completeEmailPasswordReset, completeEmailVerification, deleteAccount, fetchProfile, initEmailPasswordReset, login, logout, register, sendEmailVerification, sendSupportMessage, updateAccount, updatePassword } from "../services/account.services";
 
 export const AccountQueryKeys = {
     fetchProfile: "get/profile"
@@ -50,4 +50,11 @@ export const useCompleteEmailPasswordReset = (options?: UseMutationOptions<HttpD
 
 export const useSendSupportMessage = (options?: UseMutationOptions<HttpDataResponse, HttpDataResponse, SupportMessageData>) => {
     return useMutation<HttpDataResponse, HttpDataResponse, SupportMessageData>(sendSupportMessage, options)
+}
+
+export const useDeleteAccount = (options?: UseMutationOptions<HttpDataResponse, HttpDataResponse, unknown>) => {
+    return useMutation<HttpDataResponse, HttpDataResponse, unknown>(
+        deleteAccount,
+        options
+    )
 }

@@ -4,7 +4,7 @@ import { APP_COLOR_LIGHTER, APP_COLOR_LIGHTER_2, NEW_XPADDING } from "../../../.
 export default function WidgetsSkeleton({ pageWidth }: { pageWidth: number }) {
      return (
           <VStack>
-               <HStack alignItems="center" px={NEW_XPADDING + "px"} space={2}>
+               <HStack alignItems="center" pt="10px" px={NEW_XPADDING + "px"} space={2}>
                     {
                          [1, 2, 3, 4].map((item) => (
                               <Skeleton endColor={APP_COLOR_LIGHTER_2} startColor={APP_COLOR_LIGHTER} borderRadius={8} height={"80px"} flex={1} />

@@ -9,28 +9,29 @@ import { useNavigation } from "@react-navigation/native";
 import routes, { AppNavProps } from "../../../../../config/routes.config";
 import AppContext from "../../../../../contexts/AppContext";
 import { useQueryClient } from "react-query";
-import {Storage} from "expo-storage"
+import { Storage } from "expo-storage"
 import { AUTH_STORAGE_KEY } from "../../../../../config/constants.config";
+import DeleteAccountBtn from "../../../../Customers/Account/fragments/DeleteAccountBtn";
 
 export default function AccountSection() {
     const [showLogout, setShowLogout] = useState(false);
     const appContext = useContext(AppContext);
     const queryClient = useQueryClient();
     const navigation = useNavigation<AppNavProps>();
-    const {mutate,isLoading} = useLogoutAccount({
+    const { mutate, isLoading } = useLogoutAccount({
         onSuccess: async (data) => {
             queryClient.clear();
             await queryClient.resetQueries();
             appContext.setAuthData(undefined);
             appContext.setProfileData(undefined);
-            await Storage.removeItem({key: AUTH_STORAGE_KEY});
+            await Storage.removeItem({ key: AUTH_STORAGE_KEY });
             navigation.replace(routes.login)
         }
     });
 
     const onLogout = () => {
         setShowLogout(false);
-        if(!isLoading){
+        if (!isLoading) {
             mutate({})
         }
     }
@@ -56,9 +57,9 @@ export default function AccountSection() {
 
                             <HStack space={2} alignItems="center">
                                 {
-                                    (isLoading)?
-                                    <Spinner color="red.400" />:
-                                    <Ionicons color="red" size={18} name="ios-log-out-outline" />
+                                    (isLoading) ?
+                                        <Spinner color="red.400" /> :
+                                        <Ionicons color="red" size={18} name="ios-log-out-outline" />
                                 }
                                 <CText color="red.400" fontWeight={"bold"}>Sign Out</CText>
                             </HStack>
@@ -66,6 +67,9 @@ export default function AccountSection() {
                             <MaterialIcons size={20} name="keyboard-arrow-right" />
                         </HStack>
                     </TouchableOpacity>
+                </Box>
+                <Box mt="20px">
+                    <DeleteAccountBtn />
                 </Box>
             </View>
             <ConfirmDialog message="You will be logged out of your current session" onConfirm={onLogout} isOpen={showLogout} onClose={() => setShowLogout(false)} />

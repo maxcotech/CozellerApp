@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { HStack, Icon, View, ScrollView } from "native-base";
 import { Dimensions, ImageBackground, TouchableOpacity } from "react-native";
 import { APP_COLOR, APP_COLOR_LIGHTER, NEW_XPADDING } from "../../../config/constants.config";

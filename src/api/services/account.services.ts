@@ -44,3 +44,7 @@ export const completeEmailPasswordReset = async (data: EmailResetPasswordFormDat
 export const sendSupportMessage = async (data: SupportMessageData): Promise<any> => {
     return client.post(`support/message`, data)
 }
+
+export const deleteAccount = async (): Promise<any> => {
+    return client.delete(`user/profile`)
+}

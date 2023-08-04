@@ -11,9 +11,9 @@ import { useLogoutAccount } from "../../../../api/queries/account.queries";
 import { Storage } from "expo-storage"
 import { AUTH_STORAGE_KEY } from "../../../../config/constants.config";
 import ConfirmDialog from "../../../../../components/ConfirmDialog";
-import AppBtn from "../../../../../components/AppBtn";
 import { useChangeCurrency, useCurrencies } from "../../../../api/queries/currency.queries";
 import { Currency } from "../../../../config/data_types/currency_types";
+import DeleteAccountBtn from "./DeleteAccountBtn";
 
 
 export default function AccountSection() {
@@ -84,7 +84,11 @@ export default function AccountSection() {
                               <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                                    <HStack space={2} alignItems="center">
-                                        <MaterialCommunityIcons color="red" size={18} name="logout" />
+                                        {
+                                             (isLoading) ? <Spinner color="danger.500" size="sm" /> :
+                                                  <MaterialCommunityIcons color="red" size={18} name="logout" />
+                                        }
+
                                         <CText color="danger.500">Sign out</CText>
                                    </HStack>
                                    <MaterialIcons color="red" size={20} name="keyboard-arrow-right" />
@@ -94,7 +98,7 @@ export default function AccountSection() {
 
                     </Box>
                     <Box mt="20px">
-                         <AppBtn textColor="red.500" backgroundColor={"rgba(255,0,0,0.1)"}>Delete Account</AppBtn>
+                         <DeleteAccountBtn />
                     </Box>
                </View>
                <ConfirmDialog message="You will be logged out of your current session" onConfirm={onLogout} isOpen={showLogout} onClose={() => setShowLogout(false)} />
