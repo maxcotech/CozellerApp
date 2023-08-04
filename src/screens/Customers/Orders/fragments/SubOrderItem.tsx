@@ -15,6 +15,8 @@ import { OrderQueryKeys, useUpdateSubOrderStatus } from "../../../../api/queries
 import { useQueryClient } from "react-query";
 import ConfirmDialog from "../../../../../components/ConfirmDialog";
 import SubOrderProduct from "./SubOrderProduct";
+import PaginatedFlatList from "../../../../../components/PaginatedFlatList";
+import { PaginationParams } from "../../../../config/data_types/general.types";
 
 export enum SubOrderOptionsType {
      ToggleCodeVisibility,
@@ -109,7 +111,6 @@ export default function SubOrderItem({ item }: { item: SubOrder }) {
                     <Divider />
                     <View py="10px">
                          <FlatList
-
                               data={(expanded) ? item?.items : [item?.items[0]]}
                               renderItem={({ item }) => (
                                    <View mb="10px">

@@ -22,7 +22,7 @@ export default function OrdersSection() {
                                    <MaterialIcons size={20} name="keyboard-arrow-right" />
                               </HStack>
                          </TouchableOpacity>
-                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerBillingAddresses)}>
+                         <TouchableOpacity onPress={() => navigation.navigate(routes.customerPendingReviews)}>
                               <HStack p="12px" alignItems="center" justifyContent={"space-between"}>
 
                                    <HStack space={2} alignItems="center">

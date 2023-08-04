@@ -85,7 +85,8 @@ export const CustomerRoutes = {
     customerCreateAddress: "customer/create-billing-address",
     customerUpdateAddress: "customer/update-billing-address",
     customerCheckout: "customer/checkout",
-    customerOrders: "customer/orders"
+    customerOrders: "customer/orders",
+    customerPendingReviews: "customer/pending-reviews"
 }
 
 export const PaymentRoutes = {

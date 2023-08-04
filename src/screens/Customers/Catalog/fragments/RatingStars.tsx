@@ -2,7 +2,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { HStack, Icon } from "native-base";
 import { useMemo } from 'react';
 
-export default function RatingStars({ rating, size = "sm" }: { rating: number, size?: "sm" | "lg" | "md" }) {
+export default function RatingStars({ rating, size = "sm", spacing = 1 }: { spacing?: number, rating: number, size?: "sm" | "lg" | "md" }) {
      const stars = useMemo(() => {
           const data = [];
           [1, 2, 3, 4, 5].forEach((item) => {
@@ -10,7 +10,7 @@ export default function RatingStars({ rating, size = "sm" }: { rating: number, s
           })
           return data;
      }, [rating, size])
-     return <HStack alignItems="center" space={1}>
+     return <HStack alignItems="center" space={spacing}>
           {stars}
      </HStack>
 }

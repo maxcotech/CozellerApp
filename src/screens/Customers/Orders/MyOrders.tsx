@@ -10,6 +10,7 @@ import EmptyPage from "../../../../components/EmptyPage";
 import CartIcon from "../components/CartIcon";
 import SubOrderItem from "./fragments/SubOrderItem";
 import { NEW_XPADDING } from './../../../config/constants.config';
+import PaginatedFlatList from "../../../../components/PaginatedFlatList";
 
 export default function MyOrders() {
      const [params, setParams] = useState<Partial<SubOrderParams>>({ with_items: 1 })
@@ -23,7 +24,7 @@ export default function MyOrders() {
                <View flex={1}>
                     {
                          (query?.data?.data?.data?.length > 0) ?
-                              <FlatList paddingTop={"10px"} paddingX={NEW_XPADDING + "px"} renderItem={({ item }) => (
+                              <PaginatedFlatList paginationData={query?.data?.data} pageParams={params} onLoadNewPage={(newParams) => setParams(newParams)} paddingTop={"10px"} paddingX={NEW_XPADDING + "px"} renderItem={({ item }) => (
                                    <View my="5px">
                                         <SubOrderItem item={item} />
                                    </View>

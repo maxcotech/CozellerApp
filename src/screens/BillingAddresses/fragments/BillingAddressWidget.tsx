@@ -92,14 +92,14 @@ export default function BillingAddressWidget({ item }: { item: BillingAddress })
                                         <Icon color={(item.is_current) ? "success.500" : "gray.400"} size="md" as={<Fontisto name={(item.is_current) ? "radio-btn-active" : "radio-btn-passive"} />} />
                               }
                               <View flex={1}>
-                                   <CText fontWeight={"bold"}>{item.first_name ?? "----"} {item.last_name ?? "-----"}</CText>
-                                   <CText fontWeight={"bold"}>
+                                   <CText >{item.first_name ?? "----"} {item.last_name ?? "-----"}</CText>
+                                   <CText color="gray.400">
                                         {item.street_address ?? "----"}
                                    </CText>
-                                   <CText>
+                                   <CText color="gray.400">
                                         {item.city?.city_name ?? "-----"}
                                    </CText>
-                                   <CText color="gray.400">
+                                   <CText variant="body3" color="gray.400">
                                         {item.state?.state_name}, {item.country?.country_name}
                                    </CText>
                               </View>

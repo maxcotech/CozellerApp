@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import { PaginatedData } from "../src/config/data_types/general.types";
 import { FlatList } from "native-base";
-import { APP_COLOR } from "../src/config/constants.config";
+import { APP_COLOR, APP_COLOR_LIGHTER_2 } from "../src/config/constants.config";
 import { InterfaceFlatListProps } from "native-base/lib/typescript/components/basic/FlatList/types";
 
 
@@ -10,7 +10,7 @@ export const LoadingRow = ({ title = "Load More", params, onLoadNewPage }) => {
      const [loading, setLoading] = useState(false);
 
      return (
-          <TouchableOpacity onPress={() => onLoadNewPage(params, setLoading)} style={[{ paddingVertical: 10, paddingHorizontal: 15 }]} >
+          <TouchableOpacity onPress={() => onLoadNewPage(params, setLoading)} style={[{ paddingVertical: 10, paddingHorizontal: 15, borderRadius: 10, backgroundColor: APP_COLOR_LIGHTER_2 }]} >
                {
                     (loading) ?
                          <ActivityIndicator color="red" /> :
@@ -56,15 +56,25 @@ export default function PaginatedFlatList<T extends any[], C>({ pageParams = {} 
                <FlatList
                     {...others}
                     data={data}
-                    renderItem={(info: { item: T[number], index: number, separators: any }) => <>
+                    ListHeaderComponent={() => (
+                         <>
+                              {
+                                   others.ListHeaderComponent
+                              }
+                              {
+                                   (hasPrevious()) ? <LoadingRow params={{ ...pageParams, page: (paginationData?.current_page ?? 1) - 1 }} onLoadNewPage={onLoadNewPage} title={prevTitle} /> : <></>
+                              }
+                         </>
+                    )}
+                    ListFooterComponent={() => <>
                          {
-                              (info.index === 0 && hasPrevious()) ? <LoadingRow params={{ ...pageParams, page: (paginationData?.current_page ?? 1) - 1 }} onLoadNewPage={onLoadNewPage} title={prevTitle} /> : <></>
-                         }
-                         {others.renderItem(info)}
-                         {
-                              (info.index === (data?.length - 1) && hasNext()) ?
+                              (hasNext()) ?
                                    <LoadingRow params={{ ...pageParams, page: (paginationData?.current_page ?? 0) + 1 }} onLoadNewPage={onLoadNewPage} title={nextTitle} /> : <></>
                          }
+                         {others.ListFooterComponent}
+                    </>}
+                    renderItem={(info: { item: T[number], index: number, separators: any }) => <>
+                         {others.renderItem(info)}
                     </>}
                />
           </>

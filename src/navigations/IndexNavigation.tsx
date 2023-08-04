@@ -35,6 +35,7 @@ import MyOrders from "../screens/Customers/Orders/MyOrders";
 import PayWithPaystackView from "../screens/Customers/Checkout/PayWithPaystackView";
 import CategoryOptions from "../screens/Vendors/CategoryOptions/CategoryOptions";
 import BrandOptions from "../screens/Vendors/BrandOptions/BrandOptions";
+import PendingReviews from "../screens/Customers/Reviews/PendingReviews";
 
 const Stack = createNativeStackNavigator();
 export default function IndexNavigation() {
@@ -197,6 +198,11 @@ export default function IndexNavigation() {
                     options={defaultOptions}
                     name={routes.brandOptions}
                     component={BrandOptions}
+                />
+                <Stack.Screen
+                    options={defaultOptions}
+                    name={routes.customerPendingReviews}
+                    component={PendingReviews}
                 />
             </Stack.Navigator>
         </CatalogProvider>
