@@ -76,6 +76,7 @@ export default function PaymentOptions({ show, onClose, currency, data }: { show
                setFwInitializing(true)
                const paymentLink = await FlutterwaveInit(flutterwaveConfig);
                setFwInitializing(false);
+               onClose();
                navigation.navigate(routes.FlutterWaveRoute, { paymentUrl: paymentLink, onComplete: handleFwRedirect });
           }
           catch (e) {
@@ -100,7 +101,9 @@ export default function PaymentOptions({ show, onClose, currency, data }: { show
                               rightIcon={
                                    (fwInitializing) ? <Spinner size="sm" /> : <></>
                               }
-                              onPress={() => initFlutterwavePayment()}
+                              onPress={() => {
+                                   initFlutterwavePayment();
+                              }}
                               leftIcon={
                                    <Circle overflow={"hidden"}>
                                         <Image width="50px" height="50px" source={require("../../../../../assets/flutterwave-logo.png")} />
@@ -115,7 +118,10 @@ export default function PaymentOptions({ show, onClose, currency, data }: { show
                          </Actionsheet.Item>
                          {
                               (currency?.currency_code !== "NGN") ? <></> :
-                                   <Actionsheet.Item onPress={() => navigation.navigate(routes.PaystackRoute, data)} justifyContent={"center"} leftIcon={
+                                   <Actionsheet.Item onPress={() => {
+                                        onClose();
+                                        navigation.navigate(routes.PaystackRoute, data);
+                                   }} justifyContent={"center"} leftIcon={
                                         <Circle overflow={"hidden"}>
                                              <Image width="50px" height="50px" source={require("../../../../../assets/paystack-logo.webp")} />
                                         </Circle>

@@ -66,7 +66,7 @@ export default function Login() {
                         value: JSON.stringify(data.data)
                     })
                 }
-                if (route.params?.nextRoute) {
+                if (route.params?.nextRoute && authData.user_type === AccountTypes.Customer) {
                     console.log(`navigating to nextRoute`, route.params.nextRoute, route.params?.nextRouteParams)
                     navigation.replace(route.params?.nextRoute, route.params?.nextRouteParams ?? {});
                 } else {
@@ -94,11 +94,18 @@ export default function Login() {
 
     return <><SafeScaffold>
         {
-            (navigation.canGoBack()) ?
-                <Pressable style={{ paddingHorizontal: 20, paddingTop: 20 }} onPress={() => navigation.goBack()}>
+            
+                <Pressable style={{ paddingHorizontal: 20, paddingTop: 20 }} onPress={() => {
+                    if(navigation.canGoBack()){
+                        navigation.goBack()
+                    } else {
+                        navigation.replace(routes.customerIndex)
+                    }
+                    
+                }}>
                     <CloseIcon />
                 </Pressable>
-                : <></>
+                
         }
         <KeyboardAvoidingView flex={1} behavior={getProperKeyboardAvoidingArea()}>
             <ScrollView flex={1}>
