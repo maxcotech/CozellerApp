@@ -11,7 +11,7 @@ import EmptyPage from "../../../../components/EmptyPage";
 import ProductListSkeleton from "../Dashboard/Products/fragments/ProductListSkeleton";
 import CategoryOption from "./fragments/CategoryOption";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { AppNavProps } from "../../../config/routes.config";
+import routes, { AppNavProps } from "../../../config/routes.config";
 import AppBtn from "../../../../components/AppBtn";
 import { AppRouteProp } from "../../../config/data_types/general.types";
 
@@ -74,6 +74,12 @@ export default function CategoryOptions() {
                                                             routeParams?.onSelect(item);
                                                             if (routeParams?.returnRoute) {
                                                                 navigation.replace(routeParams?.returnRoute);
+                                                            } else {
+                                                                navigation.replace(routes.customerIndex, {
+                                                                    screen: routes.customerCatalog, params: {
+                                                                        category_parameter: selectedCategory?.category_slug
+                                                                    }
+                                                                })
                                                             }
                                                         }
                                                     }} data={item} />
