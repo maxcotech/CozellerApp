@@ -17,6 +17,7 @@ import FourItemWidget from "./components/FourItemWidget";
 import { LinearGradient } from "expo-linear-gradient";
 import RecentlyViewedSection from "../Catalog/fragments/RecentlyViewedSection";
 import WidgetsSkeleton from "./components/WidgetsSkeleton";
+import CategoryIcon from "../components/CategoryIcon";
 
 
 export default function Home() {
@@ -72,7 +73,11 @@ export default function Home() {
                                    <Image alt="App Logo Icon" style={{ height: 35, width: 35, marginHorizontal: -6 }} source={require("../../../../assets/adaptive-icon_old2.png")} />
                                    <CText color="white" variant="heading" fontWeight="bold">OZELLER</CText>
                               </HStack>
-                              <CartIcon />
+                              <HStack space={4} alignItems="center">
+                                   <CategoryIcon />
+                                   <CartIcon />
+                              </HStack>
+
                          </HStack>
                          <TouchableOpacity onPress={() => navigation.navigate(routes.customerSearch)}>
                               <HStack borderStyle={"solid"} borderWidth="1px" borderColor={"rgba(255, 255, 255, 0.3)"} alignItems="center" mt={20} mb={5} px={5} py={3} style={{ borderRadius: 30, backgroundColor: "rgba(255, 255, 255, 0.4)" }}>
