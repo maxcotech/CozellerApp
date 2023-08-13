@@ -18,6 +18,7 @@ import IconLoadingPage from "../../../../components/IconLoadingPage";
 import PaymentOptions from "./fragments/PaymentOptions";
 import { InitPaymentPayload } from "../../../config/data_types/payment_types";
 import AccountIcon from "../components/AccountIcon";
+import SafeScaffold from "../../../../components/SafeScaffold";
 
 
 export default function Checkout() {
@@ -67,7 +68,7 @@ export default function Checkout() {
 
      if (initializing || isLoading) return <IconLoadingPage />
      return (
-          <>
+          <SafeScaffold>
                <View flex={1} backgroundColor={APP_COLOR_LIGHTER_2}>
                     <AppBar textColor="white" backgroundColor={APP_COLOR} title="Checkout" right={
                          <HStack alignItems="center" space={5}>
@@ -162,6 +163,6 @@ export default function Checkout() {
                     </ScrollView>
                </View>
                <PaymentOptions data={initPaymentPayload} currency={profile?.data?.data?.currency} show={(showPaymentOptions && !!initPaymentPayload)} onClose={() => setShowPaymentOptions(false)} />
-          </>
+          </SafeScaffold>
      )
 }

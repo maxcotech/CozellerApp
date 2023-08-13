@@ -34,7 +34,7 @@ export default function DeleteAccountBtn() {
                     setShowConfirmDelete(false);
                     mutate(null);
 
-               }} message="Once you delete your account, you will lose all personal data associated to your account." title="Delete Account ??" onClose={() => setShowConfirmDelete(false)} isOpen={showConfirmDelete} />
+               }} message="Once you delete your account, you will lose all personal data associated with your account." title="Delete Account ??" onClose={() => setShowConfirmDelete(false)} isOpen={showConfirmDelete} />
           </>
      )
 

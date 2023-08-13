@@ -90,7 +90,7 @@ export function AppComponent() {
         successIcon={<MaterialIcons size={14} color="white" name="check-circle-outline" />}
         // @ts-ignore
         ref={(ref) => global['toast'] = ref}
-        duration={10000}
+        duration={4000}
         animationType='slide-in'
         animationDuration={250}
         successColor="green"
