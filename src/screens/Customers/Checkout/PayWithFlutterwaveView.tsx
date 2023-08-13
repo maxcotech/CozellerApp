@@ -33,7 +33,9 @@ export default function PayWithFlutterwaveView() {
                          console.log(state.url)
                          if (state.url?.startsWith(FW_REDIRECT_URL)) {
                               route?.params?.onComplete(getQueryParamsFromUrl(state.url) as RedirectParams, state.url);
+                              return false;
                          }
+                         
                     }} source={{ uri: route?.params?.paymentUrl }} style={{ flex: 1 }}
                />
           </SafeScaffold>
