@@ -47,4 +47,4 @@ export const sendSupportMessage = async (data: SupportMessageData): Promise<any>
 
 export const deleteAccount = async (): Promise<any> => {
     return client.delete(`user/profile`)
-}
+} 

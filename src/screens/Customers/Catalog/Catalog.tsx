@@ -110,7 +110,7 @@ export default function Catalog() {
 
                                                                  <Box key={item.id} flex={1} my="5px">
                                                                       <TouchableOpacity key={item.id} onPress={() => {
-                                                                           navigation.replace(routes.customerCatalog, { category_parameter: item.category_slug })
+                                                                           navigation.navigate(routes.customerCatalog, { category_parameter: item.category_slug })
                                                                       }}>
                                                                            <Image alt={item.category_title} style={{ borderRadius: 10 }} backgroundColor={APP_COLOR_LIGHTER} width={fourItemWidth} height="70px" source={{ uri: item.category_icon }} />
                                                                            <Box width={fourItemWidth}>

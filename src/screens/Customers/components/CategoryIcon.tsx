@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 export default function CategoryIcon({ color = "white", size = "md" }) {
      const navigation = useNavigation<AppNavProps>();
      return (
-          <Icon onPress={() => navigation.navigate(routes.categoryOptions)} color={color} size={size} as={<Ionicons name="grid-outline" />} />
+          <Icon title="Categories" onPress={() => navigation.navigate(routes.categoryOptions)} color={color} size={size} as={<Ionicons name="grid-outline" />} />
 
      )
 }

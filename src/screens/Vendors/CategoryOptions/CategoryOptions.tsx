@@ -71,14 +71,17 @@ export default function CategoryOptions() {
                                                             setParams({ ...params, parent: item.id })
                                                         }
                                                         if (option === SelectOptions.selectCategory) {
-                                                            routeParams?.onSelect(item);
-                                                            if (routeParams?.returnRoute) {
-                                                                navigation.replace(routeParams?.returnRoute, routeParams?.returnRouteParams ?? {});
-                                                            } else {
+                                                            if (routeParams?.onSelect) {
+                                                                routeParams?.onSelect(item);
+                                                            }
+                                                            else {
                                                                 navigation.navigate(routes.customerCatalog, {
-                                                                    category_parameter: selectedCategory?.category_slug
+                                                                    category_parameter: selectedCategory?.id
                                                                 }
                                                                 )
+                                                            }
+                                                            if (routeParams?.returnRoute) {
+                                                                navigation.navigate(routeParams?.returnRoute, routeParams?.returnRouteParams ?? {});
                                                             }
                                                         }
                                                     }} data={item} />

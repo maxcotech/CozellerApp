@@ -61,7 +61,7 @@ export default function VendorOnboarding() {
                 }
             } else {
                 console.log('session expired')
-                toast.show('your session has expired.')
+                //toast.show('your session has expired.')
             }
         }, 1);
         return () => {
