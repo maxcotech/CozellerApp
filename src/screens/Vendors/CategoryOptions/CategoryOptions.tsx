@@ -73,13 +73,12 @@ export default function CategoryOptions() {
                                                         if (option === SelectOptions.selectCategory) {
                                                             routeParams?.onSelect(item);
                                                             if (routeParams?.returnRoute) {
-                                                                navigation.replace(routeParams?.returnRoute);
+                                                                navigation.replace(routeParams?.returnRoute, routeParams?.returnRouteParams ?? {});
                                                             } else {
-                                                                navigation.replace(routes.customerIndex, {
-                                                                    screen: routes.customerCatalog, params: {
-                                                                        category_parameter: selectedCategory?.category_slug
-                                                                    }
-                                                                })
+                                                                navigation.navigate(routes.customerCatalog, {
+                                                                    category_parameter: selectedCategory?.category_slug
+                                                                }
+                                                                )
                                                             }
                                                         }
                                                     }} data={item} />
