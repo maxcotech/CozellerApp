@@ -41,7 +41,7 @@ export default function ProductSliders({ pageWidth, isLoading, data }: { isLoadi
                          parallaxScrollingOffset: 50,
                     }}
                     data={data}
-                    renderItem={({ index, item }) => <Image alt={"Product Views"} loadingIndicatorSource={require("../../../../../assets/loading.gif")} borderRadius={8} marginX={1} key={index + item.image_url} height={PAGE_WIDTH} source={{ uri: item.image_url }} />}
+                    renderItem={({ index, item }) => <Image alt={"Product Views"} loadingIndicatorSource={require("../../../../../assets/image-loader.png")} borderRadius={8} marginX={1} key={index + item.image_url} height={PAGE_WIDTH} source={{ uri: item.image_url }} />}
                />
           </View>
      )

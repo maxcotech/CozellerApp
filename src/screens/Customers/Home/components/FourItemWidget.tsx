@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useCatalogLinkNav } from "../../../../hooks/navigation.hooks";
 import { TouchableOpacity } from 'react-native';
 import CText from "../../../../../components/CText";
-import { APP_COLOR_LIGHT, APP_COLOR_LIGHTER, APP_COLOR_LIGHTER_2, NEW_XPADDING } from "../../../../config/constants.config";
+import { APP_COLOR_LIGHT, APP_COLOR_LIGHTER, NEW_XPADDING } from "../../../../config/constants.config";
 import { APP_COLOR } from './../../../../config/constants.config';
 import { AntDesign } from "@expo/vector-icons";
 
@@ -34,7 +34,7 @@ export default function FourItemWidget({ pageWidth, widget }: { pageWidth: numbe
                          <Image
                               progressiveRenderingEnabled={true}
                               alt={" "}
-                              loadingIndicatorSource={require('../../../../../assets/loading.gif')}
+                              loadingIndicatorSource={require('../../../../../assets/image-loader.png')}
                               style={{ aspectRatio: 1 }}
                               width={oneFourthWidth}
                               source={{ uri: item.item_image_url }}

@@ -31,6 +31,7 @@ export default function HomeBanners({ pageWidth }) {
                     style={{
                          width: PAGE_WIDTH,
                     }}
+
                     loop
                     pagingEnabled={true}
                     snapEnabled={true}
@@ -51,7 +52,7 @@ export default function HomeBanners({ pageWidth }) {
                               navigation.navigate(routes.customerCatalog, { category_parameter: slug });
                          }
                     }}>
-                         <Image progressiveRenderingEnabled={true} alt={"Banner Slide View"} loadingIndicatorSource={require('../../../../../assets/loading.gif')} borderRadius={8} marginX={1} key={index + item.banner} height={PAGE_WIDTH * 0.6} source={{ uri: item.banner }} />
+                         <Image progressiveRenderingEnabled={true} alt={"Banner Slide View"} loadingIndicatorSource={require('../../../../../assets/image-loader.png')} borderRadius={8} marginX={1} key={index + item.banner} height={PAGE_WIDTH * 0.6} source={{ uri: item.banner }} />
                     </TouchableOpacity>
                     }
                />
